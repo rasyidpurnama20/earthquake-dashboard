@@ -25,6 +25,7 @@ import { IconArrowLeft } from "@tabler/icons-react";
 
 export function LoginForm() {
   const router = useRouter();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";

@@ -9,7 +9,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email", placeholder: "" },
         password: { label: "Password", type: "password" },
       },
-      authorize(credentials, req) {
+      authorize(credentials, _req) {
         if (
           credentials?.email === "bhsk@automl.app" &&
           credentials?.password === "rahasia123"

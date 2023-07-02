@@ -1,7 +1,4 @@
 import { Sidebar } from "@/components";
-import { DashboardConfig } from "@/configs";
-import { IconLayoutSidebarLeftCollapse } from "@tabler/icons-react";
-import Link from "next/link";
 
 export const metadata = {
   title: "Dashboard",
