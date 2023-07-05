@@ -7,10 +7,6 @@ export default function Dashboard() {
     required: true,
   });
 
-  if (status === "loading") {
-    return <></>;
-  }
-
   return (
     <div className="flex flex-col p-4">
       <span>Dashboard</span>

@@ -14,11 +14,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     <div className="flex">
       <Sidebar />
 
-      <main className="flex-1 md:py-6 md:pr-6">
-        <div className="min-h-[calc(100vh-48px)] rounded-3xl border">
-          {children}
-        </div>
-      </main>
+      <main className="flex-1 md:py-6 md:pr-6">{children}</main>
     </div>
   );
 }

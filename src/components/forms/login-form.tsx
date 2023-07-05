@@ -14,7 +14,7 @@ import {
   Input,
 } from "@/components/ui";
 
-import { loginSchema } from "@/schemas";
+import { loginSchema } from "@/lib/validations";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type * as z from "zod";
@@ -22,6 +22,7 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { IconArrowLeft } from "@tabler/icons-react";
+import { authService } from "@/services";
 
 export function LoginForm() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export function LoginForm() {
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
@@ -40,9 +41,10 @@ export function LoginForm() {
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     try {
       setLoading(true);
+
       const res = await signIn("credentials", {
         redirect: false,
-        email: values.email,
+        username: values.username,
         password: values.password,
         callbackUrl,
       });
@@ -52,14 +54,13 @@ export function LoginForm() {
       if (!res?.error) {
         router.push(callbackUrl);
       } else {
-        console.log(res);
-        form.setError("email", {
+        form.setError("username", {
           type: "manual",
-          message: "Email atau kata sandi salah",
+          message: "Username atau kata sandi salah",
         });
         form.setError("password", {
           type: "manual",
-          message: "Email atau kata sandi salah",
+          message: "Username atau kata sandi salah",
         });
       }
     } catch (error) {
@@ -87,14 +88,14 @@ export function LoginForm() {
             <div className="space-y-4">
               <FormField
                 control={form.control}
-                name="email"
+                name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>Username</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Masukkan email anda"
-                        type="email"
+                        placeholder="Masukkan username anda"
+                        type="text"
                         {...field}
                       />
                     </FormControl>
