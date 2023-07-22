@@ -22,7 +22,7 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { IconArrowLeft } from "@tabler/icons-react";
-import { authService } from "@/services";
+import Link from "next/link";
 
 export function LoginForm() {
   const router = useRouter();
@@ -56,11 +56,11 @@ export function LoginForm() {
       } else {
         form.setError("username", {
           type: "manual",
-          message: "Username atau kata sandi salah",
+          message: "Username or password is wrong",
         });
         form.setError("password", {
           type: "manual",
-          message: "Username atau kata sandi salah",
+          message: "Username or password is wrong",
         });
       }
     } catch (error) {
@@ -70,16 +70,17 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-2/6">
+    <Card className="w-1/5">
       <CardHeader className="flex flex-col gap-4">
-        <Button
-          variant="outline"
-          className="flex w-max items-center gap-2 text-sm font-semibold"
-          onClick={() => router.push("/")}
-        >
-          <IconArrowLeft size={20} /> Kembali ke beranda
-        </Button>
-        <span className="text-xl font-bold">Masuk</span>
+        <Link href="/">
+          <Button
+            variant="outline"
+            className="flex w-max items-center gap-2 text-sm font-semibold"
+          >
+            <IconArrowLeft size={20} /> Back to home
+          </Button>
+        </Link>
+        <span className="text-xl font-bold">Login</span>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -94,7 +95,7 @@ export function LoginForm() {
                     <FormLabel>Username</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Masukkan username anda"
+                        placeholder="Input your username"
                         type="text"
                         {...field}
                       />
@@ -109,10 +110,10 @@ export function LoginForm() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Kata sandi</FormLabel>
+                    <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Masukkan kata sandi anda"
+                        placeholder="Input your password"
                         type="password"
                         {...field}
                       />
@@ -122,7 +123,9 @@ export function LoginForm() {
                 )}
               />
             </div>
-            <Button type="submit">Masuk</Button>
+            <Button loading={loading} type="submit">
+              Login
+            </Button>
           </form>
         </Form>
       </CardContent>

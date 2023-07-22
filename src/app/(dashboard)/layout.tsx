@@ -1,20 +1,22 @@
-import { Sidebar } from "@/components";
+"use client";
 
-export const metadata = {
-  title: "Dashboard",
-  description: "AutoML",
-};
+import { Sidebar } from "@/components";
+import { observer } from "@legendapp/state/react";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
-  return (
-    <div className="flex">
-      <Sidebar />
+export const DashboardLayout = observer(
+  ({ children }: DashboardLayoutProps) => {
+    return (
+      <div className="flex">
+        <Sidebar />
 
-      <main className="flex-1 md:py-6 md:pr-6">{children}</main>
-    </div>
-  );
-}
+        <main className="flex-1">{children}</main>
+      </div>
+    );
+  }
+);
+
+export default DashboardLayout;

@@ -2,13 +2,13 @@ import { IconDashboard, IconDatabase } from "@tabler/icons-react";
 
 export const DashboardConfig = [
   {
-    title: "Dashboard",
+    title: "Overview",
     path: "/dashboard",
-    icon: <IconDashboard />,
+    icon: <IconDashboard size={20} />,
   },
   {
     title: "Datasets",
     path: "/dashboard/datasets",
-    icon: <IconDatabase />,
+    icon: <IconDatabase size={20} />,
   },
 ];

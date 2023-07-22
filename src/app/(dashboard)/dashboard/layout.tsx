@@ -13,9 +13,7 @@ export default function DashboardContentLayout({
 }: DashboardContentLayoutProps) {
   return (
     <div className="flex">
-      <div className="min-h-[calc(100vh-48px)] w-full rounded-3xl border">
-        {children}
-      </div>
+      <div className="w-full rounded-3xl">{children}</div>
     </div>
   );
 }

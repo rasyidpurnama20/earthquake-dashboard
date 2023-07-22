@@ -1,0 +1,78 @@
+"use client";
+
+import { Button } from "@/components/ui";
+import { datasetsFormState } from "@/store/datasets-form-store";
+import { cn } from "@/utils";
+import { enableReactComponents } from "@legendapp/state/config/enableReactComponents";
+import { observer } from "@legendapp/state/react";
+import { IconArrowLeft } from "@tabler/icons-react";
+import get from "lodash.get";
+import Link from "next/link";
+
+type AddDatasetsLayoutProps = {
+  children: React.ReactNode;
+};
+
+enableReactComponents();
+
+export const AddDatasetsLayout = ({ children }: AddDatasetsLayoutProps) => {
+  const getStepState = datasetsFormState.step.get();
+  console.log(getStepState, "step");
+  const checkActiveStep = (step: number) => {
+    if (getStepState >= step) {
+      return "!bg-blue-500 text-white";
+    } else {
+      return "!bg-gray-200 text-gray-500";
+    }
+  };
+
+  return (
+    <div className="flex flex-col space-y-6 p-6">
+      <div>
+        <Link href="/dashboard/datasets">
+          <Button
+            variant="outline"
+            className="flex w-max items-center gap-2 text-sm font-semibold"
+          >
+            <IconArrowLeft size={20} /> Back to list
+          </Button>
+        </Link>
+      </div>
+
+      <div className="flex flex-col">
+        <span className="text-2xl font-bold">Add New Datasets</span>
+        <span className="text-sm text-gray-500">
+          Please fill the form below to add new datasets.
+        </span>
+      </div>
+
+      <div className="flex items-center space-x-2">
+        <span
+          className={cn(checkActiveStep(1), "rounded-full px-3 py-1 text-sm")}
+        >
+          Step 1
+        </span>
+        <div
+          className={cn(checkActiveStep(2), "h-0.5 w-5 rounded-full bg-black")}
+        ></div>
+        <span
+          className={cn(checkActiveStep(2), "rounded-full px-3 py-1 text-sm")}
+        >
+          Step 2
+        </span>
+        <div
+          className={cn(checkActiveStep(3), "h-0.5 w-5 rounded-full bg-black")}
+        ></div>
+        <span
+          className={cn(checkActiveStep(3), "rounded-full px-3 py-1 text-sm")}
+        >
+          Recap
+        </span>
+      </div>
+
+      <div>{children}</div>
+    </div>
+  );
+};
+
+export default AddDatasetsLayout;

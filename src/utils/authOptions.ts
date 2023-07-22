@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
             id: "1",
             name: "Muhammad Bhaska",
             email: "bhsk@automl.app",
-            image: "https://github.com/mhdbhsk.png",
+            image: "https://github.com/mhmdbhsk.png",
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             accessToken: user?.auth_token,
           };
@@ -42,7 +42,7 @@ export const authOptions: NextAuthOptions = {
       return { ...token, ...user };
     },
     async session({ session, token }) {
-      session.user.accessToken = token as any;
+      session.user.accessToken = token.accessToken as any;
 
       return session;
     },
