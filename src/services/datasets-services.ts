@@ -1,11 +1,27 @@
 import axios from "@/lib/axios";
-import { type DatasetsResponse, type DatasetsUploadResponse } from "@/lib/dto";
+import {
+  DetailDatasetsResponse,
+  type DatasetsResponse,
+  type DatasetsUploadResponse,
+} from "@/lib/dto";
 import { type AxiosResponse } from "axios";
 
 export const datasetsService = {
   async getDatasets({ token }: { token: string }) {
     const response: AxiosResponse<DatasetsResponse> = await axios.get(
       `/datasets/`,
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
+  async getDatasetsById({ token, id }: { token: string; id: string }) {
+    const response: AxiosResponse<DetailDatasetsResponse> = await axios.get(
+      `/datasets/${id}`,
       {
         headers: {
           Authorization: `Token ${token}`,

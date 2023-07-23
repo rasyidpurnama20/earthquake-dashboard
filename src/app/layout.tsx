@@ -9,8 +9,8 @@ import QueryProvider from "./providers/query-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "AutoML",
-  description: "AutoML",
+  title: "AutoML - Freeport Metrics",
+  description: "An earthquake prediction system for Freeport",
 };
 
 interface RootLayoutProps {

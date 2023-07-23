@@ -55,6 +55,7 @@
     "next-auth": "^4.22.1",
     "nextjs-toploader": "^1.4.2",
     "nprogress": "^0.2.0",
+    "papaparse": "^5.4.1",
     "react": "18.2.0",
     "react-day-picker": "^8.8.0",
     "react-dom": "18.2.0",
@@ -63,6 +64,7 @@
     "react-icons": "^4.10.1",
     "react-image-lightbox-rotation": "^5.1.4-rotate",
     "react-papaparse": "^4.1.0",
+    "react-tailwindcss-datepicker": "^1.6.5",
     "sonner": "^0.5.0",
     "tailwind-merge": "^1.13.2",
     "tailwindcss-animate": "^1.0.6",
@@ -70,6 +72,7 @@
     "zod-form-data": "^2.0.1"
   },
   "devDependencies": {
+    "@hookform/devtools": "^4.3.1",
     "@tanstack/eslint-plugin-query": "^4.29.9",
     "@types/eslint": "^8.37.0",
     "@types/lodash.get": "^4.4.7",

@@ -19,4 +19,20 @@ export type DatasetsResponse = {
   results: Dataset[];
 };
 
+export type DetailDatasetsResponse = {
+  id: number;
+  name: string;
+  cave: number;
+  type: number;
+  file: string;
+  start_date: string;
+  end_date: string;
+  count: number;
+  features: string;
+  rev: number;
+  created_at: string;
+  updated_at: string;
+  modified: boolean;
+};
+
 export type DatasetsUploadResponse = Dataset;

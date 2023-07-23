@@ -8,6 +8,7 @@ import { observer } from "@legendapp/state/react";
 import { IconArrowLeft } from "@tabler/icons-react";
 import get from "lodash.get";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type AddDatasetsLayoutProps = {
   children: React.ReactNode;
@@ -16,11 +17,14 @@ type AddDatasetsLayoutProps = {
 enableReactComponents();
 
 export const AddDatasetsLayout = ({ children }: AddDatasetsLayoutProps) => {
-  const getStepState = datasetsFormState.step.get();
-  console.log(getStepState, "step");
+  const pathname = usePathname();
+  const currentStep = pathname.split("/")[4];
+
+  console.log(currentStep, "Stap asli");
+
   const checkActiveStep = (step: number) => {
-    if (getStepState >= step) {
-      return "!bg-blue-500 text-white";
+    if (Number(currentStep) >= step) {
+      return "!bg-brand-700 text-white";
     } else {
       return "!bg-gray-200 text-gray-500";
     }
@@ -59,14 +63,6 @@ export const AddDatasetsLayout = ({ children }: AddDatasetsLayoutProps) => {
           className={cn(checkActiveStep(2), "rounded-full px-3 py-1 text-sm")}
         >
           Step 2
-        </span>
-        <div
-          className={cn(checkActiveStep(3), "h-0.5 w-5 rounded-full bg-black")}
-        ></div>
-        <span
-          className={cn(checkActiveStep(3), "rounded-full px-3 py-1 text-sm")}
-        >
-          Recap
         </span>
       </div>
 

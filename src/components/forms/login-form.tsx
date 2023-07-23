@@ -23,6 +23,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function LoginForm() {
   const router = useRouter();
@@ -80,6 +81,14 @@ export function LoginForm() {
             <IconArrowLeft size={20} /> Back to home
           </Button>
         </Link>
+        <div className="py-4">
+          <Image
+            src="/images/freeport-logo.svg"
+            width={200}
+            height={50}
+            alt="Freeport Logo"
+          />
+        </div>
         <span className="text-xl font-bold">Login</span>
       </CardHeader>
       <CardContent>

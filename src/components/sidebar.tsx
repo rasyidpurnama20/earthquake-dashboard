@@ -1,11 +1,7 @@
 "use client";
 
 import { DashboardConfig } from "@/configs";
-import {
-  IconExternalLink,
-  IconLayoutSidebarLeftCollapse,
-  IconLogout,
-} from "@tabler/icons-react";
+import { IconExternalLink, IconLogout } from "@tabler/icons-react";
 import Link from "next/link";
 import {
   Avatar,
@@ -18,32 +14,46 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/utils";
+import Image from "next/image";
 
 export function Sidebar() {
   const pathname = usePathname();
+  const isActive = (path: string) =>
+    path.includes(pathname.split("/")[2] as string);
   const { data: session, status } = useSession();
-
-  console.log(session);
 
   return (
     <nav className="flex h-screen w-56 flex-col border-r bg-blue-50">
-      <div className="flex h-16 items-center justify-between border-b px-4">
-        <span>AutoML</span>
+      <div className="flex h-16 items-center justify-center border-b px-4">
+        <Image
+          src="/images/freeport-logo.svg"
+          width={200}
+          height={50}
+          alt="Freeport Logo"
+        />
       </div>
 
-      <div className="flex flex-1 flex-col p-4">
+      <div className="flex flex-1 flex-col space-y-4 p-4">
         {DashboardConfig.map((item) => (
-          <Link
-            href={item.path}
-            key={item.title}
-            className={cn(
-              item.path === pathname && "bg-blue-100 text-blue-500",
-              "flex cursor-pointer items-center gap-3 rounded-md p-2"
-            )}
-          >
-            {item.icon}
-            <span className="text-sm font-medium">{item.title}</span>
-          </Link>
+          <div key={item.title}>
+            <div key={item.title} className="mb-2 flex flex-col gap-2">
+              <span className="text-xs font-medium">{item.title}</span>
+            </div>
+
+            {item.subMenu.map((subItem) => (
+              <Link
+                href={subItem.path}
+                key={subItem.title}
+                className={cn(
+                  isActive(subItem.path) && "bg-brand-700 text-white",
+                  "flex cursor-pointer items-center gap-3 rounded-md p-2"
+                )}
+              >
+                {subItem.icon}
+                <span className="text-sm">{subItem.title}</span>
+              </Link>
+            ))}
+          </div>
         ))}
       </div>
 

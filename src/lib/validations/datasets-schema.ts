@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 export const datasetsForm1Schema = z.object({
-  fileName: z.string().min(2, { message: "Please input valid name" }),
+  name: z.string().min(2, { message: "Please input valid name" }),
   type: z.string({ required_error: "Please select valid datasets type" }),
   cave: z.string({ required_error: "Please select valid cave area" }),
   file: z.any().refine(
@@ -16,8 +16,15 @@ export const datasetsForm1Schema = z.object({
 });
 
 export const datasetsForm2Schema = z.object({
-  selectedStartDate: z.date({
-    required_error: "Start date is required",
-  }),
-  selectedEndDate: z.date({ required_error: "End date is required" }),
+  date: z.object(
+    {
+      startDate: z
+        .string({ required_error: "Start date is required" })
+        .datetime({ message: "Please input valid date" }),
+      endDate: z
+        .string({ required_error: "End date is required" })
+        .datetime({ message: "Please input valid date" }),
+    },
+    { required_error: "Please input valid date" }
+  ),
 });

@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage, Skeleton } from "@/components/ui";
 import Link from "next/link";
+import Image from "next/image";
 
 export function Header() {
   const pathname = usePathname();
@@ -12,7 +13,14 @@ export function Header() {
 
   return (
     <div className="container mx-auto flex items-center justify-between py-4">
-      <span className="">AutoML</span>
+      <div>
+        <Image
+          src="/images/freeport-logo.svg"
+          width={100}
+          height={50}
+          alt="Freeport Logo"
+        />
+      </div>
 
       <div className="flex items-center">
         <div className="flex gap-4">
@@ -36,7 +44,7 @@ export function Header() {
           ) : session?.user ? (
             <Link href={"/dashboard"} className="flex cursor-pointer px-2 py-2">
               <Avatar>
-                <AvatarImage src={session.user.image as string} />
+                <AvatarImage src={session.user.image} />
                 <AvatarFallback>
                   {session.user.name?.substring(0, 1)}
                 </AvatarFallback>

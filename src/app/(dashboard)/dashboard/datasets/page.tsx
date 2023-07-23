@@ -9,31 +9,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui";
-import { columns } from "./columns";
-import { DataTable } from "./data-table";
-import { IconHistory, IconPlus } from "@tabler/icons-react";
+import { columns } from "./components/columns";
+import { DataTable } from "./components/data-table";
+import { IconPlus } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { datasetsService } from "@/services/datasets-services";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Datasets() {
   const { data: session } = useSession();
-  const [open, setOpen] = useState(false);
+  const token = session?.user?.accessToken;
   const router = useRouter();
 
   const { data, isLoading, isError } = useQuery({
     enabled: !!session?.user,
-    queryKey: ["getDatasets", session?.user?.accessToken as string, open],
+    queryKey: ["getDatasets", token, open],
     queryFn: () =>
       datasetsService.getDatasets({
-        token: session?.user?.accessToken as string,
+        token: token as string,
       }),
   });
-
-  const handleOpen = () => setOpen(!open);
 
   return (
     <div className="flex flex-col">
@@ -44,16 +41,12 @@ export default function Datasets() {
           <Link href="/dashboard/datasets/add/1">
             <Button
               size="sm"
-              className="flex gap-2 text-xs"
+              className="flex gap-2"
               onClick={() => router.push("/dashboard/datasets/add/1")}
             >
               <IconPlus size={16} /> Add Datasets
             </Button>
           </Link>
-
-          <Button size="icon" variant="outline" className="flex gap-2 text-xs">
-            <IconHistory size={16} />
-          </Button>
         </div>
       </div>
 
@@ -61,12 +54,12 @@ export default function Datasets() {
         <div>
           <Select>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select Area" defaultValue="all" />
+              <SelectValue placeholder="Select Cave" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Area</SelectItem>
-              <SelectItem value="gbc">GBC</SelectItem>
-              <SelectItem value="dmlz">DMLZ</SelectItem>
+              <SelectItem value="all">All Cave</SelectItem>
+              <SelectItem value="1">DMLZ</SelectItem>
+              <SelectItem value="2">GBC</SelectItem>
             </SelectContent>
           </Select>
         </div>

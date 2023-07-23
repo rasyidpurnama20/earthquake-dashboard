@@ -14,44 +14,76 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  ToastAction,
+  toast,
+  useToast,
 } from "@/components/ui";
 import { datasetsForm1Schema } from "@/lib/validations";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type * as z from "zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DropzoneInput from "../../ui/dropzone-input";
-import { datasetsFormState } from "@/store/datasets-form-store";
 import { useRouter } from "next/navigation";
+import { base64ToFile, fileToBase64 } from "@/utils/fileFormatter";
+import { datasetsService } from "@/services";
+import { useSession } from "next-auth/react";
 
-export const DatasetsFormStep1 = () => {
+export const DatasetsFormStep1 = ({}) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
+  const { data: sessionData } = useSession();
+  const token = sessionData?.user.accessToken;
   const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof datasetsForm1Schema>>({
     resolver: zodResolver(datasetsForm1Schema),
     defaultValues: {
-      fileName: datasetsFormState.data.fileName.get(),
-      type: datasetsFormState.data.type.get(),
-      cave: datasetsFormState.data.cave.get(),
-      file: datasetsFormState.data.file.get(),
+      name: "",
+      type: undefined,
+      cave: undefined,
+      file: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof datasetsForm1Schema>) {
+  async function onSubmit(values: z.infer<typeof datasetsForm1Schema>) {
     setLoading(true);
-    router.push("/dashboard/datasets/add/2");
-    datasetsFormState.step.set(2);
-    datasetsFormState.data.set({
-      ...datasetsFormState.data.get(),
-      fileName: values.fileName,
-      type: values.type,
-      cave: values.cave,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      file: values.file,
-    });
-    console.log(datasetsFormState.data.get());
-    setLoading(false);
+
+    try {
+      toast({
+        title: "Uploading.",
+        description: "Please wait a moment..",
+      });
+
+      const form = new FormData();
+      console.log(values.file);
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      form.append("file", values.file[0] as Blob);
+      form.append("name", values.name);
+      form.append("type", values.type);
+      form.append("cave", values.cave);
+
+      const res = await datasetsService.uploadDatasets({
+        form: form,
+        token: token as string,
+      });
+
+      toast({
+        title: "Upload Success",
+        description: "File has been uploaded.",
+      });
+      router.push(`/dashboard/datasets/add/2?datasetsId=${res.data.id}`);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    }
   }
 
   return (
@@ -59,48 +91,6 @@ export const DatasetsFormStep1 = () => {
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-4">
-          <FormField
-            control={form.control}
-            name="fileName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>File Name</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Input datasets file name"
-                    type="text"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="type"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Type</FormLabel>
-                <FormControl>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select Datasets Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="B">B</SelectItem>
-                      <SelectItem value="C">C</SelectItem>
-                      <SelectItem value="M">M</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="cave"
@@ -116,10 +106,54 @@ export const DatasetsFormStep1 = () => {
                       <SelectValue placeholder="Select Cave Area" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="gbc">GBC</SelectItem>
-                      <SelectItem value="dmlz">DMLZ</SelectItem>
+                      <SelectItem value="1">DMLZ</SelectItem>
+                      <SelectItem value="2">GBC</SelectItem>
                     </SelectContent>
                   </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Type</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select Datasets Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">M</SelectItem>
+                      <SelectItem value="2">B</SelectItem>
+                      <SelectItem value="3">C</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Datasets Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Input datasets name"
+                    type="text"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -135,8 +169,7 @@ export const DatasetsFormStep1 = () => {
                   <DropzoneInput
                     {...field}
                     id="file"
-                    label="File Datasets"
-                    validation={{ required: "Photo must be filled" }}
+                    label="Datasets File"
                     accept={{ "text/csv": [".csv"] }}
                     helperText="You can upload file with .csv extension."
                   />
