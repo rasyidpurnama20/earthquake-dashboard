@@ -30,7 +30,8 @@ export function LoginForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  const callbackUrl =
+    searchParams.get("callbackUrl") || "/dashboard/feature-analysis";
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -50,8 +51,6 @@ export function LoginForm() {
         callbackUrl,
       });
 
-      setLoading(false);
-
       if (!res?.error) {
         router.push(callbackUrl);
       } else {
@@ -64,6 +63,8 @@ export function LoginForm() {
           message: "Username or password is wrong",
         });
       }
+
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error(error);
@@ -81,7 +82,7 @@ export function LoginForm() {
             <IconArrowLeft size={20} /> Back to home
           </Button>
         </Link>
-        <div className="py-4">
+        <div>
           <Image
             src="/images/freeport-logo.svg"
             width={200}

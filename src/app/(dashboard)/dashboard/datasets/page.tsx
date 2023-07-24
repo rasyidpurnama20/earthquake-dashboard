@@ -25,7 +25,7 @@ export default function Datasets() {
 
   const { data, isLoading, isError } = useQuery({
     enabled: !!session?.user,
-    queryKey: ["getDatasets", token, open],
+    queryKey: ["getDatasets", token],
     queryFn: () =>
       datasetsService.getDatasets({
         token: token as string,

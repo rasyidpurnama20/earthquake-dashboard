@@ -16,7 +16,7 @@ export function Header() {
       <div>
         <Image
           src="/images/freeport-logo.svg"
-          width={100}
+          width={200}
           height={50}
           alt="Freeport Logo"
         />

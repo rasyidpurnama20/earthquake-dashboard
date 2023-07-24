@@ -15,7 +15,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type * as z from "zod";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Datepicker from "react-tailwindcss-datepicker";
 import { DevTool } from "@hookform/devtools";
 
@@ -28,7 +27,6 @@ export const DatasetsFormStep2 = ({
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const form = useForm<z.infer<typeof datasetsForm2Schema>>({
     resolver: zodResolver(datasetsForm2Schema),
     defaultValues: {

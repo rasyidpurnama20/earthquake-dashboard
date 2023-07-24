@@ -36,3 +36,4 @@ export * from "./toaster";
 export * from "./toggle";
 export * from "./tooltip";
 export * from "./use-toast";
+export * from "./alert-dialog";

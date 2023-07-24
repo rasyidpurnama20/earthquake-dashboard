@@ -14,18 +14,15 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  ToastAction,
-  toast,
   useToast,
 } from "@/components/ui";
 import { datasetsForm1Schema } from "@/lib/validations";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type * as z from "zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DropzoneInput from "../../ui/dropzone-input";
 import { useRouter } from "next/navigation";
-import { base64ToFile, fileToBase64 } from "@/utils/fileFormatter";
 import { datasetsService } from "@/services";
 import { useSession } from "next-auth/react";
 

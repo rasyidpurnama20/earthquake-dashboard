@@ -3,8 +3,6 @@
 import CSVTable from "@/components/csv-table";
 import { DatasetsFormStep2 } from "@/components/forms/datasets-form/step-2";
 import { datasetsService } from "@/services";
-import { datasetsFormState } from "@/store/datasets-form-store";
-import { base64ToFile } from "@/utils/fileFormatter";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";

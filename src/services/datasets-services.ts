@@ -1,6 +1,6 @@
 import axios from "@/lib/axios";
 import {
-  DetailDatasetsResponse,
+  type DetailDatasetsResponse,
   type DatasetsResponse,
   type DatasetsUploadResponse,
 } from "@/lib/dto";
@@ -21,6 +21,18 @@ export const datasetsService = {
   },
   async getDatasetsById({ token, id }: { token: string; id: string }) {
     const response: AxiosResponse<DetailDatasetsResponse> = await axios.get(
+      `/datasets/${id}`,
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
+  async removeDatasetsById({ token, id }: { token: string; id: number }) {
+    const response: AxiosResponse<DetailDatasetsResponse> = await axios.delete(
       `/datasets/${id}`,
       {
         headers: {

@@ -1,18 +1,11 @@
 "use client";
 
-import {
-  Button,
-  Checkbox,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui";
+import { Button } from "@/components/ui";
 import { type Dataset } from "@/lib/dto";
 import { formatDate } from "@/utils";
-import { IconArrowsSort, IconDots } from "@tabler/icons-react";
+import { IconArrowsSort } from "@tabler/icons-react";
 import { type ColumnDef } from "@tanstack/react-table";
+import { DataTableRowActions } from "./data-table-row-actions";
 
 export const columns: ColumnDef<Dataset>[] = [
   // {
@@ -64,7 +57,18 @@ export const columns: ColumnDef<Dataset>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("type")}</div>,
+    cell: ({ row }) => {
+      switch (row.getValue("type")) {
+        case 1:
+          return "M";
+        case 2:
+          return "B";
+        case 3:
+          return "C";
+        default:
+          return "N/A";
+      }
+    },
   },
   {
     accessorKey: "start_date",
@@ -123,30 +127,6 @@ export const columns: ColumnDef<Dataset>[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: ({ row }) => {
-      const dataset = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <IconDots className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Action</DropdownMenuLabel>
-
-            <DropdownMenuItem>Download</DropdownMenuItem>
-            <DropdownMenuItem>Preview</DropdownMenuItem>
-            <DropdownMenuItem>Update</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500">
-              Hapus Datasets
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ];

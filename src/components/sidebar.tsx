@@ -10,6 +10,14 @@ import {
   Button,
   Separator,
   Skeleton,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
@@ -90,14 +98,29 @@ export function Sidebar() {
             )}
           </div>
 
-          <Button
-            size="icon"
-            variant="outline"
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
-          >
-            <IconLogout size={20} />
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger>
+              <Button
+                size="icon"
+                variant="outline"
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
+              >
+                <IconLogout size={20} />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  Are you sure want to logout?
+                </AlertDialogTitle>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
     </nav>
