@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui";
-import { enableReactComponents } from "@legendapp/state/config/enableReactComponents";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
 
@@ -9,9 +8,9 @@ type CreateTargetLayoutProps = {
   children: React.ReactNode;
 };
 
-enableReactComponents();
-
-export const CreateTargetLayout = ({ children }: CreateTargetLayoutProps) => {
+export default function CreateTargetLayout({
+  children,
+}: CreateTargetLayoutProps) {
   return (
     <div className="flex flex-col space-y-6 p-6">
       <div>
@@ -35,6 +34,4 @@ export const CreateTargetLayout = ({ children }: CreateTargetLayoutProps) => {
       <div>{children}</div>
     </div>
   );
-};
-
-export default CreateTargetLayout;
+}
