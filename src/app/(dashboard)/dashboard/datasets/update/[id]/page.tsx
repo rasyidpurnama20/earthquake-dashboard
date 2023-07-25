@@ -1,14 +1,17 @@
 "use client";
 
 import { DatasetsFormUpdate } from "@/components/forms/datasets-form/update";
-import { DetailDatasetsResponse, ViewDatasetsResponse } from "@/lib/dto";
+import {
+  type DetailDatasetsResponse,
+  type ViewDatasetsResponse,
+} from "@/lib/dto";
 import { datasetsService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
 export default function Update({ params }: { params: { id: string } }) {
   const { data: sessionData } = useSession();
-  const token = sessionData?.user.accessToken;
+  const token = sessionData?.user?.accessToken;
 
   const { data: previewDatasets } = useQuery({
     queryKey: ["previewDatasets", params.id],

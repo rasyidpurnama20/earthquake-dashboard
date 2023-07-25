@@ -1,7 +1,10 @@
 import axios from "@/lib/axios";
-import { AuthUserDataResponse, AuthUserLoginResponse } from "@/lib/dto/auth";
+import {
+  type AuthUserDataResponse,
+  type AuthUserLoginResponse,
+} from "@/lib/dto/auth";
 import { type loginSchema } from "@/lib/validations";
-import { AxiosResponse } from "axios";
+import { type AxiosResponse } from "axios";
 
 import type * as z from "zod";
 

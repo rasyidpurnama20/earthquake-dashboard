@@ -22,9 +22,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body className={inter.className}>
         <NextTopLoader />
-        <QueryProvider>
-          <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
-        </QueryProvider>
+        <NextAuthSessionProvider>
+          <QueryProvider>{children}</QueryProvider>
+        </NextAuthSessionProvider>
 
         <TailwindIndicator />
         <Toaster />

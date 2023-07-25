@@ -39,12 +39,11 @@ type DatasetsFormUpdateProps = {
 
 export const DatasetsFormUpdate = ({
   detailsData,
-  previewData,
 }: DatasetsFormUpdateProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   const { data: sessionData } = useSession();
-  const token = sessionData?.user.accessToken;
+  const token = sessionData?.user?.accessToken;
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof datasetsFormUpdateSchema>>({

@@ -1,12 +1,10 @@
 "use client";
 
 import { type Row } from "@tanstack/react-table";
-
 import {
   Button,
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -41,8 +39,10 @@ export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const dataset = row.original;
+
   const { data: sessionData } = useSession();
-  const token = sessionData?.user.accessToken;
+  const token = sessionData?.user?.accessToken;
+
   const router = useRouter();
   const { toast } = useToast();
   const [selectedId, setSelectedId] = useState<string | null>(null);

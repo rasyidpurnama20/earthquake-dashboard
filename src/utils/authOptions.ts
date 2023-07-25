@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
 
         if (user) {
           return {
-            id: "dummy",
+            id: user?.auth_token,
             name: "dummy",
             email: "dummy",
             image: "",
@@ -41,7 +41,9 @@ export const authOptions: NextAuthOptions = {
       return { ...token, ...user };
     },
     async session({ session, token }) {
-      session.user.accessToken = token.accessToken as any;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      session.user.accessToken = token.accessToken;
 
       return session;
     },
