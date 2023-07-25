@@ -40,12 +40,10 @@ export const DatasetsFormUpdate2 = ({
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof datasetsFormUpdateSchema>>({
-    resolver: zodResolver(datasetsFormUpdateSchema),
     defaultValues: {
-      file: undefined,
       date: {
-        startDate: detailsData?.start_date,
-        endDate: detailsData?.end_date,
+        startDate: undefined,
+        endDate: undefined,
       },
     },
   });
@@ -68,7 +66,7 @@ export const DatasetsFormUpdate2 = ({
       form.append("start_date_selected", values.date?.startDate as string);
       form.append("end_date_selected", values.date?.endDate as string);
 
-      const res = await datasetsService.updateDatasets({
+      await datasetsService.updateDatasets({
         form: form,
         token: token as string,
         id: detailsData.id.toString(),
@@ -76,9 +74,9 @@ export const DatasetsFormUpdate2 = ({
 
       toast({
         title: "Update Success",
-        description: "File has been updateed.",
+        description: "File has been updated.",
       });
-      router.push(`/dashboard/datasets/add/2?datasetsId=${res.data.id}`);
+      router.push(`/dashboard/datasets/`);
       setLoading(false);
     } catch (error) {
       console.log(error);

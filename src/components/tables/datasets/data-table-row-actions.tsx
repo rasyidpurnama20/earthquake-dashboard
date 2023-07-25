@@ -42,8 +42,6 @@ export function DataTableRowActions<TData>({
 
   const { data: sessionData } = useSession();
   const token = sessionData?.user?.accessToken;
-
-  const router = useRouter();
   const { toast } = useToast();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
@@ -195,7 +193,7 @@ export function DataTableRowActions<TData>({
           </DropdownMenuItem>
 
           <Link
-            href={`/dashboard/datasets/update/${dataset.id.toString()}`}
+            href={`/dashboard/datasets/update/${dataset.id.toString()}/1`}
             className="w-full"
           >
             <DropdownMenuItem>Update</DropdownMenuItem>

@@ -67,7 +67,7 @@ export const DatasetsFormUpdate1 = ({
         title: "Update Success",
         description: "File has been update.",
       });
-      router.push(`/dashboard/datasets/add/2?datasetsId=${res.data.id}`);
+      router.push(`/dashboard/datasets/update/${res.data.id}/2`);
       setLoading(false);
     } catch (error) {
       console.log(error);
