@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 type CreateTargetLayoutProps = {
   children: React.ReactNode;
@@ -11,10 +12,12 @@ type CreateTargetLayoutProps = {
 export default function CreateTargetLayout({
   children,
 }: CreateTargetLayoutProps) {
+  const { id } = useParams();
+
   return (
     <div className="flex flex-col space-y-6 p-6">
       <div>
-        <Link href="/dashboard/magnitude-prediction">
+        <Link href={`/dashboard/magnitude-prediction/${id as string}/target`}>
           <Button
             variant="outline"
             className="flex w-max items-center gap-2 text-sm font-semibold"

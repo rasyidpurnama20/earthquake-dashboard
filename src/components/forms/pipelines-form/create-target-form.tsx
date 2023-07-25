@@ -59,7 +59,7 @@ export const PipelineCreateTargetForm = () => {
         title: "Create Success",
         description: "Prediction target has been created.",
       });
-      router.back();
+      router.push(`/dashboard/magnitude-prediction/${id as string}/target`);
       setLoading(false);
     } catch (error) {
       console.log(error);
