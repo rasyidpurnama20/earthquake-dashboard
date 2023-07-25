@@ -109,7 +109,7 @@ export default function Datasets() {
           {isLoadingMucking ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorMucking ? (
-            <div>
+            <div className="h-12 w-full rounded-md border">
               <p className="text-red-500">Error</p>
             </div>
           ) : (
@@ -126,8 +126,8 @@ export default function Datasets() {
           {isLoadingBlasting ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorBlasting ? (
-            <div>
-              <p className="text-red-500">Error</p>
+            <div className="h-12 w-full rounded-md border">
+              <p className="text-red-500 ">Error</p>
             </div>
           ) : (
             <DataTable columns={columns} data={dataBlasting?.data?.results} />
@@ -143,7 +143,7 @@ export default function Datasets() {
           {isLoadingCatalog ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorCatalog ? (
-            <div>
+            <div className="h-12 w-full rounded-md border">
               <p className="text-red-500">Error</p>
             </div>
           ) : (
