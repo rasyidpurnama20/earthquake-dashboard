@@ -11,17 +11,17 @@ import {
   Skeleton,
   useToast,
 } from "@/components/ui";
-import { datasetsForm2Schema } from "@/lib/validations";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import type * as z from "zod";
 import { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { DevTool } from "@hookform/devtools";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { datasetsService } from "@/services";
-import { DetailDatasetsResponse } from "@/lib/dto";
+
+import { type datasetsForm2Schema } from "@/lib/validations";
+import type * as z from "zod";
+import { type DetailDatasetsResponse } from "@/lib/dto";
 
 export const DatasetsFormStep2 = ({
   data,
@@ -133,17 +133,6 @@ export const DatasetsFormStep2 = ({
         <DevTool control={form.control} />
 
         <div className="flex space-x-2">
-          {/* <Button
-            loading={loading}
-            size="sm"
-            variant="outline"
-            onClick={() => {
-              router.push("/dashboard/datasets/add/1");
-            }}
-            type="button"
-          >
-            Back
-          </Button> */}
           <Button size="sm" loading={loading} type="submit">
             Next
           </Button>

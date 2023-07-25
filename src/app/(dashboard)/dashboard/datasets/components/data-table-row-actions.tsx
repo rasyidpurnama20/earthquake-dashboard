@@ -46,7 +46,8 @@ export function DataTableRowActions<TData>({
   const router = useRouter();
   const { toast } = useToast();
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
+  const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
 
   const { data: previewData } = useQuery({
     queryKey: ["previewDatasets", token, selectedId],
@@ -116,15 +117,65 @@ export function DataTableRowActions<TData>({
   };
   const handlePreview = (id: string) => {
     setSelectedId(id);
-    setIsOpen(true);
+    setIsPreviewOpen(true);
   };
   const handleUpdate = (id: string) => {
-    router.push(`/dashboard/datasets/update?datasetsId=${id}`);
+    router.push(`/dashboard/datasets/update/${id}`);
   };
 
   return (
     <div>
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
+        <DialogTrigger></DialogTrigger>
+        <DialogContent className="max-w-max">
+          <DialogHeader>
+            <DialogTitle>Datasets Preview</DialogTitle>
+          </DialogHeader>
+
+          <div className="mb-4 flex flex-col space-y-2">
+            <div>
+              {previewData?.data.results ? (
+                <ScrollArea className="relative h-[200px] w-full rounded-md border">
+                  <Table className="relative">
+                    <TableHeader className="sticky top-0">
+                      <TableRow>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Location</TableHead>
+                        <TableHead>X</TableHead>
+                        <TableHead>Y</TableHead>
+                        <TableHead>Z</TableHead>
+                        <TableHead>Tons</TableHead>
+                        <TableHead>Area</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {previewData.data.results.map((row, i) => (
+                        <TableRow key={i}>
+                          <TableCell>{row.datetime}</TableCell>
+                          <TableCell>{row.bound}</TableCell>
+                          <TableCell>{row.k0}</TableCell>
+                          <TableCell>{row.k1}</TableCell>
+                          <TableCell>{row.k2}</TableCell>
+                          <TableCell>{row.bound}</TableCell>
+                          <TableCell>{row.bound}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </ScrollArea>
+              ) : (
+                <div className="flex h-[200px] w-full items-center justify-center rounded border">
+                  <span className="text-sm text-destructive">
+                    Can&apos;t show CSV preview
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isHistoryOpen} onOpenChange={setIsHistoryOpen}>
         <DialogTrigger></DialogTrigger>
         <DialogContent className="max-w-max">
           <DialogHeader>
@@ -194,6 +245,12 @@ export function DataTableRowActions<TData>({
             onClick={() => handlePreview(dataset.id.toString())}
           >
             Preview
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-argument
+            onClick={() => handlePreview(dataset.id.toString())}
+          >
+            History
           </DropdownMenuItem>
 
           <DropdownMenuItem

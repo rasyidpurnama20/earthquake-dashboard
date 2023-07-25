@@ -1,6 +1,5 @@
 "use client";
 
-import CSVTable from "@/components/csv-table";
 import { DatasetsFormStep2 } from "@/components/forms/datasets-form/step-2";
 import {
   ScrollArea,
@@ -11,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui";
+import { type DetailDatasetsResponse } from "@/lib/dto";
 import { datasetsService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -87,7 +87,7 @@ export default function Step2() {
       </div>
 
       <DatasetsFormStep2
-        data={detailDatasets?.data}
+        data={detailDatasets?.data as DetailDatasetsResponse}
         startDate={detailDatasets?.data.start_date as string}
         endDate={detailDatasets?.data.end_date as string}
       />
