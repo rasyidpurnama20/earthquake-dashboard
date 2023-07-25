@@ -1,9 +1,9 @@
 import axios from "@/lib/axios";
 import {
-  // type DetailPipelinesResponse,
+  type TargetPipelinesResponse,
+  type CreatePipelinesResponse,
   type PipelinesResponse,
-  // type PipelinesUploadResponse,
-  // type ViewPipelinesResponse,
+  Pipeline,
 } from "@/lib/dto";
 import { type AxiosResponse } from "axios";
 
@@ -23,18 +23,59 @@ export const pipelinesService = {
 
     return response;
   },
-  // async getPipelinesById({ token, id }: { token: string; id: string }) {
-  //   const response: AxiosResponse<DetailPipelinesResponse> = await axios.get(
-  //     `/pipelines/${id}`,
-  //     {
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //       },
-  //     }
-  //   );
+  async getTargetPipelines({ id, token }: { id: string; token: string }) {
+    const response: AxiosResponse<TargetPipelinesResponse> = await axios.get(
+      `/pipelines/${id}/target/`,
+      {
+        params: {
+          per_page: 100,
+        },
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
 
-  //   return response;
-  // },
+    return response;
+  },
+  async createPrediction({ token, form }: { token: string; form: FormData }) {
+    const response: AxiosResponse<CreatePipelinesResponse> = await axios.post(
+      `/pipelines/`,
+      form,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
+  async removePipelinesById({ token, id }: { token: string; id: string }) {
+    const response: AxiosResponse<any> = await axios.delete(
+      `/pipelines/${id}`,
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
+  async getPipelinesById({ token, id }: { token: string; id: string }) {
+    const response: AxiosResponse<Pipeline> = await axios.get(
+      `/pipelines/${id}`,
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
   // async getPipelinesViewById({ token, id }: { token: string; id: string }) {
   //   const response: AxiosResponse<ViewPipelinesResponse> = await axios.get(
   //     `/pipelines/${id}/view/`,
@@ -50,32 +91,7 @@ export const pipelinesService = {
 
   //   return response;
   // },
-  // async removePipelinesById({ token, id }: { token: string; id: string }) {
-  //   const response: AxiosResponse<DetailPipelinesResponse> = await axios.delete(
-  //     `/pipelines/${id}`,
-  //     {
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //       },
-  //     }
-  //   );
 
-  //   return response;
-  // },
-  // async uploadPipelines({ token, form }: { token: string; form: FormData }) {
-  //   const response: AxiosResponse<PipelinesUploadResponse> = await axios.post(
-  //     `/pipelines/`,
-  //     form,
-  //     {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //         Authorization: `Token ${token}`,
-  //       },
-  //     }
-  //   );
-
-  //   return response;
-  // },
   // async updatePipelines({
   //   token,
   //   form,

@@ -36,23 +36,31 @@ import {
   type Dataset,
   type ViewCatalogDatasetsResultsResponse,
   type ViewMuckingDatasetsResultsResponse,
+  type Pipeline,
 } from "@/lib/dto";
 
 type TableProps<T> = {
   data: T[];
   columns: ColumnDef<T>[];
   filter?: boolean;
+  filterBy?: string;
 };
 
 type DataType =
   | Dataset
   | ViewBlastingDatasetsResultsResponse
   | ViewCatalogDatasetsResultsResponse
-  | ViewMuckingDatasetsResultsResponse;
+  | ViewMuckingDatasetsResultsResponse
+  | Pipeline;
 
 type Props = DataType extends infer T ? TableProps<T> : never;
 
-export function DataTable({ data, columns, filter = true }: Props) {
+export function DataTable({
+  data,
+  columns,
+  filter = true,
+  filterBy = "name",
+}: Props) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -85,10 +93,12 @@ export function DataTable({ data, columns, filter = true }: Props) {
       <div className="flex items-center pb-4">
         {filter && (
           <Input
-            placeholder="Filter dataset name..."
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            placeholder={`Filter ${filterBy}`}
+            value={
+              (table.getColumn(filterBy)?.getFilterValue() as string) ?? ""
+            }
             onChange={(event) =>
-              table.getColumn("name")?.setFilterValue(event.target.value)
+              table.getColumn(filterBy)?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
