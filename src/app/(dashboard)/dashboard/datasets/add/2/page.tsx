@@ -18,7 +18,7 @@ import { useSearchParams } from "next/navigation";
 
 export default function Step2() {
   const { data: sessionData } = useSession();
-  const token = sessionData?.user?.name;
+  const token = sessionData?.user?.accessToken;
   const searchParams = useSearchParams();
   const datasetsId = searchParams.get("datasetsId");
 
