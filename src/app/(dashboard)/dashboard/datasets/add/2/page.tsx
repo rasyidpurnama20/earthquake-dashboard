@@ -33,13 +33,13 @@ export default function Step2() {
   });
 
   const { data: detailDatasets } = useQuery({
-    queryKey: ["detailDatasets"],
+    queryKey: ["detailDatasets", datasetsId],
     queryFn: async () =>
       await datasetsService.getDatasetsById({
         token: token as string,
         id: datasetsId as string,
       }),
-    enabled: !!token,
+    enabled: !!token && !!datasetsId,
   });
 
   return (

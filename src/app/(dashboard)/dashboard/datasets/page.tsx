@@ -10,8 +10,6 @@ import {
   SelectValue,
   Separator,
 } from "@/components/ui";
-import { columns } from "./components/columns";
-import { DataTable } from "./components/data-table";
 import { IconPlus } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -19,6 +17,7 @@ import { datasetsService } from "@/services/datasets-services";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import { DataTable, datasetsColumns } from "@/components";
 
 export default function Datasets() {
   const { data: sessionData } = useSession();
@@ -31,7 +30,7 @@ export default function Datasets() {
     isLoading: isLoadingMucking,
     isError: isErrorMucking,
   } = useQuery({
-    enabled: !!token,
+    enabled: !!token && !!cave,
     queryKey: ["getDatasetsM", token, cave],
     queryFn: () =>
       datasetsService.getDatasets({
@@ -45,7 +44,7 @@ export default function Datasets() {
     isLoading: isLoadingBlasting,
     isError: isErrorBlasting,
   } = useQuery({
-    enabled: !!token,
+    enabled: !!token && !!cave,
     queryKey: ["getDatasetsB", token, cave],
     queryFn: () =>
       datasetsService.getDatasets({
@@ -59,7 +58,7 @@ export default function Datasets() {
     isLoading: isLoadingCatalog,
     isError: isErrorCatalog,
   } = useQuery({
-    enabled: !!token,
+    enabled: !!token && !!cave,
     queryKey: ["getDatasetsC", token, cave],
     queryFn: () =>
       datasetsService.getDatasets({
@@ -110,10 +109,16 @@ export default function Datasets() {
             <Skeleton className="h-12 w-full" />
           ) : isErrorMucking ? (
             <div className="h-12 w-full rounded-md border">
-              <p className="text-red-500">Error</p>
+              <p className="text-sm text-red-500">Error</p>
             </div>
           ) : (
-            <DataTable columns={columns} data={dataMucking?.data?.results} />
+            <DataTable
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+              columns={datasetsColumns}
+              data={dataMucking?.data?.results}
+            />
           )}
         </div>
 
@@ -127,10 +132,16 @@ export default function Datasets() {
             <Skeleton className="h-12 w-full" />
           ) : isErrorBlasting ? (
             <div className="h-12 w-full rounded-md border">
-              <p className="text-red-500 ">Error</p>
+              <p className="text-sm text-red-500">Error</p>
             </div>
           ) : (
-            <DataTable columns={columns} data={dataBlasting?.data?.results} />
+            <DataTable
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+              columns={datasetsColumns}
+              data={dataBlasting?.data?.results}
+            />
           )}
         </div>
 
@@ -144,10 +155,16 @@ export default function Datasets() {
             <Skeleton className="h-12 w-full" />
           ) : isErrorCatalog ? (
             <div className="h-12 w-full rounded-md border">
-              <p className="text-red-500">Error</p>
+              <p className="text-sm text-red-500">Error</p>
             </div>
           ) : (
-            <DataTable columns={columns} data={dataCatalog?.data?.results} />
+            <DataTable
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+              columns={datasetsColumns}
+              data={dataCatalog?.data?.results}
+            />
           )}
         </div>
       </div>

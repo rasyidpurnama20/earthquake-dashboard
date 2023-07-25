@@ -21,7 +21,7 @@ export const datasetsService = {
       `/datasets/`,
       {
         params: {
-          per_page: 1000000,
+          per_page: 100,
           cave,
           type,
         },
@@ -50,7 +50,7 @@ export const datasetsService = {
       `/datasets/${id}/view/`,
       {
         params: {
-          per_page: 1000000,
+          per_page: 100,
         },
         headers: {
           Authorization: `Token ${token}`,

@@ -7,7 +7,7 @@ import { IconArrowsSort } from "@tabler/icons-react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { DataTableRowActions } from "./data-table-row-actions";
 
-export const columns: ColumnDef<Dataset>[] = [
+export const datasetsColumns: ColumnDef<Dataset>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {

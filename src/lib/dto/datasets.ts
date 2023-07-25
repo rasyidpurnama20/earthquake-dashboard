@@ -39,7 +39,10 @@ export type ViewDatasetsResponse = {
   count: number;
   next: string;
   previous?: any;
-  results: ViewDatasetsResultsResponse[];
+  results:
+    | ViewBlastingDatasetsResultsResponse[]
+    | ViewCatalogDatasetsResultsResponse[]
+    | ViewMuckingDatasetsResultsResponse[];
 };
 
 export type ViewDatasetsResultsResponse = {
@@ -52,3 +55,32 @@ export type ViewDatasetsResultsResponse = {
 };
 
 export type DatasetsUploadResponse = Dataset;
+
+export type ViewBlastingDatasetsResultsResponse = {
+  date: string;
+  time: string;
+  x: number;
+  y: number;
+  z: number;
+};
+
+export type ViewCatalogDatasetsResultsResponse = {
+  date: string;
+  time: string;
+  northing: number;
+  easting: number;
+  depth: number;
+  moment_magnitude: number;
+  "es/ep_ratio": number;
+  apparent_stress: number;
+  energy_index: number;
+  apparent_volume: number;
+};
+
+export type ViewMuckingDatasetsResultsResponse = {
+  date: string;
+  x: number;
+  y: number;
+  z: number;
+  tons: number;
+};

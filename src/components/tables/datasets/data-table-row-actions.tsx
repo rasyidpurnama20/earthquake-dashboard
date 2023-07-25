@@ -13,13 +13,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-  ScrollArea,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
 } from "@/components/ui";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
@@ -30,6 +23,12 @@ import { type Dataset } from "@/lib/dto";
 import { useRouter } from "next/navigation";
 import { saveAs } from "file-saver";
 import { useState } from "react";
+import { DataTable } from "../data-table";
+import {
+  viewBlastingDatasetsPreviewColumns,
+  viewCatalogDatasetsPreviewColumns,
+  viewMuckingDatasetsPreviewColumns,
+} from "../preview-datasets";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData & Dataset>;
@@ -53,6 +52,16 @@ export function DataTableRowActions<TData>({
     queryKey: ["previewDatasets", token, selectedId],
     queryFn: async () =>
       await datasetsService.getDatasetsViewById({
+        token: token as string,
+        id: selectedId as string,
+      }),
+    enabled: !!token && !!selectedId,
+  });
+
+  const { data: detailDatasets } = useQuery({
+    queryKey: ["detailDatasets", selectedId],
+    queryFn: async () =>
+      await datasetsService.getDatasetsById({
         token: token as string,
         id: selectedId as string,
       }),
@@ -123,96 +132,31 @@ export function DataTableRowActions<TData>({
     router.push(`/dashboard/datasets/update/${id}`);
   };
 
+  console.log(detailDatasets?.data, "detailDatasets?.data");
+
   return (
     <div>
       <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
-        <DialogTrigger></DialogTrigger>
         <DialogContent className="max-w-max">
           <DialogHeader>
             <DialogTitle>Datasets Preview</DialogTitle>
           </DialogHeader>
 
-          <div className="mb-4 flex flex-col space-y-2">
+          <div className="flex flex-col space-y-2">
             <div>
               {previewData?.data.results ? (
-                <ScrollArea className="relative h-[200px] w-full rounded-md border">
-                  <Table className="relative">
-                    <TableHeader className="sticky top-0">
-                      <TableRow>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Location</TableHead>
-                        <TableHead>X</TableHead>
-                        <TableHead>Y</TableHead>
-                        <TableHead>Z</TableHead>
-                        <TableHead>Tons</TableHead>
-                        <TableHead>Area</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {previewData.data.results.map((row, i) => (
-                        <TableRow key={i}>
-                          <TableCell>{row.datetime}</TableCell>
-                          <TableCell>{row.bound}</TableCell>
-                          <TableCell>{row.k0}</TableCell>
-                          <TableCell>{row.k1}</TableCell>
-                          <TableCell>{row.k2}</TableCell>
-                          <TableCell>{row.bound}</TableCell>
-                          <TableCell>{row.bound}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </ScrollArea>
-              ) : (
-                <div className="flex h-[200px] w-full items-center justify-center rounded border">
-                  <span className="text-sm text-destructive">
-                    Can&apos;t show CSV preview
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={isHistoryOpen} onOpenChange={setIsHistoryOpen}>
-        <DialogTrigger></DialogTrigger>
-        <DialogContent className="max-w-max">
-          <DialogHeader>
-            <DialogTitle>Datasets Preview</DialogTitle>
-          </DialogHeader>
-
-          <div className="mb-4 flex flex-col space-y-2">
-            <div>
-              {previewData?.data.results ? (
-                <ScrollArea className="relative h-[200px] w-full rounded-md border">
-                  <Table className="relative">
-                    <TableHeader className="sticky top-0">
-                      <TableRow>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Location</TableHead>
-                        <TableHead>X</TableHead>
-                        <TableHead>Y</TableHead>
-                        <TableHead>Z</TableHead>
-                        <TableHead>Tons</TableHead>
-                        <TableHead>Area</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {previewData.data.results.map((row, i) => (
-                        <TableRow key={i}>
-                          <TableCell>{row.datetime}</TableCell>
-                          <TableCell>{row.bound}</TableCell>
-                          <TableCell>{row.k0}</TableCell>
-                          <TableCell>{row.k1}</TableCell>
-                          <TableCell>{row.k2}</TableCell>
-                          <TableCell>{row.bound}</TableCell>
-                          <TableCell>{row.bound}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </ScrollArea>
+                <DataTable
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  columns={
+                    detailDatasets?.data.type === 1
+                      ? viewMuckingDatasetsPreviewColumns
+                      : detailDatasets?.data.type === 2
+                      ? viewBlastingDatasetsPreviewColumns
+                      : viewCatalogDatasetsPreviewColumns
+                  }
+                  data={previewData?.data.results}
+                />
               ) : (
                 <div className="flex h-[200px] w-full items-center justify-center rounded border">
                   <span className="text-sm text-destructive">

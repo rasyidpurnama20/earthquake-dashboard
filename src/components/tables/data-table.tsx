@@ -31,15 +31,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { IconChevronDown } from "@tabler/icons-react";
-import { type Dataset } from "@/lib/dto";
+import {
+  type ViewBlastingDatasetsResultsResponse,
+  type Dataset,
+  type ViewCatalogDatasetsResultsResponse,
+  type ViewMuckingDatasetsResultsResponse,
+} from "@/lib/dto";
 
-export function DataTable({
-  data,
-  columns,
-}: {
-  data: Dataset[];
-  columns: ColumnDef<Dataset>[];
-}) {
+type TableProps<T> = {
+  data: T[];
+  columns: ColumnDef<T>[];
+};
+
+type DataType =
+  | Dataset
+  | ViewBlastingDatasetsResultsResponse
+  | ViewCatalogDatasetsResultsResponse
+  | ViewMuckingDatasetsResultsResponse;
+
+type Props = DataType extends infer T ? TableProps<T> : never;
+
+export function DataTable({ data, columns }: Props) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
