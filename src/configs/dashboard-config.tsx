@@ -1,4 +1,4 @@
-import { IconDashboard, IconDatabase, IconInfinity } from "@tabler/icons-react";
+import { IconBrain, IconDashboard, IconDatabase } from "@tabler/icons-react";
 
 export const DashboardConfig = [
   {
@@ -21,9 +21,9 @@ export const DashboardConfig = [
         icon: <IconDatabase size={20} stroke={1.5} />,
       },
       {
-        title: "Pipeline",
-        path: "/dashboard/pipeline",
-        icon: <IconInfinity size={20} stroke={1.5} />,
+        title: "Magnitude Prediction",
+        path: "/dashboard/magnitude-prediction",
+        icon: <IconBrain size={20} stroke={1.5} />,
       },
     ],
   },
