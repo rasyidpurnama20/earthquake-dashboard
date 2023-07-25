@@ -1341,6 +1341,11 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
+"@types/plotly.js@*":
+  version "2.12.24"
+  resolved "https://registry.yarnpkg.com/@types/plotly.js/-/plotly.js-2.12.24.tgz#9bb8b12a92004d4bd6f93d69dff92e963bfa3d72"
+  integrity sha512-ahK4MWKztbFLSqMf8nUscMe60xF9jsFtQqsk0BTmUqkdnlR1a8UcbhrmPhKyzAnZ2e1kqUMamLPooyZA6GpUZg==
+
 "@types/prettier@^2.7.2":
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.7.3.tgz#3e51a17e291d01d17d3fc61422015a933af7a08f"
@@ -1356,6 +1361,14 @@
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.6.tgz#ad621fa71a8db29af7c31b41b2ea3d8a6f4144d1"
   integrity sha512-2et4PDvg6PVCyS7fuTc4gPoksV58bW0RwSxWKcPRcHZf0PRUGq03TKcD/rUHe3azfV6/5/biUBJw+HhCQjaP0A==
   dependencies:
+    "@types/react" "*"
+
+"@types/react-plotly.js@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@types/react-plotly.js/-/react-plotly.js-2.6.0.tgz#1b856c2ed1219babda3e95ef3270091f156ff987"
+  integrity sha512-nJJ57U0/CNDAO+F3dpnMgM8PtjLE/O1I3O6gq4+5Q13uKqrPnHGYOttfdzQJ4D7KYgF609miVzEYakUS2zds8w==
+  dependencies:
+    "@types/plotly.js" "*"
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^18.2.6":
@@ -3725,6 +3738,13 @@ react-papaparse@^4.1.0:
   dependencies:
     "@types/papaparse" "^5.3.1"
     papaparse "^5.3.1"
+
+react-plotly.js@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/react-plotly.js/-/react-plotly.js-2.6.0.tgz#ad6b68ee64f1b5cfa142ee92c59687f9c2c09209"
+  integrity sha512-g93xcyhAVCSt9kV1svqG1clAEdL6k3U+jjuSzfTV7owaSU9Go6Ph8bl25J+jKfKvIGAEYpe4qj++WHJuc9IaeA==
+  dependencies:
+    prop-types "^15.8.1"
 
 react-remove-scroll-bar@^2.3.3:
   version "2.3.4"

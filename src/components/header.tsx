@@ -43,7 +43,7 @@ export function Header() {
             <Skeleton className="h-10 w-10 rounded-full p-2" />
           ) : session?.user ? (
             <Link
-              href={"/dashboard/feature-analysis"}
+              href={"/dashboard/visualization"}
               className="flex cursor-pointer px-2 py-2"
             >
               <Avatar>

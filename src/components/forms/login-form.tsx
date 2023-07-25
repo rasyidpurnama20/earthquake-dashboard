@@ -31,7 +31,7 @@ export function LoginForm() {
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const callbackUrl =
-    searchParams.get("callbackUrl") || "/dashboard/feature-analysis";
+    searchParams.get("callbackUrl") || "/dashboard/visualization";
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {

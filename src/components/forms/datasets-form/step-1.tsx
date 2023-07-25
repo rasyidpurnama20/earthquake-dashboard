@@ -176,7 +176,7 @@ export const DatasetsFormStep1 = ({}) => {
           />
         </div>
 
-        <Button loading={loading} size="sm" type="submit" disabled>
+        <Button loading={loading} size="sm" type="submit">
           Next
         </Button>
       </form>

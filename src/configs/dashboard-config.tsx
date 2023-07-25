@@ -5,8 +5,8 @@ export const DashboardConfig = [
     title: "Dashboard",
     subMenu: [
       {
-        title: "Feature Analysis",
-        path: "/dashboard/feature-analysis",
+        title: "Visualization",
+        path: "/dashboard/visualization",
         icon: <IconDashboard size={20} stroke={1.5} />,
       },
     ],
