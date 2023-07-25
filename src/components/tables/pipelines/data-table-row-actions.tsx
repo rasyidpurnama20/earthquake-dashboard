@@ -77,7 +77,7 @@ export function DataTableRowActions<TData>({
           <DropdownMenuLabel>Action</DropdownMenuLabel>
 
           <Link
-            href={`/dashboard/magnitude-prediction/target/${dataset.id.toString()}`}
+            href={`/dashboard/magnitude-prediction/${dataset.id.toString()}/target`}
             className="w-full"
           >
             <DropdownMenuItem>Preview</DropdownMenuItem>

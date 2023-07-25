@@ -4,7 +4,7 @@ import { DataTable } from "@/components";
 import { pipelinesColumns } from "@/components/tables/pipelines";
 import { Button, Skeleton } from "@/components/ui";
 import { pipelinesService } from "@/services";
-import { IconPlus } from "@tabler/icons-react";
+import { IconArrowLeft, IconChevronLeft, IconPlus } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -45,10 +45,19 @@ export default function PipelineTarget({ params }: { params: { id: string } }) {
   return (
     <div className="relative flex flex-col">
       <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-white p-6">
-        <span>Target Prediction</span>
+        <div className="flex items-center gap-4">
+          <Link href="/dashboard/magnitude-prediction">
+            <Button size="sm" className="flex gap-2" variant="outline">
+              <IconArrowLeft size={16} /> Back to Prediction List
+            </Button>
+          </Link>
+          <span>Target Prediction</span>
+        </div>
 
         <div className="flex items-center gap-2">
-          <Link href="/dashboard/magnitude-prediction/create">
+          <Link
+            href={`/dashboard/magnitude-prediction/${params.id}/target/create`}
+          >
             <Button size="sm" className="flex gap-2">
               <IconPlus size={16} /> Create Target
             </Button>

@@ -52,6 +52,28 @@ export const pipelinesService = {
 
     return response;
   },
+  async createPredictionTarget({
+    id,
+    token,
+    form,
+  }: {
+    id: string;
+    token: string;
+    form: FormData;
+  }) {
+    const response: AxiosResponse<CreatePipelinesResponse> = await axios.post(
+      `/pipelines/${id}/target/`,
+      form,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
   async removePipelinesById({ token, id }: { token: string; id: string }) {
     const response: AxiosResponse<any> = await axios.delete(
       `/pipelines/${id}`,
