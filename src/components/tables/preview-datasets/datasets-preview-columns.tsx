@@ -27,7 +27,7 @@ export const viewBlastingDatasetsPreviewColumns: ColumnDef<ViewBlastingDatasetsR
         );
       },
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("date")}</div>
+        <div className="capitalize">{formatDate(row.getValue("date"))}</div>
       ),
     },
     {
@@ -78,9 +78,7 @@ export const viewBlastingDatasetsPreviewColumns: ColumnDef<ViewBlastingDatasetsR
           </Button>
         );
       },
-      cell: ({ row }) => (
-        <div className="capitalize">{formatDate(row.getValue("y"))}</div>
-      ),
+      cell: ({ row }) => <div className="capitalize">{row.getValue("y")}</div>,
     },
     {
       accessorKey: "z",
@@ -96,9 +94,7 @@ export const viewBlastingDatasetsPreviewColumns: ColumnDef<ViewBlastingDatasetsR
           </Button>
         );
       },
-      cell: ({ row }) => (
-        <div className="capitalize">{formatDate(row.getValue("z"))}</div>
-      ),
+      cell: ({ row }) => <div className="capitalize">{row.getValue("z")}</div>,
     },
   ];
 
@@ -119,7 +115,7 @@ export const viewMuckingDatasetsPreviewColumns: ColumnDef<ViewMuckingDatasetsRes
         );
       },
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("date")}</div>
+        <div className="capitalize">{formatDate(row.getValue("date"))}</div>
       ),
     },
     {
@@ -152,9 +148,7 @@ export const viewMuckingDatasetsPreviewColumns: ColumnDef<ViewMuckingDatasetsRes
           </Button>
         );
       },
-      cell: ({ row }) => (
-        <div className="capitalize">{formatDate(row.getValue("y"))}</div>
-      ),
+      cell: ({ row }) => <div className="capitalize">{row.getValue("y")}</div>,
     },
     {
       accessorKey: "z",
@@ -170,9 +164,7 @@ export const viewMuckingDatasetsPreviewColumns: ColumnDef<ViewMuckingDatasetsRes
           </Button>
         );
       },
-      cell: ({ row }) => (
-        <div className="capitalize">{formatDate(row.getValue("z"))}</div>
-      ),
+      cell: ({ row }) => <div className="capitalize">{row.getValue("z")}</div>,
     },
     {
       accessorKey: "tons",
@@ -211,7 +203,7 @@ export const viewCatalogDatasetsPreviewColumns: ColumnDef<ViewCatalogDatasetsRes
         );
       },
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("date")}</div>
+        <div className="capitalize">{formatDate(row.getValue("date"))}</div>
       ),
     },
     {

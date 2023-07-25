@@ -14,7 +14,6 @@ import {
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
-import { DevTool } from "@hookform/devtools";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { datasetsService } from "@/services";
@@ -50,6 +49,8 @@ export const DatasetsFormStep2 = ({
       },
     },
   });
+
+  const date = form.getValues("date");
 
   async function onSubmit(values: z.infer<typeof datasetsForm2Schema>) {
     setLoading(true);
@@ -127,11 +128,14 @@ export const DatasetsFormStep2 = ({
           />
         </div>
 
-        <DevTool control={form.control} />
-
         <div className="flex space-x-2">
-          <Button size="sm" loading={loading} type="submit">
-            Next
+          <Button
+            size="sm"
+            loading={loading}
+            type="submit"
+            disabled={!date.endDate && !date.startDate}
+          >
+            Submit
           </Button>
         </div>
       </form>

@@ -38,7 +38,6 @@ export const PipelineCreateForm = ({}) => {
     resolver: zodResolver(pipelineCreateFormSchema),
     defaultValues: {
       name: undefined,
-      type: undefined,
       cave: undefined,
       area: undefined,
       model: undefined,
@@ -96,7 +95,6 @@ export const PipelineCreateForm = ({}) => {
       const form = new FormData();
 
       form.append("name", values.name);
-      form.append("type", values.type);
       form.append("cave", values.cave);
       form.append("area", values.area);
       form.append("model", values.model);
@@ -207,7 +205,7 @@ export const PipelineCreateForm = ({}) => {
             name="m"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Mukcing Dataset</FormLabel>
+                <FormLabel>Mucking Dataset</FormLabel>
                 <FormControl>
                   <Select
                     disabled={cave === undefined}
