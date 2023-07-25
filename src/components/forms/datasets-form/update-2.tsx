@@ -11,9 +11,8 @@ import {
   Skeleton,
   useToast,
 } from "@/components/ui";
-import { datasetsFormUpdateSchema } from "@/lib/validations";
+import { type datasetsFormUpdateSchema } from "@/lib/validations";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import type * as z from "zod";
 import { useState } from "react";
 import { useRouter } from "next/navigation";

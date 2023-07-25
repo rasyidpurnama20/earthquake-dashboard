@@ -4,7 +4,7 @@ import { DataTable } from "@/components";
 import { pipelinesColumns } from "@/components/tables/pipelines";
 import { Button, Skeleton } from "@/components/ui";
 import { pipelinesService } from "@/services";
-import { IconArrowLeft, IconChevronLeft, IconPlus } from "@tabler/icons-react";
+import { IconArrowLeft, IconPlus } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -13,11 +13,7 @@ export default function PipelineTarget({ params }: { params: { id: string } }) {
   const { data: sessionData } = useSession();
   const token = sessionData?.user?.accessToken;
 
-  const {
-    data: detailPipeline,
-    isLoading: isLoadingDetailPipeline,
-    isError: isErrorDetailPipeline,
-  } = useQuery({
+  const { data: detailPipeline } = useQuery({
     enabled: !!token,
     queryKey: ["getPipelineById", token],
     queryFn: () =>

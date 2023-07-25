@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui";
-import { enableReactComponents } from "@legendapp/state/config/enableReactComponents";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
 
@@ -9,11 +8,9 @@ type CreatePredictionLayoutProps = {
   children: React.ReactNode;
 };
 
-enableReactComponents();
-
-export const CreatePredictionLayout = ({
+export default function CreatePredictionLayout({
   children,
-}: CreatePredictionLayoutProps) => {
+}: CreatePredictionLayoutProps) {
   return (
     <div className="flex flex-col space-y-6 p-6">
       <div>
@@ -37,6 +34,4 @@ export const CreatePredictionLayout = ({
       <div>{children}</div>
     </div>
   );
-};
-
-export default CreatePredictionLayout;
+}

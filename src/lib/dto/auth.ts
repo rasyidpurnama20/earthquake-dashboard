@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type AuthUserLoginResponse = {
   auth_token: string;
 };

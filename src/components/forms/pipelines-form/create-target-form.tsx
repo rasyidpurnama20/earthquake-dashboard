@@ -12,13 +12,12 @@ import {
 } from "@/components/ui";
 
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import type * as z from "zod";
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { pipelinesService } from "@/services";
 import { useSession } from "next-auth/react";
-import { pipelineCreateTargetFormSchema } from "@/lib/validations";
+import { type pipelineCreateTargetFormSchema } from "@/lib/validations";
 import Datepicker from "react-tailwindcss-datepicker";
 
 export const PipelineCreateTargetForm = () => {

@@ -7,7 +7,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -20,7 +19,6 @@ import { datasetsService } from "@/services";
 import { useToast } from "@/components/ui";
 import { IconDots } from "@tabler/icons-react";
 import { type Dataset } from "@/lib/dto";
-import { useRouter } from "next/navigation";
 import { saveAs } from "file-saver";
 import { useState } from "react";
 import { DataTable } from "../data-table";
@@ -45,7 +43,6 @@ export function DataTableRowActions<TData>({
   const { toast } = useToast();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
-  const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
 
   const { data: previewData } = useQuery({
     queryKey: ["previewDatasets", token, selectedId],

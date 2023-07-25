@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "@/lib/axios";
 import {
   type TargetPipelinesResponse,
   type CreatePipelinesResponse,
   type PipelinesResponse,
-  Pipeline,
+  type Pipeline,
 } from "@/lib/dto";
 import { type AxiosResponse } from "axios";
 

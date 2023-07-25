@@ -1,6 +1,6 @@
 "use client";
 
-import { DataTable, datasetsColumns } from "@/components";
+import { DataTable } from "@/components";
 import { pipelinesColumns } from "@/components/tables/pipelines";
 import { Button, Skeleton } from "@/components/ui";
 import { pipelinesService } from "@/services";
