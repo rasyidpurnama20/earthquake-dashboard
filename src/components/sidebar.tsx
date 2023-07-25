@@ -26,12 +26,15 @@ import Image from "next/image";
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { data: sessionData } = useSession();
   const isActive = (path: string) =>
     path.includes(pathname.split("/")[2] as string);
   const { data: session, status } = useSession();
 
+  console.log(sessionData);
+
   return (
-    <nav className="flex h-screen w-56 flex-col border-r bg-blue-50">
+    <nav className="fixed flex h-screen w-56 flex-col border-r bg-blue-50">
       <div className="flex h-16 items-center justify-center border-b px-4">
         <Image
           src="/images/freeport-logo.svg"
@@ -100,12 +103,7 @@ export function Sidebar() {
 
           <AlertDialog>
             <AlertDialogTrigger>
-              <Button
-                size="icon"
-                variant="outline"
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
-              >
+              <Button size="icon" variant="outline">
                 <IconLogout size={20} />
               </Button>
             </AlertDialogTrigger>
@@ -117,7 +115,12 @@ export function Sidebar() {
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Continue</AlertDialogAction>
+                <AlertDialogAction
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                  onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
+                >
+                  Continue
+                </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

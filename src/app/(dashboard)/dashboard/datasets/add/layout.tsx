@@ -17,8 +17,6 @@ export const AddDatasetsLayout = ({ children }: AddDatasetsLayoutProps) => {
   const pathname = usePathname();
   const currentStep = pathname.split("/")[4];
 
-  console.log(currentStep, "Stap asli");
-
   const checkActiveStep = (step: number) => {
     if (Number(currentStep) >= step) {
       return "!bg-brand-700 text-white";

@@ -24,11 +24,10 @@ export const authOptions: NextAuthOptions = {
 
         if (user) {
           return {
-            id: "1",
-            name: "Muhammad Bhaska",
-            email: "bhsk@automl.app",
-            image: "https://github.com/mhmdbhsk.png",
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            id: "dummy",
+            name: "dummy",
+            email: "dummy",
+            image: "",
             accessToken: user?.auth_token,
           };
         }

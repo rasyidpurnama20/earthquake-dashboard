@@ -11,7 +11,9 @@ export const DashboardLayout = observer(
   ({ children }: DashboardLayoutProps) => {
     return (
       <div className="flex">
-        <Sidebar />
+        <div className="w-56">
+          <Sidebar />
+        </div>
 
         <main className="flex-1">{children}</main>
       </div>

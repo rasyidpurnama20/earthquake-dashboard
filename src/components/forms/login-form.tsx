@@ -72,7 +72,7 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-1/5">
+    <Card className="w-2/5">
       <CardHeader className="flex flex-col gap-4">
         <Link href="/">
           <Button

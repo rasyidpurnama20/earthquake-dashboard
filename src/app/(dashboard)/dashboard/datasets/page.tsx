@@ -17,24 +17,60 @@ import { useSession } from "next-auth/react";
 import { datasetsService } from "@/services/datasets-services";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Datasets() {
-  const { data: session } = useSession();
-  const token = session?.user?.accessToken;
+  const { data: sessionData } = useSession();
+  const token = sessionData?.user?.accessToken;
   const router = useRouter();
+  const [cave, setCave] = useState<string>("1");
 
-  const { data, isLoading, isError } = useQuery({
-    enabled: !!session?.user,
-    queryKey: ["getDatasets", token],
+  const {
+    data: dataMucking,
+    isLoading: isLoadingMucking,
+    isError: isErrorMucking,
+  } = useQuery({
+    enabled: !!token,
+    queryKey: ["getDatasetsM", token, cave],
     queryFn: () =>
       datasetsService.getDatasets({
         token: token as string,
+        cave: cave,
+        type: "1",
+      }),
+  });
+  const {
+    data: dataBlasting,
+    isLoading: isLoadingBlasting,
+    isError: isErrorBlasting,
+  } = useQuery({
+    enabled: !!token,
+    queryKey: ["getDatasetsB", token, cave],
+    queryFn: () =>
+      datasetsService.getDatasets({
+        token: token as string,
+        cave: cave,
+        type: "2",
+      }),
+  });
+  const {
+    data: dataCatalog,
+    isLoading: isLoadingCatalog,
+    isError: isErrorCatalog,
+  } = useQuery({
+    enabled: !!token,
+    queryKey: ["getDatasetsC", token, cave],
+    queryFn: () =>
+      datasetsService.getDatasets({
+        token: token as string,
+        cave: cave,
+        type: "3",
       }),
   });
 
   return (
-    <div className="flex flex-col">
-      <div className="flex h-16 items-center justify-between border-b p-6">
+    <div className="relative flex flex-col">
+      <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-white p-6">
         <span>Datasets</span>
 
         <div className="flex items-center gap-2">
@@ -52,27 +88,50 @@ export default function Datasets() {
 
       <div className="flex flex-col flex-wrap space-y-4 p-6">
         <div>
-          <Select>
+          <Select onValueChange={setCave} value={cave}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select Cave" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Cave</SelectItem>
-              <SelectItem value="1">DMLZ</SelectItem>
-              <SelectItem value="2">GBC</SelectItem>
+              <SelectItem value={"1"}>DMLZ</SelectItem>
+              <SelectItem value={"2"}>GBC</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         <div>
-          {isLoading ? (
+          {isLoadingMucking ? (
             <Skeleton className="h-12 w-full" />
-          ) : isError ? (
+          ) : isErrorMucking ? (
             <div>
               <p className="text-red-500">Error</p>
             </div>
           ) : (
-            <DataTable columns={columns} data={data?.data?.results} />
+            <DataTable columns={columns} data={dataMucking?.data?.results} />
+          )}
+        </div>
+
+        <div>
+          {isLoadingBlasting ? (
+            <Skeleton className="h-12 w-full" />
+          ) : isErrorBlasting ? (
+            <div>
+              <p className="text-red-500">Error</p>
+            </div>
+          ) : (
+            <DataTable columns={columns} data={dataBlasting?.data?.results} />
+          )}
+        </div>
+
+        <div>
+          {isLoadingCatalog ? (
+            <Skeleton className="h-12 w-full" />
+          ) : isErrorCatalog ? (
+            <div>
+              <p className="text-red-500">Error</p>
+            </div>
+          ) : (
+            <DataTable columns={columns} data={dataCatalog?.data?.results} />
           )}
         </div>
       </div>

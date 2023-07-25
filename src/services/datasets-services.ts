@@ -3,14 +3,28 @@ import {
   type DetailDatasetsResponse,
   type DatasetsResponse,
   type DatasetsUploadResponse,
+  type ViewDatasetsResponse,
 } from "@/lib/dto";
 import { type AxiosResponse } from "axios";
 
 export const datasetsService = {
-  async getDatasets({ token }: { token: string }) {
+  async getDatasets({
+    token,
+    cave,
+    type,
+  }: {
+    token: string;
+    cave?: string;
+    type?: string;
+  }) {
     const response: AxiosResponse<DatasetsResponse> = await axios.get(
       `/datasets/`,
       {
+        params: {
+          per_page: 1000000,
+          cave,
+          type,
+        },
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -31,7 +45,22 @@ export const datasetsService = {
 
     return response;
   },
-  async removeDatasetsById({ token, id }: { token: string; id: number }) {
+  async getDatasetsViewById({ token, id }: { token: string; id: string }) {
+    const response: AxiosResponse<ViewDatasetsResponse> = await axios.get(
+      `/datasets/${id}/view/`,
+      {
+        params: {
+          per_page: 1000000,
+        },
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
+  async removeDatasetsById({ token, id }: { token: string; id: string }) {
     const response: AxiosResponse<DetailDatasetsResponse> = await axios.delete(
       `/datasets/${id}`,
       {
@@ -46,6 +75,28 @@ export const datasetsService = {
   async uploadDatasets({ token, form }: { token: string; form: FormData }) {
     const response: AxiosResponse<DatasetsUploadResponse> = await axios.post(
       `/datasets/`,
+      form,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
+  async updateDatasets({
+    token,
+    form,
+    id,
+  }: {
+    token: string;
+    form: FormData;
+    id: string;
+  }) {
+    const response: AxiosResponse<DatasetsUploadResponse> = await axios.put(
+      `/datasets/${id}/`,
       form,
       {
         headers: {

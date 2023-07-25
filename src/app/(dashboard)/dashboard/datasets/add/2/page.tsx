@@ -2,6 +2,15 @@
 
 import CSVTable from "@/components/csv-table";
 import { DatasetsFormStep2 } from "@/components/forms/datasets-form/step-2";
+import {
+  ScrollArea,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui";
 import { datasetsService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -13,10 +22,18 @@ export default function Step2() {
   const searchParams = useSearchParams();
   const datasetsId = searchParams.get("datasetsId");
 
-  console.log(datasetsId);
+  const { data: previewDatasets } = useQuery({
+    queryKey: ["previewDatasets"],
+    queryFn: async () =>
+      await datasetsService.getDatasetsViewById({
+        token: token as string,
+        id: datasetsId as string,
+      }),
+    enabled: !!token,
+  });
 
-  const { data } = useQuery({
-    queryKey: ["datasets", "file"],
+  const { data: detailDatasets } = useQuery({
+    queryKey: ["detailDatasets"],
     queryFn: async () =>
       await datasetsService.getDatasetsById({
         token: token as string,
@@ -25,15 +42,40 @@ export default function Step2() {
     enabled: !!token,
   });
 
-  console.log(data?.data);
-
   return (
     <div>
       <div className="mb-4 flex flex-col space-y-2">
         <span className="text-sm font-medium">Datasets Preview</span>
         <div>
-          {data?.data.file ? (
-            <CSVTable url={data.data.file} />
+          {previewDatasets?.data.results ? (
+            <ScrollArea className="relative h-[200px] w-full rounded-md border">
+              <Table className="relative">
+                <TableHeader className="sticky top-0">
+                  <TableRow>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Location</TableHead>
+                    <TableHead>X</TableHead>
+                    <TableHead>Y</TableHead>
+                    <TableHead>Z</TableHead>
+                    <TableHead>Tons</TableHead>
+                    <TableHead>Area</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {previewDatasets.data.results.map((row, i) => (
+                    <TableRow key={i}>
+                      <TableCell>{row.datetime}</TableCell>
+                      <TableCell>{row.bound}</TableCell>
+                      <TableCell>{row.k0}</TableCell>
+                      <TableCell>{row.k1}</TableCell>
+                      <TableCell>{row.k2}</TableCell>
+                      <TableCell>{row.bound}</TableCell>
+                      <TableCell>{row.bound}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </ScrollArea>
           ) : (
             <div className="flex h-[200px] w-full items-center justify-center rounded border">
               <span className="text-sm text-destructive">
@@ -45,8 +87,9 @@ export default function Step2() {
       </div>
 
       <DatasetsFormStep2
-        startDate={data?.data.start_date as string}
-        endDate={data?.data.end_date as string}
+        data={detailDatasets?.data}
+        startDate={detailDatasets?.data.start_date as string}
+        endDate={detailDatasets?.data.end_date as string}
       />
     </div>
   );

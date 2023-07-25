@@ -35,4 +35,20 @@ export type DetailDatasetsResponse = {
   modified: boolean;
 };
 
+export type ViewDatasetsResponse = {
+  count: number;
+  next: string;
+  previous?: any;
+  results: ViewDatasetsResultsResponse[];
+};
+
+export type ViewDatasetsResultsResponse = {
+  index: number;
+  datetime: string;
+  k0: number;
+  k1: number;
+  k2: number;
+  bound: string;
+};
+
 export type DatasetsUploadResponse = Dataset;
