@@ -53,7 +53,6 @@ export const DatasetsFormStep1 = ({}) => {
       });
 
       const form = new FormData();
-      console.log(values.file);
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       form.append("file", values.file[0] as Blob);

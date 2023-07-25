@@ -29,6 +29,7 @@ import {
   viewCatalogDatasetsPreviewColumns,
   viewMuckingDatasetsPreviewColumns,
 } from "../preview-datasets";
+import Link from "next/link";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData & Dataset>;
@@ -128,11 +129,6 @@ export function DataTableRowActions<TData>({
     setSelectedId(id);
     setIsPreviewOpen(true);
   };
-  const handleUpdate = (id: string) => {
-    router.push(`/dashboard/datasets/update/${id}`);
-  };
-
-  console.log(detailDatasets?.data, "detailDatasets?.data");
 
   return (
     <div>
@@ -156,6 +152,7 @@ export function DataTableRowActions<TData>({
                       : viewCatalogDatasetsPreviewColumns
                   }
                   data={previewData?.data.results}
+                  filter={false}
                 />
               ) : (
                 <div className="flex h-[200px] w-full items-center justify-center rounded border">
@@ -197,12 +194,13 @@ export function DataTableRowActions<TData>({
             History
           </DropdownMenuItem>
 
-          <DropdownMenuItem
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-argument
-            onClick={() => handleUpdate(dataset.id.toString())}
+          <Link
+            href={`/dashboard/datasets/update/${dataset.id.toString()}`}
+            className="w-full"
           >
-            Update
-          </DropdownMenuItem>
+            <DropdownMenuItem>Update</DropdownMenuItem>
+          </Link>
+
           <DropdownMenuItem
             className="text-red-500"
             // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-argument

@@ -52,7 +52,6 @@ export const DatasetsFormStep2 = ({
   });
 
   async function onSubmit(values: z.infer<typeof datasetsForm2Schema>) {
-    console.log(values.date);
     setLoading(true);
 
     try {
@@ -70,13 +69,11 @@ export const DatasetsFormStep2 = ({
       form.append("type", data.type.toString());
       form.append("name", data.name);
 
-      const res = await datasetsService.updateDatasets({
+      await datasetsService.updateDatasets({
         form: form,
         token: token as string,
         id: datasetsId as string,
       });
-
-      console.log(res, "res update");
 
       toast({
         title: "Datasets Update Success",

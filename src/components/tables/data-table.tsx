@@ -41,6 +41,7 @@ import {
 type TableProps<T> = {
   data: T[];
   columns: ColumnDef<T>[];
+  filter?: boolean;
 };
 
 type DataType =
@@ -51,7 +52,7 @@ type DataType =
 
 type Props = DataType extends infer T ? TableProps<T> : never;
 
-export function DataTable({ data, columns }: Props) {
+export function DataTable({ data, columns, filter = true }: Props) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -82,14 +83,16 @@ export function DataTable({ data, columns }: Props) {
   return (
     <div className="w-full">
       <div className="flex items-center pb-4">
-        <Input
-          placeholder="Filter dataset name..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+        {filter && (
+          <Input
+            placeholder="Filter dataset name..."
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button size="sm" variant="outline" className="ml-auto">

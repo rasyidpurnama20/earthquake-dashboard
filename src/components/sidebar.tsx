@@ -26,12 +26,9 @@ import Image from "next/image";
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { data: sessionData } = useSession();
   const isActive = (path: string) =>
     path.includes(pathname.split("/")[2] as string);
   const { data: session, status } = useSession();
-
-  console.log(sessionData);
 
   return (
     <nav className="fixed flex h-screen w-56 flex-col border-r bg-blue-50">

@@ -1,15 +1,12 @@
 "use client";
 
-import { DatasetsFormStep2 } from "@/components/forms/datasets-form/step-2";
 import {
-  ScrollArea,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui";
+  DataTable,
+  viewBlastingDatasetsPreviewColumns,
+  viewCatalogDatasetsPreviewColumns,
+  viewMuckingDatasetsPreviewColumns,
+} from "@/components";
+import { DatasetsFormStep2 } from "@/components/forms/datasets-form/step-2";
 import { type DetailDatasetsResponse } from "@/lib/dto";
 import { datasetsService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
@@ -48,34 +45,19 @@ export default function Step2() {
         <span className="text-sm font-medium">Datasets Preview</span>
         <div>
           {previewDatasets?.data.results ? (
-            <ScrollArea className="relative h-[200px] w-full rounded-md border">
-              <Table className="relative">
-                <TableHeader className="sticky top-0">
-                  <TableRow>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead>X</TableHead>
-                    <TableHead>Y</TableHead>
-                    <TableHead>Z</TableHead>
-                    <TableHead>Tons</TableHead>
-                    <TableHead>Area</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {previewDatasets.data.results.map((row, i) => (
-                    <TableRow key={i}>
-                      <TableCell>{row.datetime}</TableCell>
-                      <TableCell>{row.bound}</TableCell>
-                      <TableCell>{row.k0}</TableCell>
-                      <TableCell>{row.k1}</TableCell>
-                      <TableCell>{row.k2}</TableCell>
-                      <TableCell>{row.bound}</TableCell>
-                      <TableCell>{row.bound}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </ScrollArea>
+            <DataTable
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              columns={
+                detailDatasets?.data.type === 1
+                  ? viewMuckingDatasetsPreviewColumns
+                  : detailDatasets?.data.type === 2
+                  ? viewBlastingDatasetsPreviewColumns
+                  : viewCatalogDatasetsPreviewColumns
+              }
+              data={previewDatasets?.data.results}
+              filter={false}
+            />
           ) : (
             <div className="flex h-[200px] w-full items-center justify-center rounded border">
               <span className="text-sm text-destructive">
