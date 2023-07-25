@@ -8,6 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Separator,
 } from "@/components/ui";
 import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
@@ -99,7 +100,12 @@ export default function Datasets() {
           </Select>
         </div>
 
+        <Separator />
+
         <div>
+          <div className="mb-4">
+            <span className="text-sm font-medium">Mucking</span>
+          </div>
           {isLoadingMucking ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorMucking ? (
@@ -111,7 +117,12 @@ export default function Datasets() {
           )}
         </div>
 
+        <Separator />
+
         <div>
+          <div className="mb-4">
+            <span className="text-sm font-medium">Blasting</span>
+          </div>
           {isLoadingBlasting ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorBlasting ? (
@@ -123,7 +134,12 @@ export default function Datasets() {
           )}
         </div>
 
+        <Separator />
+
         <div>
+          <div className="mb-4">
+            <span className="text-sm font-medium">Catalog</span>
+          </div>
           {isLoadingCatalog ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorCatalog ? (
