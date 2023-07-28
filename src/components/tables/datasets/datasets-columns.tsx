@@ -41,11 +41,11 @@ export const datasetsColumns: ColumnDef<Dataset>[] = [
     cell: ({ row }) => {
       switch (row.getValue("type")) {
         case 1:
-          return "M";
+          return "Mucking";
         case 2:
-          return "B";
+          return "Blasting";
         case 3:
-          return "C";
+          return "Catalog";
         default:
           return "N/A";
       }

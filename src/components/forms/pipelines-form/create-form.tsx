@@ -45,7 +45,6 @@ export const PipelineCreateForm = ({}) => {
       b: undefined,
       c: undefined,
       m: undefined,
-      status: undefined,
     },
     mode: "onChange",
   });
@@ -102,7 +101,6 @@ export const PipelineCreateForm = ({}) => {
       form.append("m", values.m);
       form.append("b", values.b);
       form.append("c", values.c);
-      form.append("status", values.status);
 
       await pipelinesService.createPrediction({
         form: form,
@@ -148,32 +146,6 @@ export const PipelineCreateForm = ({}) => {
                     <SelectContent>
                       <SelectItem value="1">DMLZ</SelectItem>
                       <SelectItem value="2">GBC</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="type"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Type</FormLabel>
-                <FormControl>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">M</SelectItem>
-                      <SelectItem value="2">B</SelectItem>
-                      <SelectItem value="3">C</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormControl>
@@ -377,31 +349,6 @@ export const PipelineCreateForm = ({}) => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="1">Bayesian LSTM</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="status"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Status</FormLabel>
-                <FormControl>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select Prediction Status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">Training</SelectItem>
-                      <SelectItem value="2">Finished</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormControl>
