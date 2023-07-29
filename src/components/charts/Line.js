@@ -23,7 +23,7 @@ const PlotFitur = (props) => {
         <ResponsiveContainer width="100%">
             <LineChart data={props.data}
                 margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
-                <XAxis dataKey="index"  padding={{ top: 20, right: 20, left: 20, bottom: 20 }}/>
+                <XAxis dataKey="index"/>
                 <YAxis />
                 <Tooltip />
                 <Legend />

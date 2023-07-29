@@ -101,6 +101,24 @@ export const pipelinesColumns: ColumnDef<Pipeline>[] = [
     ),
   },
   {
+    accessorKey: "last_date",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="p-0 px-2 text-start !text-xs"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Last Date
+          <IconArrowsSort className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <div className="capitalize">{formatDate(row.getValue("last_date"))}</div>
+    ),
+  },
+  {
     accessorKey: "created_at",
     header: ({ column }) => {
       return (

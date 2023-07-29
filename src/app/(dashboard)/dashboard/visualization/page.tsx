@@ -262,11 +262,11 @@ export default function FeatureAnalysis() {
                     series={plotData?.data[0]?.series}
                   />
                 )}
-                <div className="chart-legend">
+                {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
                   <span className="bhz">o M</span>
                   <span className="bhe">o B</span>
-                </div>
+                </div> */}
               </div>
             ) : selectedPlot === "feature" ? (
               <div className="flex flex-1 flex-col items-center justify-center">
@@ -275,11 +275,11 @@ export default function FeatureAnalysis() {
                 ) : (
                   <PlotFitur data={plotData?.data}/>
                 )}
-                <div className="chart-legend">
+                {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
                   <span className="bhz">o M</span>
                   <span className="bhe">o B</span>
-                </div>
+                </div> */}
               </div>
             ) : selectedPlot === "corr" ? (
               <div className="flex flex-1 flex-col items-center justify-center">
@@ -288,11 +288,11 @@ export default function FeatureAnalysis() {
                 ) : (
                   <CorrLabel data={plotData?.data}/>
                 )}
-                <div className="chart-legend">
+                {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
                   <span className="bhz">o M</span>
                   <span className="bhe">o B</span>
-                </div>
+                </div> */}
               </div>
             ) : selectedPlot === "risk" ? (
               <div className="flex flex-1 flex-col items-center justify-center">
@@ -301,11 +301,11 @@ export default function FeatureAnalysis() {
                 ) : (
                   <PlotRisk data={plotData?.data}/>
                 )}
-                <div className="chart-legend">
+                {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
                   <span className="bhz">o M</span>
                   <span className="bhe">o B</span>
-                </div>
+                </div> */}
               </div>
             ) : selectedPlot === "uncertainty" ? (
               <div className="flex flex-1 flex-col items-center justify-center">
@@ -314,11 +314,11 @@ export default function FeatureAnalysis() {
                 ) : (
                   <PlotUncertainty data={plotData?.data}/>
                 )}
-                <div className="chart-legend">
+                {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
                   <span className="bhz">o M</span>
                   <span className="bhe">o B</span>
-                </div>
+                </div> */}
               </div>
             ) : (
               <span className="text-sm">Select plot first!</span>

@@ -27,7 +27,7 @@ const UncertaintyPlot = (props) => {
               top: 20, right: 20, bottom: 20, left: 20,
             }}
           >
-            <XAxis dataKey="index"  padding={{ top: 20, right: 20, left: 20, bottom: 20 }}/>
+            <XAxis dataKey="index" />
             <YAxis />
             <Area dataKey="lowerupper" stroke="#8884d8" fill="#00FFFF" strokeDasharray="5 5"/>
             <Line dataKey="actual" stroke="#FF0000" dot={false}/>
