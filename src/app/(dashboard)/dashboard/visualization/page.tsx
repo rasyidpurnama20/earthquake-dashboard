@@ -20,6 +20,9 @@ import { useEffect, useState } from "react";
 import Plot from "react-plotly.js";
 import PlotlyComponent from "src/components/charts/AreaChart2";
 import PlotFitur from "src/components/charts/Line";
+import CorrLabel from "src/components/charts/Bar";
+import PlotRisk from "src/components/charts/Line2";
+import PlotUncertainty from "src/components/charts/Area";
 import {
   Line,
   LineChart,
@@ -125,7 +128,7 @@ export default function FeatureAnalysis() {
         token: token as string,
         date: selectedDate?.startDate as string,
         plot: selectedPlot as string,
-        features: selectedFeature as string,
+        feature: selectedFeature as string,
       }),
   });
 
@@ -266,7 +269,57 @@ export default function FeatureAnalysis() {
                 </div>
               </div>
             ) : selectedPlot === "feature" ? (
-              <PlotFitur data={1} />
+              <div className="flex flex-1 flex-col items-center justify-center">
+                {plotDateIsLoading ? (
+                  <Skeleton className="h-full w-full" />
+                ) : (
+                  <PlotFitur data={plotData?.data}/>
+                )}
+                <div className="chart-legend">
+                  <span>Series (Color): </span> <span className="bhn">o C</span>
+                  <span className="bhz">o M</span>
+                  <span className="bhe">o B</span>
+                </div>
+              </div>
+            ) : selectedPlot === "corr" ? (
+              <div className="flex flex-1 flex-col items-center justify-center">
+                {plotDateIsLoading ? (
+                  <Skeleton className="h-full w-full" />
+                ) : (
+                  <CorrLabel data={plotData?.data}/>
+                )}
+                <div className="chart-legend">
+                  <span>Series (Color): </span> <span className="bhn">o C</span>
+                  <span className="bhz">o M</span>
+                  <span className="bhe">o B</span>
+                </div>
+              </div>
+            ) : selectedPlot === "risk" ? (
+              <div className="flex flex-1 flex-col items-center justify-center">
+                {plotDateIsLoading ? (
+                  <Skeleton className="h-full w-full" />
+                ) : (
+                  <PlotRisk data={plotData?.data}/>
+                )}
+                <div className="chart-legend">
+                  <span>Series (Color): </span> <span className="bhn">o C</span>
+                  <span className="bhz">o M</span>
+                  <span className="bhe">o B</span>
+                </div>
+              </div>
+            ) : selectedPlot === "uncertainty" ? (
+              <div className="flex flex-1 flex-col items-center justify-center">
+                {plotDateIsLoading ? (
+                  <Skeleton className="h-full w-full" />
+                ) : (
+                  <PlotUncertainty data={plotData?.data}/>
+                )}
+                <div className="chart-legend">
+                  <span>Series (Color): </span> <span className="bhn">o C</span>
+                  <span className="bhz">o M</span>
+                  <span className="bhe">o B</span>
+                </div>
+              </div>
             ) : (
               <span className="text-sm">Select plot first!</span>
             )

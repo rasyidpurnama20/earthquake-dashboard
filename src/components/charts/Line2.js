@@ -23,12 +23,12 @@ const PlotRisk = (props) => {
         <ResponsiveContainer width="100%"height="100%">
             <LineChart width={730} height={250} data={props.data}
                 margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
-                <XAxis dataKey="index" />
+                <XAxis dataKey="index" padding={{ top: 20, right: 20, left: 20, bottom: 20 }}/>
                 <YAxis />
                 <Tooltip />
                 <Legend />
                 <Line type="monotone" dataKey="actual" stroke="#FF0000" dot={false}/>
-                <Line type="monotone" dataKey="predicted" stroke="#8884d8" dot={false}/>
+                <Line type="monotone" dataKey="predicted" stroke="#8884d8" dot={false} strokeDasharray="5 5"/>
             </LineChart>
         </ResponsiveContainer>
       </div>

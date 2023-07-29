@@ -20,11 +20,10 @@ const PlotFitur = (props) => {
   return (
     <div className='responsive-container'>
       <div className='flex-container'>
-        <div>{console.log(props.data)}</div>
-        <ResponsiveContainer width="100%"height="100%">
+        <ResponsiveContainer width="100%">
             <LineChart data={props.data}
                 margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
-                <XAxis dataKey="index" />
+                <XAxis dataKey="index"  padding={{ top: 20, right: 20, left: 20, bottom: 20 }}/>
                 <YAxis />
                 <Tooltip />
                 <Legend />
