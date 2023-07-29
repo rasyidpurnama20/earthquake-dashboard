@@ -24,12 +24,29 @@ export const pipelinesService = {
 
     return response;
   },
-  
-  async getPlot({ token }: { token: string }){
+
+  async getPlot({
+    token,
+    plot,
+    features,
+    date,
+    id,
+  }: {
+    token: string;
+    plot: string;
+    features?: string;
+    date: string;
+    id: string;
+  }) {
+    console.log(plot, features, date, id, "ini params get plot");
     const response: AxiosResponse<PipelinesResponse> = await axios.get(
-      `/pipelines/`,
+      `/pipelines/${id}/plot/?date=2020-01-31&plot=area`,
       {
-        params: null || {},
+        params: {
+          plot: plot,
+          features: features,
+          date: date,
+        },
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -39,7 +56,7 @@ export const pipelinesService = {
     return response;
   },
 
-  async getFeaturePipelines({ id, token }: { id: string, token: string }){
+  async getFeaturePipelines({ id, token }: { id: string; token: string }) {
     const response: AxiosResponse<any> = await axios.get(
       `/pipelines/${id}/get-features/`,
       {
@@ -54,6 +71,23 @@ export const pipelinesService = {
 
     return response;
   },
+
+  async getDatePipelines({ id, token }: { id: string; token: string }) {
+    const response: AxiosResponse<any> = await axios.get(
+      `/pipelines/${id}/get-date/`,
+      {
+        params: {
+          per_page: 100,
+        },
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
+
   async getTargetPipelines({ id, token }: { id: string; token: string }) {
     const response: AxiosResponse<TargetPipelinesResponse> = await axios.get(
       `/pipelines/${id}/target/`,

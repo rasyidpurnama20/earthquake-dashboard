@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 "use client";
 
 import {
@@ -14,8 +16,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Plot from "react-plotly.js";
-import PlotlyComponent from "src/components/charts/AreaChart2"
-import PlotFitur from "src/components/charts/Line"
+import PlotlyComponent from "src/components/charts/AreaChart2";
+import PlotFitur from "src/components/charts/Line";
 import {
   Line,
   LineChart,
@@ -28,13 +30,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Papa from "papaparse";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
+import Datepicker from "react-tailwindcss-datepicker";
 
 const exampleData = {
   x: [0, 1, 2, 3, 4, 5],
   y: [0, 2, 4, 6, 8, 10],
   z: [0, 3, 6, 9, 12, 15],
-  series: [20, 60, 60, 40, 20]
-}
+  series: [20, 60, 60, 40, 20],
+};
 
 export default function FeatureAnalysis() {
   const { data: sessionData } = useSession();
@@ -48,8 +52,24 @@ export default function FeatureAnalysis() {
   const [selectedFeature, setSelectedFeature] = useState<string | undefined>(
     undefined
   );
-  const [selectedDate, setSelectedDate] = useState<string | undefined>(
-    undefined
+  const [selectedDate, setSelectedDate] = useState<{
+    date: {
+      startDate: string | undefined;
+      endDate: string | undefined;
+    };
+  }>({
+    date: {
+      startDate: undefined,
+      endDate: undefined,
+    },
+  });
+
+  console.log(
+    selectedDate,
+    selectedFeature,
+    selectedPipeline,
+    selectedPlot,
+    "tes"
   );
 
   const { data: dataPipelines } = useQuery({
@@ -61,30 +81,18 @@ export default function FeatureAnalysis() {
       }),
   });
 
-  const { data : pipelineFeatures } = useQuery({
-    enabled: !!token,
+  const { data: pipelineFeatures } = useQuery({
+    enabled: !!token && !!selectedPipeline,
     queryKey: ["getPipelineFeatures", token, selectedPipeline],
     queryFn: () =>
       pipelinesService.getFeaturePipelines({
         id: selectedPipeline as string,
         token: token as string,
       }),
-  })
-
-
-
-  // const { data: detailPipelines, isFetched } = useQuery({
-  //   enabled: !!token,
-  //   queryKey: ["detailPipelines", token, selectedPipeline],
-  //   queryFn: () =>
-  //     pipelinesService.getPipelinesById({
-  //       token: token as string,
-  //       id: selectedPipeline as string,
-  //     }),
-  // });
+  });
 
   const { data: listPipelinesTarget } = useQuery({
-    enabled: !!token,
+    enabled: !!token && !!selectedPipeline,
     queryKey: ["listPipelinesTarget", token, selectedPipeline],
     queryFn: () =>
       pipelinesService.getTargetPipelines({
@@ -93,9 +101,38 @@ export default function FeatureAnalysis() {
       }),
   });
 
-  console.log(listPipelinesTarget?.data.results);
+  const { data: pipelineDate } = useQuery({
+    enabled: !!token && !!selectedPipeline,
+    queryKey: ["getPipelineDate", token, selectedPipeline],
+    queryFn: () =>
+      pipelinesService.getDatePipelines({
+        id: selectedPipeline as string,
+        token: token as string,
+      }),
+  });
 
-  const [data, setData] = useState();
+  const { data: plotData, isLoading: plotDateIsLoading } = useQuery({
+    enabled: !!token && !!selectedPipeline && !!selectedPlot && !!selectedDate,
+    queryKey: [
+      "getPlotData",
+      token,
+      selectedPipeline,
+      selectedPlot,
+      selectedDate,
+      selectedFeature,
+    ],
+    queryFn: () =>
+      pipelinesService.getPlot({
+        id: selectedPipeline as string,
+        token: token as string,
+        date: selectedDate.date.startDate as string,
+        plot: selectedPlot as string,
+        features: selectedFeature as string,
+      }),
+  });
+
+  console.log(plotData, "plot data ----------");
+  console.log(selectedDate.date?.startDate, "on change date ----------");
 
   // Membaca file CSV saat komponen dimuat
   // useEffect(() => {
@@ -111,8 +148,6 @@ export default function FeatureAnalysis() {
   //   }
   // }, [selectedPipeline]);
 
-  
-
   // console.log(data?.data[selectedDate], selectedFeature, "tes");
 
   return (
@@ -123,119 +158,121 @@ export default function FeatureAnalysis() {
 
       <div className="p-6">
         <div className="plot-title" id="3D">
-
           <div className="flex justify-between">
-            <Select
-              onValueChange={setSelectedPipeline}
-              value={selectedPipeline}
-            >
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select Pipeline" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Pipeline</SelectLabel>
-                  {dataPipelines?.data?.results?.map((pipeline) => (
-                    <SelectItem
-                      key={pipeline.id}
-                      value={pipeline.id}
-                    >
-                      {pipeline.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <div className="flex gap-4">
+              <Select
+                onValueChange={setSelectedPipeline}
+                value={selectedPipeline}
+              >
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select Pipeline" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Pipeline</SelectLabel>
+                    {dataPipelines?.data?.results?.map((pipeline) => (
+                      <SelectItem
+                        key={pipeline.id}
+                        value={pipeline.id.toString()}
+                      >
+                        {pipeline.name}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
 
-            <Select
-              onValueChange={setSelectedPlot}
-              value={selectedPlot}
-            >
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select Plot" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="area">3D Area</SelectItem>
-                  <SelectItem value="corr">Correlation</SelectItem>
-                  <SelectItem value="feature">Feature</SelectItem>
-                  <SelectItem value="risk">Risk</SelectItem>
-                  <SelectItem value="uncertainty">Uncertainty</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+              <div className="rounded-md border">
+                <Datepicker
+                  startFrom={new Date(pipelineDate?.data?.data?.[0])}
+                  minDate={new Date(pipelineDate?.data?.data?.[0])}
+                  maxDate={
+                    new Date(
+                      pipelineDate?.data?.data?.[
+                        pipelineDate?.data?.data?.length - 1
+                      ]
+                    )
+                  }
+                  useRange={false}
+                  asSingle={true}
+                  value={selectedDate as never}
+                  onChange={(value) => setSelectedDate(value as never)}
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <Select onValueChange={setSelectedPlot} value={selectedPlot}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select Plot" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="area">3D Area</SelectItem>
+                    <SelectItem value="corr">Correlation</SelectItem>
+                    <SelectItem value="feature">Feature</SelectItem>
+                    <SelectItem value="risk">Risk</SelectItem>
+                    <SelectItem value="uncertainty">Uncertainty</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              {selectedPlot === "feature" && (
+                <Select onValueChange={setSelectedFeature}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select a feature" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Feature</SelectLabel>
+                      <ScrollArea className="h-40">
+                        {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */}
+                        {pipelineFeatures?.data?.data.map((field: unknown) => (
+                          <SelectItem
+                            key={field as never}
+                            value={field as never}
+                          >
+                            {field as never}
+                          </SelectItem>
+                        ))}
+                      </ScrollArea>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="chart-3d">
-          {
-            selectedPlot == "area"?
-            <PlotlyComponent x={exampleData.x} y={exampleData.y} z={exampleData.z} series={exampleData.series}/>
-            :
-            selectedPlot == "feature"?
-            <PlotFitur data={}/>
-            :
-          }
-          {/* <Plot
-              data={[
-                {
-                  x: props.x,
-                  y: props.y,
-                  z: props.z,
-                  mode: "markers",
-                  type: "scatter3d",
-                  marker: {
-                    size: 5,
-                    color: props.series,
-                    colorscale: "Viridis",
-                    opacity: 0.8,
-                  },
-                },
-              ]}
-            /> */}
+        <div className="chart-3d mt-8 flex items-center justify-center rounded-md border p-4">
+          {selectedPipeline && selectedDate ? (
+            selectedPlot === "area" ? (
+              <div className="flex flex-1 flex-col items-center justify-center">
+                <PlotlyComponent
+                  x={exampleData.x}
+                  y={exampleData.y}
+                  z={exampleData.z}
+                  series={exampleData.series}
+                />
+                <div className="chart-legend">
+                  <span>Series (Color): </span> <span className="bhn">o C</span>
+                  <span className="bhz">o M</span>
+                  <span className="bhe">o B</span>
+                </div>
+              </div>
+            ) : selectedPlot === "feature" ? (
+              <PlotFitur data={1} />
+            ) : (
+              <span className="text-sm">Select plot first!</span>
+            )
+          ) : (
+            <span className="text-sm">Select pipeline and date first!</span>
+          )}
         </div>
 
         <div>
-          <div>
-            <Select onValueChange={setSelectedFeature}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select a feature" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Feature</SelectLabel>
-                  {pipelineFeatures?.data?.data.map((field) => (
-                    <SelectItem key={field} value={field}>
-                      {field}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-
-            <Select onValueChange={setSelectedDate}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select a date" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Date</SelectLabel>
-                  {listPipelinesTarget?.data?.results.map((field) => (
-                    <SelectItem
-                      key={field.id}
-                      value={field.id}
-                      onClick={() => console.log(field)}
-                    >
-                      {field.date}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
           {/* <ResponsiveContainer width="100%" height="100%">
             <LineChart
-              data={props.data}
+              data={plotData?.data?.data}
               margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
             >
               <XAxis dataKey="index" />
@@ -250,12 +287,6 @@ export default function FeatureAnalysis() {
               />
             </LineChart>
           </ResponsiveContainer> */}
-        </div>
-
-        <div className="chart-legend">
-          <span>Series (Color): </span> <span className="bhn">o C</span>
-          <span className="bhz">o M</span>
-          <span className="bhe">o B</span>
         </div>
       </div>
     </div>
