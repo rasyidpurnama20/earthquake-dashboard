@@ -24,6 +24,36 @@ export const pipelinesService = {
 
     return response;
   },
+  
+  async getPlot({ token }: { token: string }){
+    const response: AxiosResponse<PipelinesResponse> = await axios.get(
+      `/pipelines/`,
+      {
+        params: null || {},
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
+
+  async getFeaturePipelines({ id, token }: { id: string, token: string }){
+    const response: AxiosResponse<any> = await axios.get(
+      `/pipelines/${id}/get-features/`,
+      {
+        params: {
+          per_page: 100,
+        },
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
   async getTargetPipelines({ id, token }: { id: string; token: string }) {
     const response: AxiosResponse<TargetPipelinesResponse> = await axios.get(
       `/pipelines/${id}/target/`,
