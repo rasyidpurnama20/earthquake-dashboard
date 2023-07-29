@@ -5,6 +5,7 @@ import {
   type CreatePipelinesResponse,
   type PipelinesResponse,
   type Pipeline,
+  AreaPlotResponse,
 } from "@/lib/dto";
 import { type AxiosResponse } from "axios";
 
@@ -39,8 +40,8 @@ export const pipelinesService = {
     id: string;
   }) {
     console.log(plot, features, date, id, "ini params get plot");
-    const response: AxiosResponse<PipelinesResponse> = await axios.get(
-      `/pipelines/${id}/plot/?date=2020-01-31&plot=area`,
+    const response: AxiosResponse<AreaPlotResponse[]> = await axios.get(
+      `/pipelines/${id}/plot/`,
       {
         params: {
           plot: plot,

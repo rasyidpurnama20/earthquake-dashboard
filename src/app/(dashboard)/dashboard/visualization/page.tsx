@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 "use client";
@@ -10,6 +11,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
+  Skeleton,
 } from "@/components/ui";
 import { pipelinesService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
@@ -53,15 +55,11 @@ export default function FeatureAnalysis() {
     undefined
   );
   const [selectedDate, setSelectedDate] = useState<{
-    date: {
-      startDate: string | undefined;
-      endDate: string | undefined;
-    };
+    startDate: string | undefined;
+    endDate: string | undefined;
   }>({
-    date: {
-      startDate: undefined,
-      endDate: undefined,
-    },
+    startDate: undefined,
+    endDate: undefined,
   });
 
   console.log(
@@ -125,14 +123,14 @@ export default function FeatureAnalysis() {
       pipelinesService.getPlot({
         id: selectedPipeline as string,
         token: token as string,
-        date: selectedDate.date.startDate as string,
+        date: selectedDate?.startDate as string,
         plot: selectedPlot as string,
         features: selectedFeature as string,
       }),
   });
 
   console.log(plotData, "plot data ----------");
-  console.log(selectedDate.date?.startDate, "on change date ----------");
+  console.log(selectedDate.startDate, "on change date ----------");
 
   // Membaca file CSV saat komponen dimuat
   // useEffect(() => {
@@ -182,40 +180,44 @@ export default function FeatureAnalysis() {
                 </SelectContent>
               </Select>
 
-              <div className="rounded-md border">
-                <Datepicker
-                  startFrom={new Date(pipelineDate?.data?.data?.[0])}
-                  minDate={new Date(pipelineDate?.data?.data?.[0])}
-                  maxDate={
-                    new Date(
-                      pipelineDate?.data?.data?.[
-                        pipelineDate?.data?.data?.length - 1
-                      ]
-                    )
-                  }
-                  useRange={false}
-                  asSingle={true}
-                  value={selectedDate as never}
-                  onChange={(value) => setSelectedDate(value as never)}
-                />
-              </div>
+              {selectedPipeline && (
+                <div className="rounded-md border">
+                  <Datepicker
+                    startFrom={new Date(pipelineDate?.data?.data?.[0])}
+                    minDate={new Date(pipelineDate?.data?.data?.[0])}
+                    maxDate={
+                      new Date(
+                        pipelineDate?.data?.data?.[
+                          pipelineDate?.data?.data?.length - 1
+                        ]
+                      )
+                    }
+                    useRange={false}
+                    asSingle={true}
+                    value={selectedDate as never}
+                    onChange={(value) => setSelectedDate(value as never)}
+                  />
+                </div>
+              )}
             </div>
 
             <div className="flex gap-4">
-              <Select onValueChange={setSelectedPlot} value={selectedPlot}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select Plot" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectItem value="area">3D Area</SelectItem>
-                    <SelectItem value="corr">Correlation</SelectItem>
-                    <SelectItem value="feature">Feature</SelectItem>
-                    <SelectItem value="risk">Risk</SelectItem>
-                    <SelectItem value="uncertainty">Uncertainty</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              {selectedPipeline && (
+                <Select onValueChange={setSelectedPlot} value={selectedPlot}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select Plot" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="area">3D Area</SelectItem>
+                      <SelectItem value="corr">Correlation</SelectItem>
+                      <SelectItem value="feature">Feature</SelectItem>
+                      <SelectItem value="risk">Risk</SelectItem>
+                      <SelectItem value="uncertainty">Uncertainty</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
               {selectedPlot === "feature" && (
                 <Select onValueChange={setSelectedFeature}>
                   <SelectTrigger className="w-[180px]">
@@ -247,12 +249,16 @@ export default function FeatureAnalysis() {
           {selectedPipeline && selectedDate ? (
             selectedPlot === "area" ? (
               <div className="flex flex-1 flex-col items-center justify-center">
-                <PlotlyComponent
-                  x={exampleData.x}
-                  y={exampleData.y}
-                  z={exampleData.z}
-                  series={exampleData.series}
-                />
+                {plotDateIsLoading ? (
+                  <Skeleton className="h-full w-full" />
+                ) : (
+                  <PlotlyComponent
+                    x={plotData?.data[0]?.x}
+                    y={plotData?.data[0]?.y}
+                    z={plotData?.data[0]?.z}
+                    series={plotData?.data[0]?.series}
+                  />
+                )}
                 <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
                   <span className="bhz">o M</span>
@@ -265,7 +271,7 @@ export default function FeatureAnalysis() {
               <span className="text-sm">Select plot first!</span>
             )
           ) : (
-            <span className="text-sm">Select pipeline and date first!</span>
+            <span className="text-sm">Select pipeline first!</span>
           )}
         </div>
 

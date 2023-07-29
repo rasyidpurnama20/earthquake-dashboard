@@ -6,6 +6,13 @@ export type PipelinesResponse = {
   results: Pipeline[];
 };
 
+export type AreaPlotResponse = {
+  x: number[];
+  y: number[];
+  z: number[];
+  series: number[];
+};
+
 export type TargetPipelinesResponse = {
   count: number;
   next?: any;
