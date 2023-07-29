@@ -67,19 +67,19 @@ export default function FeatureAnalysis() {
 
   const [data, setData] = useState();
 
-  // Membaca file CSV saat komponen dimuat
-  useEffect(() => {
-    if (detailPipelines) {
-      Papa.parse(detailPipelines?.data.features_df as string, {
-        download: true,
-        header: true,
-        complete: function (results) {
-          setData(results);
-          console.log(results);
-        },
-      });
-    }
-  }, [selectedPipeline]);
+  // // Membaca file CSV saat komponen dimuat
+  // useEffect(() => {
+  //   if (detailPipelines) {
+  //     Papa.parse(detailPipelines?.data.features_df as string, {
+  //       download: true,
+  //       header: true,
+  //       complete: function (results) {
+  //         setData(results);
+  //         console.log(results);
+  //       },
+  //     });
+  //   }
+  // }, [selectedPipeline]);
 
   const [selectedFeature, setSelectedFeature] = useState<string | undefined>(
     undefined
@@ -88,7 +88,7 @@ export default function FeatureAnalysis() {
     undefined
   );
 
-  console.log(data?.data[selectedDate], selectedFeature, "tes");
+  // console.log(data?.data[selectedDate], selectedFeature, "tes");
 
   return (
     <div className="flex flex-col">
@@ -171,11 +171,11 @@ export default function FeatureAnalysis() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Feature</SelectLabel>
-                  {data?.meta.fields?.map((field) => (
+                  {/* {data?.meta.fields?.map((field) => (
                     <SelectItem key={field} value={field}>
                       {field}
                     </SelectItem>
-                  ))}
+                  ))} */}
                   <SelectItem value="A">A</SelectItem>
                 </SelectGroup>
               </SelectContent>
@@ -188,7 +188,7 @@ export default function FeatureAnalysis() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Date</SelectLabel>
-                  {data?.data?.map((field, index) => (
+                  {/* {data?.data?.map((field, index) => (
                     <SelectItem
                       key={field.index}
                       value={index}
@@ -196,7 +196,7 @@ export default function FeatureAnalysis() {
                     >
                       {field.index}
                     </SelectItem>
-                  ))}
+                  ))} */}
                   <SelectItem value="A">A</SelectItem>
                 </SelectGroup>
               </SelectContent>
