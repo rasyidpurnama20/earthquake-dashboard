@@ -17,11 +17,11 @@ import { pipelinesService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import PlotlyComponent from "src/components/charts/AreaChart2";
-import PlotFitur from "src/components/charts/Line";
-import CorrLabel from "src/components/charts/Bar";
-import PlotRisk from "src/components/charts/Line2";
-import PlotUncertainty from "src/components/charts/Area";
+import PlotlyComponent from "@/components/charts/AreaChart2";
+import PlotFitur from "@/components/charts/Line";
+import CorrLabel from "@/components/charts/Bar";
+import PlotRisk from "@/components/charts/Line2";
+import PlotUncertainty from "@/components/charts/Area";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import Datepicker from "react-tailwindcss-datepicker";
 import { formatDate } from "@/utils";
@@ -249,85 +249,87 @@ export default function FeatureAnalysis() {
           </div>
         </div>
 
-        <div className="chart-3d mt-8 flex items-center justify-center rounded-md border p-4">
-          {selectedPipeline && selectedDate ? (
-            selectedPlot === "area" ? (
-              <div className="flex flex-1 flex-col items-center justify-center">
-                {plotDateIsLoading ? (
-                  <Skeleton className="h-full w-full" />
-                ) : (
-                  <PlotlyComponent
-                    x={plotData?.data[0]?.x}
-                    y={plotData?.data[0]?.y}
-                    z={plotData?.data[0]?.z}
-                    series={plotData?.data[0]?.series}
-                  />
-                )}
-                {/* <div className="chart-legend">
+        {typeof window !== "undefined" && (
+          <div className="chart-3d mt-8 flex items-center justify-center rounded-md border p-4">
+            {selectedPipeline && selectedDate ? (
+              selectedPlot === "area" ? (
+                <div className="flex flex-1 flex-col items-center justify-center">
+                  {plotDateIsLoading ? (
+                    <Skeleton className="h-full w-full" />
+                  ) : (
+                    <PlotlyComponent
+                      x={plotData?.data[0]?.x}
+                      y={plotData?.data[0]?.y}
+                      z={plotData?.data[0]?.z}
+                      series={plotData?.data[0]?.series}
+                    />
+                  )}
+                  {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
                   <span className="bhz">o M</span>
                   <span className="bhe">o B</span>
                 </div> */}
-              </div>
-            ) : selectedPlot === "feature" ? (
-              <div className="flex flex-1 flex-col items-center justify-center">
-                {plotDateIsLoading ? (
-                  <Skeleton className="h-full w-full" />
-                ) : (
-                  <PlotFitur data={plotData?.data} />
-                )}
-                {/* <div className="chart-legend">
+                </div>
+              ) : selectedPlot === "feature" ? (
+                <div className="flex flex-1 flex-col items-center justify-center">
+                  {plotDateIsLoading ? (
+                    <Skeleton className="h-full w-full" />
+                  ) : (
+                    <PlotFitur data={plotData?.data} />
+                  )}
+                  {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
                   <span className="bhz">o M</span>
                   <span className="bhe">o B</span>
                 </div> */}
-              </div>
-            ) : selectedPlot === "corr" ? (
-              <div className="flex flex-1 flex-col items-center justify-center">
-                {plotDateIsLoading ? (
-                  <Skeleton className="h-full w-full" />
-                ) : (
-                  <CorrLabel data={plotData?.data} />
-                )}
-                {/* <div className="chart-legend">
+                </div>
+              ) : selectedPlot === "corr" ? (
+                <div className="flex flex-1 flex-col items-center justify-center">
+                  {plotDateIsLoading ? (
+                    <Skeleton className="h-full w-full" />
+                  ) : (
+                    <CorrLabel data={plotData?.data} />
+                  )}
+                  {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
                   <span className="bhz">o M</span>
                   <span className="bhe">o B</span>
                 </div> */}
-              </div>
-            ) : selectedPlot === "risk" ? (
-              <div className="flex flex-1 flex-col items-center justify-center">
-                {plotDateIsLoading ? (
-                  <Skeleton className="h-full w-full" />
-                ) : (
-                  <PlotRisk data={plotData?.data} />
-                )}
-                {/* <div className="chart-legend">
+                </div>
+              ) : selectedPlot === "risk" ? (
+                <div className="flex flex-1 flex-col items-center justify-center">
+                  {plotDateIsLoading ? (
+                    <Skeleton className="h-full w-full" />
+                  ) : (
+                    <PlotRisk data={plotData?.data} />
+                  )}
+                  {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
                   <span className="bhz">o M</span>
                   <span className="bhe">o B</span>
                 </div> */}
-              </div>
-            ) : selectedPlot === "uncertainty" ? (
-              <div className="flex flex-1 flex-col items-center justify-center">
-                {plotDateIsLoading ? (
-                  <Skeleton className="h-full w-full" />
-                ) : (
-                  <PlotUncertainty data={plotData?.data} />
-                )}
-                {/* <div className="chart-legend">
+                </div>
+              ) : selectedPlot === "uncertainty" ? (
+                <div className="flex flex-1 flex-col items-center justify-center">
+                  {plotDateIsLoading ? (
+                    <Skeleton className="h-full w-full" />
+                  ) : (
+                    <PlotUncertainty data={plotData?.data} />
+                  )}
+                  {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
                   <span className="bhz">o M</span>
                   <span className="bhe">o B</span>
                 </div> */}
-              </div>
+                </div>
+              ) : (
+                <span className="text-sm">Select plot first!</span>
+              )
             ) : (
-              <span className="text-sm">Select plot first!</span>
-            )
-          ) : (
-            <span className="text-sm">Select pipeline first!</span>
-          )}
-        </div>
+              <span className="text-sm">Select pipeline first!</span>
+            )}
+          </div>
+        )}
 
         <div>
           {/* <ResponsiveContainer width="100%" height="100%">

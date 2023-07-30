@@ -4,8 +4,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import React from "react";
-import Plot from "react-plotly.js";
+import dynamic from "next/dynamic";
+const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 
 function PlotlyComponent(props: any) {
   return (
