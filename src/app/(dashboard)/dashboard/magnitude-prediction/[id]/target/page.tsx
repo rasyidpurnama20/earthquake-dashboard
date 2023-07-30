@@ -27,6 +27,16 @@ export default function PipelineTarget({ params }: { params: { id: string } }) {
       }),
   });
 
+  const { data: detailPipeline } = useQuery({
+    enabled: !!token,
+    queryKey: ["getPipelineById", token],
+    queryFn: () =>
+      pipelinesService.getPipelinesById({
+        token: token as string,
+        id: params.id,
+      }),
+  });
+
   return (
     <div className="relative flex flex-col">
       <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-white p-6">
@@ -36,7 +46,7 @@ export default function PipelineTarget({ params }: { params: { id: string } }) {
               <IconArrowLeft size={16} /> Back to Prediction List
             </Button>
           </Link>
-          <span>Target Prediction</span>
+          <span>Target Prediction - {detailPipeline?.data.name} </span>
         </div>
 
         <div className="flex items-center gap-2">

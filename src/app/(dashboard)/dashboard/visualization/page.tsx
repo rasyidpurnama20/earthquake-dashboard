@@ -16,41 +16,20 @@ import {
 import { pipelinesService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import Plot from "react-plotly.js";
+import { useState } from "react";
 import PlotlyComponent from "src/components/charts/AreaChart2";
 import PlotFitur from "src/components/charts/Line";
 import CorrLabel from "src/components/charts/Bar";
 import PlotRisk from "src/components/charts/Line2";
 import PlotUncertainty from "src/components/charts/Area";
-import {
-  Line,
-  LineChart,
-  XAxis,
-  YAxis,
-  Legend,
-  ReferenceLine,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import Papa from "papaparse";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import Datepicker from "react-tailwindcss-datepicker";
-
-const exampleData = {
-  x: [0, 1, 2, 3, 4, 5],
-  y: [0, 2, 4, 6, 8, 10],
-  z: [0, 3, 6, 9, 12, 15],
-  series: [20, 60, 60, 40, 20],
-};
+import { formatDate } from "@/utils";
 
 export default function FeatureAnalysis() {
   const { data: sessionData } = useSession();
   const token = sessionData?.user?.accessToken;
-  const [selectedPlot, setSelectedPlot] = useState<string | undefined>(
-    undefined
-  );
+  const [selectedPlot, setSelectedPlot] = useState<string | undefined>("area");
   const [selectedPipeline, setSelectedPipeline] = useState<string | undefined>(
     undefined
   );
@@ -58,22 +37,14 @@ export default function FeatureAnalysis() {
     undefined
   );
   const [selectedDate, setSelectedDate] = useState<{
-    startDate: string | undefined;
-    endDate: string | undefined;
+    startDate: string | undefined | Date;
+    endDate: string | undefined | Date;
   }>({
     startDate: undefined,
     endDate: undefined,
   });
 
-  console.log(
-    selectedDate,
-    selectedFeature,
-    selectedPipeline,
-    selectedPlot,
-    "tes"
-  );
-
-  const { data: dataPipelines } = useQuery({
+  const { data: dataPipelines, isLoading: dataPipelinesIsLoading } = useQuery({
     enabled: !!token,
     queryKey: ["getPipelines", token],
     queryFn: () =>
@@ -82,27 +53,18 @@ export default function FeatureAnalysis() {
       }),
   });
 
-  const { data: pipelineFeatures } = useQuery({
-    enabled: !!token && !!selectedPipeline,
-    queryKey: ["getPipelineFeatures", token, selectedPipeline],
-    queryFn: () =>
-      pipelinesService.getFeaturePipelines({
-        id: selectedPipeline as string,
-        token: token as string,
-      }),
-  });
+  const { data: pipelineFeatures, isLoading: pipelineFeaturesIsLoading } =
+    useQuery({
+      enabled: !!token && !!selectedPipeline,
+      queryKey: ["getPipelineFeatures", token, selectedPipeline],
+      queryFn: () =>
+        pipelinesService.getFeaturePipelines({
+          id: selectedPipeline as string,
+          token: token as string,
+        }),
+    });
 
-  const { data: listPipelinesTarget } = useQuery({
-    enabled: !!token && !!selectedPipeline,
-    queryKey: ["listPipelinesTarget", token, selectedPipeline],
-    queryFn: () =>
-      pipelinesService.getTargetPipelines({
-        token: token as string,
-        id: selectedPipeline as string,
-      }),
-  });
-
-  const { data: pipelineDate } = useQuery({
+  const { data: pipelineDate, isLoading: pipelineDateIsLoading } = useQuery({
     enabled: !!token && !!selectedPipeline,
     queryKey: ["getPipelineDate", token, selectedPipeline],
     queryFn: () =>
@@ -110,6 +72,13 @@ export default function FeatureAnalysis() {
         id: selectedPipeline as string,
         token: token as string,
       }),
+    onSuccess: (data) => {
+      setSelectedDate({
+        startDate: data?.data?.data?.[data?.data?.data?.length - 1],
+        endDate: data?.data?.data?.[data?.data?.data?.length - 1],
+      });
+      return data;
+    },
   });
 
   const { data: plotData, isLoading: plotDateIsLoading } = useQuery({
@@ -132,24 +101,23 @@ export default function FeatureAnalysis() {
       }),
   });
 
-  console.log(plotData, "plot data ----------");
-  console.log(selectedDate.startDate, "on change date ----------");
+  const { data: dataPipelineTargets, isLoading: dataPipelineTargetIsLoading } =
+    useQuery({
+      enabled: !!token && !!selectedPipeline,
+      queryKey: ["getPipelineTargets", token, selectedPipeline],
+      queryFn: () =>
+        pipelinesService.getTargetPipelines({
+          token: token as string,
+          id: selectedPipeline as string,
+        }),
+    });
 
-  // Membaca file CSV saat komponen dimuat
-  // useEffect(() => {
-  //   if (detailPipelines) {
-  //     Papa.parse(detailPipelines?.data.features_df as string, {
-  //       download: true,
-  //       header: true,
-  //       complete: function (results) {
-  //         setData(results);
-  //         console.log(results);
-  //       },
-  //     });
-  //   }
-  // }, [selectedPipeline]);
-
-  // console.log(data?.data[selectedDate], selectedFeature, "tes");
+  const isLoading =
+    dataPipelinesIsLoading ||
+    pipelineFeaturesIsLoading ||
+    pipelineDateIsLoading ||
+    plotDateIsLoading ||
+    dataPipelineTargetIsLoading;
 
   return (
     <div className="flex flex-col">
@@ -161,47 +129,80 @@ export default function FeatureAnalysis() {
         <div className="plot-title" id="3D">
           <div className="flex justify-between">
             <div className="flex gap-4">
-              <Select
-                onValueChange={setSelectedPipeline}
-                value={selectedPipeline}
-              >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select Pipeline" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Pipeline</SelectLabel>
-                    {dataPipelines?.data?.results?.map((pipeline) => (
-                      <SelectItem
-                        key={pipeline.id}
-                        value={pipeline.id.toString()}
-                      >
-                        {pipeline.name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-
-              {selectedPipeline && (
-                <div className="rounded-md border">
-                  <Datepicker
-                    startFrom={new Date(pipelineDate?.data?.data?.[0])}
-                    minDate={new Date(pipelineDate?.data?.data?.[0])}
-                    maxDate={
-                      new Date(
-                        pipelineDate?.data?.data?.[
-                          pipelineDate?.data?.data?.length - 1
-                        ]
-                      )
-                    }
-                    useRange={false}
-                    asSingle={true}
-                    value={selectedDate as never}
-                    onChange={(value) => setSelectedDate(value as never)}
-                  />
-                </div>
+              {!dataPipelinesIsLoading ? (
+                <Select
+                  onValueChange={setSelectedPipeline}
+                  value={selectedPipeline}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select Pipeline" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Pipeline</SelectLabel>
+                      {dataPipelines?.data?.results?.map((pipeline) => (
+                        <SelectItem
+                          key={pipeline.id}
+                          value={pipeline.id.toString()}
+                        >
+                          {pipeline.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              ) : (
+                <Skeleton className="h-10 w-24" />
               )}
+
+              {selectedPipeline && selectedPlot !== "corr" ? (
+                !isLoading ? (
+                  selectedPlot === "risk" || selectedPlot === "uncertainty" ? (
+                    <Select
+                      onValueChange={(value) =>
+                        setSelectedDate({
+                          startDate: value,
+                          endDate: value,
+                        })
+                      }
+                    >
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select a date" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Date</SelectLabel>
+                          {dataPipelineTargets?.data.results?.map((field) => (
+                            <SelectItem key={field.id} value={field.date}>
+                              {formatDate(field.date)}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <div className="rounded-md border">
+                      <Datepicker
+                        startFrom={new Date(pipelineDate?.data?.data?.[0])}
+                        minDate={new Date(pipelineDate?.data?.data?.[0])}
+                        maxDate={
+                          new Date(
+                            pipelineDate?.data?.data?.[
+                              pipelineDate?.data?.data?.length - 1
+                            ]
+                          )
+                        }
+                        useRange={false}
+                        asSingle={true}
+                        value={selectedDate as never}
+                        onChange={(value) => setSelectedDate(value as never)}
+                      />
+                    </div>
+                  )
+                ) : (
+                  <Skeleton className="h-10 w-24" />
+                )
+              ) : null}
             </div>
 
             <div className="flex gap-4">
@@ -273,7 +274,7 @@ export default function FeatureAnalysis() {
                 {plotDateIsLoading ? (
                   <Skeleton className="h-full w-full" />
                 ) : (
-                  <PlotFitur data={plotData?.data}/>
+                  <PlotFitur data={plotData?.data} />
                 )}
                 {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
@@ -286,7 +287,7 @@ export default function FeatureAnalysis() {
                 {plotDateIsLoading ? (
                   <Skeleton className="h-full w-full" />
                 ) : (
-                  <CorrLabel data={plotData?.data}/>
+                  <CorrLabel data={plotData?.data} />
                 )}
                 {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
@@ -299,7 +300,7 @@ export default function FeatureAnalysis() {
                 {plotDateIsLoading ? (
                   <Skeleton className="h-full w-full" />
                 ) : (
-                  <PlotRisk data={plotData?.data}/>
+                  <PlotRisk data={plotData?.data} />
                 )}
                 {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>
@@ -312,7 +313,7 @@ export default function FeatureAnalysis() {
                 {plotDateIsLoading ? (
                   <Skeleton className="h-full w-full" />
                 ) : (
-                  <PlotUncertainty data={plotData?.data}/>
+                  <PlotUncertainty data={plotData?.data} />
                 )}
                 {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>

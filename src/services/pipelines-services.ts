@@ -39,7 +39,6 @@ export const pipelinesService = {
     date: string;
     id: string;
   }) {
-    console.log(plot, feature, date, id, "ini params get plot");
     const response: AxiosResponse<AreaPlotResponse[]> = await axios.get(
       `/pipelines/${id}/plot/`,
       {

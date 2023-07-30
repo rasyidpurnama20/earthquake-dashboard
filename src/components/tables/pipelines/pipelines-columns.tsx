@@ -169,27 +169,6 @@ export const pipelinesTargetColumns: ColumnDef<PipelineTarget>[] = [
     ),
   },
   {
-    accessorKey: "pipeline_id",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="p-0 px-2 text-start !text-xs"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Pipeline Name
-          <IconArrowsSort className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => (
-      <div>
-        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion */}
-        {(row.getValue("pipeline_id") as Pipeline)?.name}
-      </div>
-    ),
-  },
-  {
     accessorKey: "status",
     header: ({ column }) => {
       return (

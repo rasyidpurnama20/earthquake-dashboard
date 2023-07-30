@@ -125,7 +125,9 @@ export function DataTable({
                       column.toggleVisibility(!!value)
                     }
                   >
-                    {column.id.replace("_", " ")}
+                    {column.id === "c"
+                      ? "Last Date"
+                      : column.id.replace("_", " ")}
                   </DropdownMenuCheckboxItem>
                 );
               })}
