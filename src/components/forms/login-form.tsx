@@ -84,10 +84,10 @@ export function LoginForm() {
         </Link>
         <div>
           <Image
-            src="/images/freeport-logo.svg"
+            src="/images/Lapi-logo.svg"
             width={200}
             height={50}
-            alt="Freeport Logo"
+            alt="Lapi Logo"
           />
         </div>
         <span className="text-xl font-bold">Login</span>

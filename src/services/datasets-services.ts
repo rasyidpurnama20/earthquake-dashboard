@@ -4,6 +4,7 @@ import {
   type DatasetsResponse,
   type DatasetsUploadResponse,
   type ViewDatasetsResponse,
+  type RangeUpdateDataResponse,
 } from "@/lib/dto";
 import { type AxiosResponse } from "axios";
 
@@ -101,6 +102,19 @@ export const datasetsService = {
       {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
+  
+  async getRangeUpdateData({ token, id }: { token: string; id: string }) {
+    const response: AxiosResponse<RangeUpdateDataResponse> = await axios.get(
+      `/datasets/${id}/history-range-date/`,
+      {
+        headers: {
           Authorization: `Token ${token}`,
         },
       }

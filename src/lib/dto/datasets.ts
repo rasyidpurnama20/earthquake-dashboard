@@ -85,3 +85,9 @@ export type ViewMuckingDatasetsResultsResponse = {
   z: number;
   tons: number;
 };
+
+export type RangeUpdateDataResponse = {
+  start_date: string;
+  end_date: string;
+};
+

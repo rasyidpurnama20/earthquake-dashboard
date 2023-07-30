@@ -29,9 +29,9 @@ const UncertaintyPlot = (props) => {
           >
             <XAxis dataKey="index" />
             <YAxis />
-            <Area dataKey="lowerupper" stroke="#8884d8" fill="#00FFFF" />
+            <Area dataKey="lowerupper" stroke="#8884d8" fill="#00FFFF" strokeDasharray="5 5"/>
             <Line dataKey="actual" stroke="#FF0000" dot={false}/>
-            <Line dataKey="median" stroke="#0000FF" dot={false}/>
+            <Line dataKey="median" stroke="#0000FF" dot={false} strokeDasharray="5 5"/>
             <Tooltip />
             <Legend />
           </ComposedChart >

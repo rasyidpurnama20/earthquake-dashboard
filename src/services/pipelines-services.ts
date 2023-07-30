@@ -29,23 +29,23 @@ export const pipelinesService = {
   async getPlot({
     token,
     plot,
-    features,
+    feature,
     date,
     id,
   }: {
     token: string;
     plot: string;
-    features?: string;
+    feature?: string;
     date: string;
     id: string;
   }) {
-    console.log(plot, features, date, id, "ini params get plot");
+    console.log(plot, feature, date, id, "ini params get plot");
     const response: AxiosResponse<AreaPlotResponse[]> = await axios.get(
       `/pipelines/${id}/plot/`,
       {
         params: {
           plot: plot,
-          features: features,
+          feature: feature,
           date: date,
         },
         headers: {

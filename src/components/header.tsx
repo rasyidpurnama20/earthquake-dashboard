@@ -15,10 +15,10 @@ export function Header() {
     <div className="container mx-auto flex items-center justify-between py-4">
       <div>
         <Image
-          src="/images/freeport-logo.svg"
+          src="/images/lapi-logo.png"
           width={200}
           height={50}
-          alt="Freeport Logo"
+          alt="Lapi Logo"
         />
       </div>
 
