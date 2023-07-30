@@ -15,7 +15,8 @@ import { type datasetsFormUpdateSchema } from "@/lib/validations";
 import { useForm } from "react-hook-form";
 import type * as z from "zod";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 import { datasetsService } from "@/services";
 import { useSession } from "next-auth/react";
 import {
@@ -37,6 +38,7 @@ export const DatasetsFormUpdate2 = ({
   const { data: sessionData } = useSession();
   const token = sessionData?.user?.accessToken;
   const router = useRouter();
+  const { id } = useParams();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof datasetsFormUpdateSchema>>({
     defaultValues: {
@@ -88,6 +90,16 @@ export const DatasetsFormUpdate2 = ({
     }
   }
 
+  const { data: dataRangeUpdate } = useQuery({
+    enabled: !!token && !!id,
+    queryKey: ["getRangeUpdateData", token, id],
+    queryFn: () =>
+      datasetsService.getRangeUpdateData({
+        id: id as string,
+        token: token as string,
+      }),
+  });
+
   return (
     <Form {...form}>
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
@@ -101,15 +113,16 @@ export const DatasetsFormUpdate2 = ({
                 <FormLabel>Date Range</FormLabel>
                 <FormControl>
                   <div className="flex w-full rounded-md border">
-                    {detailsData?.start_date && detailsData?.end_date ? (
+                    {dataRangeUpdate?.data?.start_date && dataRangeUpdate?.data?.end_date ? (
                       <Datepicker
                         {...field}
                         value={field.value as never}
                         onChange={(value) => field.onChange(value)}
-                        startFrom={new Date(detailsData?.start_date)}
-                        minDate={new Date(detailsData?.start_date)}
-                        maxDate={new Date(detailsData?.end_date)}
+                        startFrom={new Date(dataRangeUpdate?.data?.start_date)}
+                        minDate={new Date(dataRangeUpdate?.data?.start_date)}
+                        maxDate={new Date(dataRangeUpdate?.data?.end_date)}
                         separator="to"
+                        disabled={false}
                       />
                     ) : (
                       <Skeleton className="h-10 w-full" />

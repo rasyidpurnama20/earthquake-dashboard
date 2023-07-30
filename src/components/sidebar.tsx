@@ -34,10 +34,10 @@ export function Sidebar() {
     <nav className="fixed flex h-screen w-56 flex-col border-r bg-blue-50">
       <div className="flex h-16 items-center justify-center border-b px-4">
         <Image
-          src="/images/freeport-logo.svg"
+          src="/images/lapi-logo.svg"
           width={200}
           height={50}
-          alt="Freeport Logo"
+          alt="Lapi Logo"
         />
       </div>
 

@@ -101,7 +101,7 @@ export const pipelinesColumns: ColumnDef<Pipeline>[] = [
     ),
   },
   {
-    accessorKey: "last_date",
+    accessorKey: "c",
     header: ({ column }) => {
       return (
         <Button
@@ -115,7 +115,7 @@ export const pipelinesColumns: ColumnDef<Pipeline>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="capitalize">{formatDate(row.getValue("last_date"))}</div>
+      <div className="capitalize">{formatDate(row.getValue("c")?.end_date)}</div>
     ),
   },
   {

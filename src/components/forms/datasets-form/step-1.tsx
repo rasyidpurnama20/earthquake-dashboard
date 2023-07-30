@@ -127,9 +127,9 @@ export const DatasetsFormStep1 = ({}) => {
                       <SelectValue placeholder="Select Datasets Type" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="1">M</SelectItem>
-                      <SelectItem value="2">B</SelectItem>
-                      <SelectItem value="3">C</SelectItem>
+                      <SelectItem value="1">Mucking</SelectItem>
+                      <SelectItem value="2">Blasting</SelectItem>
+                      <SelectItem value="3">Catalog</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormControl>
