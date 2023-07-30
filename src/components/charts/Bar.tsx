@@ -1,4 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+"use client";
+
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import React from "react";
 import {
   Bar,
@@ -6,7 +12,6 @@ import {
   XAxis,
   YAxis,
   Legend,
-  ReferenceLine,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
@@ -14,7 +19,7 @@ import {
 
 import "@/styles/chart.css";
 
-const CorrLabel = (props) => {
+const CorrLabel = (props: any) => {
   return (
     <div className="responsive-container">
       <div className="flex-container">
@@ -25,7 +30,9 @@ const CorrLabel = (props) => {
             <YAxis domain={[-1, 1]} />
             <Tooltip />
             <Legend />
+            {/* @ts-expect-error */}
             <Bar dataKey="topTen" fill="#00FF00" maxBarSize={true} />
+            {/* @ts-expect-error */}
             <Bar dataKey="botTen" fill="#EE4B2B" maxBarSize={true} />
           </BarChart>
         </ResponsiveContainer>

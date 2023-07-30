@@ -1,3 +1,8 @@
+"use client";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import {
   Area,
@@ -12,7 +17,7 @@ import {
 
 import "@/styles/chart.css";
 
-const UncertaintyPlot = (props) => {
+const UncertaintyPlot = (props: any) => {
   return (
     <div className="responsive-container">
       <div className="flex-container">
