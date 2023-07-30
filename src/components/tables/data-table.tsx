@@ -37,6 +37,7 @@ import {
   type ViewCatalogDatasetsResultsResponse,
   type ViewMuckingDatasetsResultsResponse,
   type Pipeline,
+  type PipelineTarget,
 } from "@/lib/dto";
 
 type TableProps<T> = {
@@ -51,7 +52,8 @@ type DataType =
   | ViewBlastingDatasetsResultsResponse
   | ViewCatalogDatasetsResultsResponse
   | ViewMuckingDatasetsResultsResponse
-  | Pipeline;
+  | Pipeline
+  | PipelineTarget;
 
 type Props = DataType extends infer T ? TableProps<T> : never;
 

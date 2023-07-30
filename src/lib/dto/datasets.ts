@@ -59,7 +59,6 @@ export type DatasetsUploadResponse = Dataset;
 
 export type ViewBlastingDatasetsResultsResponse = {
   date: string;
-  time: string;
   x: number;
   y: number;
   z: number;
@@ -90,4 +89,3 @@ export type RangeUpdateDataResponse = {
   start_date: string;
   end_date: string;
 };
-

@@ -1,7 +1,7 @@
 "use client";
 
 import { DataTable } from "@/components";
-import { pipelinesColumns } from "@/components/tables/pipelines";
+import { pipelinesTargetColumns } from "@/components/tables/pipelines";
 import { Button, Skeleton } from "@/components/ui";
 import { pipelinesService } from "@/services";
 import { IconArrowLeft, IconPlus } from "@tabler/icons-react";
@@ -12,16 +12,6 @@ import Link from "next/link";
 export default function PipelineTarget({ params }: { params: { id: string } }) {
   const { data: sessionData } = useSession();
   const token = sessionData?.user?.accessToken;
-
-  const { data: detailPipeline } = useQuery({
-    enabled: !!token,
-    queryKey: ["getPipelineById", token],
-    queryFn: () =>
-      pipelinesService.getTargetPipelines({
-        token: token as string,
-        id: params.id,
-      }),
-  });
 
   const {
     data: dataPipelineTargets,
@@ -37,7 +27,6 @@ export default function PipelineTarget({ params }: { params: { id: string } }) {
       }),
   });
 
-  console.log(detailPipeline);
   return (
     <div className="relative flex flex-col">
       <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-white p-6">
@@ -73,7 +62,7 @@ export default function PipelineTarget({ params }: { params: { id: string } }) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            columns={pipelinesColumns}
+            columns={pipelinesTargetColumns}
             data={dataPipelineTargets?.data?.results}
           />
         )}

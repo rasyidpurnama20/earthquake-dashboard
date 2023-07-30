@@ -84,7 +84,7 @@ export function LoginForm() {
         </Link>
         <div>
           <Image
-            src="/images/Lapi-logo.svg"
+            src="/images/lapi-logo.svg"
             width={200}
             height={50}
             alt="Lapi Logo"

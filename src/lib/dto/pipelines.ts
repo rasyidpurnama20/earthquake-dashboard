@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Dataset } from "./datasets" 
+import { Dataset } from "./datasets";
 export type PipelinesResponse = {
   count: number;
   next?: any;
@@ -36,6 +36,18 @@ export type Pipeline = {
   m: number;
   b: number;
   c: Dataset;
+};
+
+export type PipelineTarget = {
+  id: number;
+  date: string;
+  json_result?: any;
+  h5_result?: any;
+  npy_result: string;
+  status: number;
+  created_at: string;
+  udpated_at: string;
+  pipeline_id: Pipeline;
 };
 
 export type CreatePipelinesResponse = {

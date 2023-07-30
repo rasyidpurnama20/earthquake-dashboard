@@ -31,24 +31,6 @@ export const viewBlastingDatasetsPreviewColumns: ColumnDef<ViewBlastingDatasetsR
       ),
     },
     {
-      accessorKey: "time",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            className="p-0 px-2 text-start !text-xs"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Time
-            <IconArrowsSort className="ml-2 h-4 w-4" />
-          </Button>
-        );
-      },
-      cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("time")}</div>
-      ),
-    },
-    {
       accessorKey: "x",
       header: ({ column }) => {
         return (

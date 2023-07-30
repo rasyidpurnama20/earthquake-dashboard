@@ -104,6 +104,26 @@ export const pipelinesService = {
 
     return response;
   },
+  async getTargetPipelinesById({
+    id,
+    targetId,
+    token,
+  }: {
+    id: string;
+    targetId: string;
+    token: string;
+  }) {
+    const response: AxiosResponse<any> = await axios.get(
+      `/pipelines/${id}/target/${targetId}/}`,
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
   async createPrediction({ token, form }: { token: string; form: FormData }) {
     const response: AxiosResponse<CreatePipelinesResponse> = await axios.post(
       `/pipelines/`,
@@ -143,6 +163,24 @@ export const pipelinesService = {
   async removePipelinesById({ token, id }: { token: string; id: string }) {
     const response: AxiosResponse<any> = await axios.delete(
       `/pipelines/${id}`,
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      }
+    );
+
+    return response;
+  },
+  async removePipelinesTargetById({
+    token,
+    id,
+  }: {
+    token: string;
+    id: string;
+  }) {
+    const response: AxiosResponse<any> = await axios.delete(
+      `/pipelines/${id}/target/`,
       {
         headers: {
           Authorization: `Token ${token}`,

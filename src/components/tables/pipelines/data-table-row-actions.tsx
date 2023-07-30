@@ -14,11 +14,16 @@ import { useQuery } from "@tanstack/react-query";
 import { pipelinesService } from "@/services";
 import { useToast } from "@/components/ui";
 import { IconDots } from "@tabler/icons-react";
-import { type Pipeline } from "@/lib/dto";
+import { type PipelineTarget, type Pipeline } from "@/lib/dto";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData & Pipeline>;
+}
+
+interface DataTableTargetRowActionsProps<TData> {
+  row: Row<TData & PipelineTarget>;
 }
 
 export function DataTableRowActions<TData>({
@@ -83,6 +88,75 @@ export function DataTableRowActions<TData>({
             <DropdownMenuItem>Preview</DropdownMenuItem>
           </Link>
 
+          <DropdownMenuItem
+            className="text-red-500"
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-argument
+            onClick={() => handleDelete(dataset.id.toString())}
+          >
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+}
+
+export function DataTableTargetRowActions<TData>({
+  row,
+}: DataTableTargetRowActionsProps<TData>) {
+  const dataset = row.original;
+
+  const { data: sessionData } = useSession();
+  const token = sessionData?.user?.accessToken;
+  const { toast } = useToast();
+  const { id } = useParams();
+
+  const { refetch } = useQuery({
+    enabled: !!token,
+    queryKey: ["getPipelineTargets", token],
+    queryFn: () =>
+      pipelinesService.getTargetPipelines({
+        token: token as string,
+        id: id as string,
+      }),
+  });
+
+  const handleDelete = async (id: string) => {
+    try {
+      await pipelinesService
+        .removePipelinesTargetById({
+          token: token as string,
+          id: id,
+        })
+        .then(async () => {
+          await refetch();
+        });
+
+      toast({
+        title: "Delete Success",
+        description: "File has been deleted.",
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    }
+  };
+
+  return (
+    <div>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <IconDots className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Action</DropdownMenuLabel>
           <DropdownMenuItem
             className="text-red-500"
             // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-argument

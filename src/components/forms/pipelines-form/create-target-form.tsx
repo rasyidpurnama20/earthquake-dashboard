@@ -19,6 +19,7 @@ import { pipelinesService } from "@/services";
 import { useSession } from "next-auth/react";
 import { type pipelineCreateTargetFormSchema } from "@/lib/validations";
 import Datepicker from "react-tailwindcss-datepicker";
+import { useQuery } from "@tanstack/react-query";
 
 export const PipelineCreateTargetForm = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -32,6 +33,16 @@ export const PipelineCreateTargetForm = () => {
     defaultValues: {
       date: undefined,
     },
+  });
+
+  const { data: detailPipeline } = useQuery({
+    enabled: !!token,
+    queryKey: ["getPipelineById", token],
+    queryFn: () =>
+      pipelinesService.getPipelinesById({
+        token: token as string,
+        id: id as string,
+      }),
   });
 
   async function onSubmit(
@@ -72,6 +83,11 @@ export const PipelineCreateTargetForm = () => {
     }
   }
 
+  const originStartDate = new Date(detailPipeline?.data.c.start_date as string);
+  const updatedStartDate = new Date(
+    new Date(originStartDate.setDate(originStartDate.getDate() + 30))
+  );
+
   return (
     <Form {...form}>
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
@@ -91,6 +107,11 @@ export const PipelineCreateTargetForm = () => {
                       asSingle={true}
                       value={field.value}
                       onChange={(value) => field.onChange(value)}
+                      startFrom={updatedStartDate}
+                      minDate={updatedStartDate}
+                      maxDate={
+                        new Date(detailPipeline?.data.c.end_date as string)
+                      }
                     />
                   </div>
                 </FormControl>
