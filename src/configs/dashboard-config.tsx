@@ -1,13 +1,23 @@
-import { IconBrain, IconDashboard, IconDatabase } from "@tabler/icons-react";
+import {
+  IconBrain,
+  IconChartAreaLine,
+  IconDashboard,
+  IconDatabase,
+} from "@tabler/icons-react";
 
 export const DashboardConfig = [
   {
     title: "Dashboard",
     subMenu: [
       {
+        title: "Overview",
+        path: "/dashboard/overview",
+        icon: <IconDashboard size={20} stroke={1.5} />,
+      },
+      {
         title: "Visualization",
         path: "/dashboard/visualization",
-        icon: <IconDashboard size={20} stroke={1.5} />,
+        icon: <IconChartAreaLine size={20} stroke={1.5} />,
       },
     ],
   },

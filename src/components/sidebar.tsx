@@ -66,7 +66,7 @@ export function Sidebar() {
       </div>
 
       <div className="flex flex-col p-4">
-        <Link
+        {/* <Link
           href={"/"}
           className={
             "flex cursor-pointer items-center justify-between gap-3 rounded-md p-2 text-sm font-medium"
@@ -74,7 +74,7 @@ export function Sidebar() {
         >
           Homepage
           <IconExternalLink size={20} />
-        </Link>
+        </Link> */}
         <Separator className="my-2 w-full" />
         <div className="flex">
           <div className="flex flex-1 items-center gap-4">
