@@ -74,14 +74,14 @@ export function LoginForm() {
   return (
     <Card className="w-2/5">
       <CardHeader className="flex flex-col gap-4">
-        <Link href="/">
+        {/* <Link href="/">
           <Button
             variant="outline"
             className="flex w-max items-center gap-2 text-sm font-semibold"
           >
             <IconArrowLeft size={20} /> Back to home
           </Button>
-        </Link>
+        </Link> */}
         <div>
           <Image
             src="/images/lapi-logo.svg"
