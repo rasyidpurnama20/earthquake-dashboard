@@ -5,6 +5,7 @@ import CorrLabel from "@/components/charts/Bar";
 import PlotFitur from "@/components/charts/Line";
 import PlotRisk from "@/components/charts/Line2";
 import PlotUncertainty from "@/components/charts/Area";
+import { Input, Label } from "@/components/ui";
 
 const exampleData = {
   x: [0, 1, 2, 3, 4, 5],
@@ -21,6 +22,20 @@ export default function Dashboard() {
       </div>
 
       <div className="flex flex-col gap-4 p-6">
+        <div className="grid grid-cols-3 gap-4">
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="catalog">Catalog</Label>
+            <Input id="catalog" type="file" />
+          </div>
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="mucking">Mucking</Label>
+            <Input id="mucking" type="file" />
+          </div>
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="blasting">Blasting</Label>
+            <Input id="blasting" type="file" />
+          </div>
+        </div>
         <div className="flex flex-col flex-wrap gap-2 rounded-md border p-2">
           <div className="h-200 flex w-full">
             <PlotlyComponent

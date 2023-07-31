@@ -165,6 +165,7 @@ export default function FeatureAnalysis() {
                           endDate: value,
                         })
                       }
+                      value={selectedDate?.startDate as string}
                     >
                       <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Select a date" />

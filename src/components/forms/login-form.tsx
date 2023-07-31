@@ -21,8 +21,6 @@ import type * as z from "zod";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { IconArrowLeft } from "@tabler/icons-react";
-import Link from "next/link";
 import Image from "next/image";
 
 export function LoginForm() {
@@ -30,8 +28,7 @@ export function LoginForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
-  const callbackUrl =
-    searchParams.get("callbackUrl") || "/dashboard/visualization";
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard/overview";
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
