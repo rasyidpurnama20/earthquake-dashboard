@@ -14,11 +14,6 @@ export const DashboardConfig = [
         path: "/dashboard/playground",
         icon: <IconBrandAppleArcade size={20} stroke={1.5} />,
       },
-      {
-        title: "Visualization",
-        path: "/dashboard/visualization",
-        icon: <IconChartAreaLine size={20} stroke={1.5} />,
-      },
     ],
   },
 
@@ -34,6 +29,11 @@ export const DashboardConfig = [
         title: "Magnitude Prediction",
         path: "/dashboard/magnitude-prediction",
         icon: <IconBrain size={20} stroke={1.5} />,
+      },
+      {
+        title: "Visualization",
+        path: "/dashboard/visualization",
+        icon: <IconChartAreaLine size={20} stroke={1.5} />,
       },
     ],
   },

@@ -25,11 +25,14 @@ import PlotUncertainty from "@/components/charts/Area";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import Datepicker from "react-tailwindcss-datepicker";
 import { formatDate } from "@/utils";
+import { Pipeline } from "@/lib/dto";
 
 export default function FeatureAnalysis() {
   const { data: sessionData } = useSession();
   const token = sessionData?.user?.accessToken;
-  const [selectedPlot, setSelectedPlot] = useState<string | undefined>("area");
+  const [selectedPlot, setSelectedPlot] = useState<string | undefined>(
+    "uncertainty"
+  );
   const [selectedPipeline, setSelectedPipeline] = useState<string | undefined>(
     undefined
   );
@@ -115,6 +118,13 @@ export default function FeatureAnalysis() {
           id: selectedPipeline as string,
         }),
     });
+
+  const filterSelectedPipeline = () => {
+    const data = dataPipelines?.data?.results?.filter(
+      (pipeline: Pipeline) => pipeline.id === Number(selectedPipeline)
+    );
+    return data?.[0] as Pipeline;
+  };
 
   const isLoading =
     dataPipelinesIsLoading ||
@@ -223,16 +233,22 @@ export default function FeatureAnalysis() {
             <div className="flex gap-4">
               {selectedPipeline && (
                 <Select onValueChange={setSelectedPlot} value={selectedPlot}>
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="w-max gap-1 truncate">
                     <SelectValue placeholder="Select Plot" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
+                      <SelectItem value="uncertainty">
+                        Maximum Magnitude Prediction
+                      </SelectItem>
+                      <SelectItem value="risk">Risk Prediction</SelectItem>
+                      <SelectItem value="feature">
+                        Time-Series Features
+                      </SelectItem>
+                      {filterSelectedPipeline()?.task !== 1 && (
+                        <SelectItem value="corr">Correlation</SelectItem>
+                      )}
                       <SelectItem value="area">3D Area</SelectItem>
-                      <SelectItem value="corr">Correlation</SelectItem>
-                      <SelectItem value="feature">Feature</SelectItem>
-                      <SelectItem value="risk">Risk</SelectItem>
-                      <SelectItem value="uncertainty">Uncertainty</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
