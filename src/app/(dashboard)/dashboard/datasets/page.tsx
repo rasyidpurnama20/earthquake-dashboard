@@ -10,7 +10,7 @@ import {
   SelectValue,
   Separator,
 } from "@/components/ui";
-import { IconPlus } from "@tabler/icons-react";
+import { IconAlertTriangle, IconPlus } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { datasetsService } from "@/services/datasets-services";
@@ -23,7 +23,7 @@ export default function Datasets() {
   const { data: sessionData } = useSession();
   const token = sessionData?.user?.accessToken;
   const router = useRouter();
-  const [cave, setCave] = useState<string>("1");
+  const [cave, setCave] = useState<string>("all");
 
   const {
     data: dataMucking,
@@ -35,7 +35,7 @@ export default function Datasets() {
     queryFn: () =>
       datasetsService.getDatasets({
         token: token as string,
-        cave: cave,
+        cave: cave === "all" ? "" : cave,
         type: "1",
       }),
   });
@@ -49,7 +49,7 @@ export default function Datasets() {
     queryFn: () =>
       datasetsService.getDatasets({
         token: token as string,
-        cave: cave,
+        cave: cave === "all" ? "" : cave,
         type: "2",
       }),
   });
@@ -63,7 +63,7 @@ export default function Datasets() {
     queryFn: () =>
       datasetsService.getDatasets({
         token: token as string,
-        cave: cave,
+        cave: cave === "all" ? "" : cave,
         type: "3",
       }),
   });
@@ -93,6 +93,7 @@ export default function Datasets() {
               <SelectValue placeholder="Select Cave" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value={"all"}>All</SelectItem>
               <SelectItem value={"1"}>DMLZ</SelectItem>
               <SelectItem value={"2"}>GBC</SelectItem>
             </SelectContent>
@@ -108,8 +109,9 @@ export default function Datasets() {
           {isLoadingMucking ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorMucking ? (
-            <div className="h-12 w-full rounded-md border">
-              <p className="text-sm text-red-500">Error</p>
+            <div className="flex h-12 w-full rounded-md border p-4 text-destructive">
+              <IconAlertTriangle size={20} stroke={1.5} />
+              <p className="text-sm">Error</p>
             </div>
           ) : (
             <DataTable
@@ -131,8 +133,9 @@ export default function Datasets() {
           {isLoadingBlasting ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorBlasting ? (
-            <div className="h-12 w-full rounded-md border">
-              <p className="text-sm text-red-500">Error</p>
+            <div className="flex h-12 w-full rounded-md border p-4 text-destructive">
+              <IconAlertTriangle size={20} stroke={1.5} />
+              <p className="text-sm">Error</p>
             </div>
           ) : (
             <DataTable
@@ -154,8 +157,9 @@ export default function Datasets() {
           {isLoadingCatalog ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorCatalog ? (
-            <div className="h-12 w-full rounded-md border">
-              <p className="text-sm text-red-500">Error</p>
+            <div className="flex h-12 w-full rounded-md border p-4 text-destructive">
+              <IconAlertTriangle size={20} stroke={1.5} />
+              <p className="text-sm">Error</p>
             </div>
           ) : (
             <DataTable

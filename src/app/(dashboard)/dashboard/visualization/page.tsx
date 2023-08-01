@@ -167,7 +167,7 @@ export default function FeatureAnalysis() {
                       }
                       value={selectedDate?.startDate as string}
                     >
-                      <SelectTrigger className="w-[180px]">
+                      <SelectTrigger className="w-[180px] flex-nowrap overflow-hidden text-ellipsis">
                         <SelectValue placeholder="Select a date" />
                       </SelectTrigger>
                       <SelectContent>
