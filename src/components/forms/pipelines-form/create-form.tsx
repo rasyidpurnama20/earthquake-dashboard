@@ -294,13 +294,22 @@ export const PipelineCreateForm = ({}) => {
                       <SelectValue placeholder="Select Prediction Area" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="A">A</SelectItem>
-                      <SelectItem value="B">B</SelectItem>
-                      <SelectItem value="C">C</SelectItem>
-                      <SelectItem value="D">D</SelectItem>
-                      <SelectItem value="E">E</SelectItem>
-                      <SelectItem value="F">F</SelectItem>
-                    </SelectContent>
+                      {form.getValues("cave") === "2" ? (
+                          <>
+                            <SelectItem value="A">A</SelectItem>
+                          </>
+                        ) : form.getValues("cave") === "1" ? (
+                          <>
+                            <SelectItem value="A">AB</SelectItem>
+                            <SelectItem value="C">C</SelectItem>
+                            <SelectItem value="D">D</SelectItem>
+                          </>
+                        ) : (
+                          <>
+                            <span className="text-sm">No Selected Area</span>
+                          </>
+                        )}
+                      </SelectContent>
                   </Select>
                 </FormControl>
                 <FormMessage />

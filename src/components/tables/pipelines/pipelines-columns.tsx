@@ -25,7 +25,7 @@ export const pipelinesColumns: ColumnDef<Pipeline>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
+    cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
   },
   {
     accessorKey: "cave",
@@ -104,7 +104,7 @@ export const pipelinesColumns: ColumnDef<Pipeline>[] = [
     ),
   },
   {
-    accessorKey: "c",
+    accessorKey: "c_",
     header: ({ column }) => {
       return (
         <Button
@@ -120,7 +120,7 @@ export const pipelinesColumns: ColumnDef<Pipeline>[] = [
     cell: ({ row }) => (
       <div className="capitalize">
         {/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unnecessary-type-assertion */}
-        {formatDate((row.getValue("c") as Dataset).end_date)}
+        {formatDate((row.getValue("c_") as Dataset).end_date)}
       </div>
     ),
   },

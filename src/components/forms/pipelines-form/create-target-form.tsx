@@ -83,7 +83,7 @@ export const PipelineCreateTargetForm = () => {
     }
   }
 
-  const originStartDate = new Date(detailPipeline?.data.c.start_date as string);
+  const originStartDate = new Date(detailPipeline?.data.c_.start_date as string);
   const updatedStartDate = new Date(
     new Date(originStartDate.setDate(originStartDate.getDate() + 30))
   );
@@ -107,10 +107,10 @@ export const PipelineCreateTargetForm = () => {
                       asSingle={true}
                       value={field.value}
                       onChange={(value) => field.onChange(value)}
-                      startFrom={updatedStartDate}
+                      startFrom={new Date(detailPipeline?.data.c_.end_date as string)}
                       minDate={updatedStartDate}
                       maxDate={
-                        new Date(detailPipeline?.data.c.end_date as string)
+                        new Date(detailPipeline?.data.c_.end_date as string)
                       }
                     />
                   </div>
