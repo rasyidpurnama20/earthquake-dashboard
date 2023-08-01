@@ -35,7 +35,8 @@ export type Pipeline = {
   updated_at: string;
   m: number;
   b: number;
-  c: Dataset;
+  c: number;
+  c_: Dataset;
 };
 
 export type PipelineTarget = {
