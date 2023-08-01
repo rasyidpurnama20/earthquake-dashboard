@@ -28,7 +28,8 @@ export function LoginForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard/overview";
+  const callbackUrl =
+    searchParams.get("callbackUrl") || "/dashboard/playground";
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {

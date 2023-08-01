@@ -1,7 +1,7 @@
 import {
   IconBrain,
+  IconBrandAppleArcade,
   IconChartAreaLine,
-  IconDashboard,
   IconDatabase,
 } from "@tabler/icons-react";
 
@@ -10,9 +10,9 @@ export const DashboardConfig = [
     title: "Dashboard",
     subMenu: [
       {
-        title: "Overview",
-        path: "/dashboard/overview",
-        icon: <IconDashboard size={20} stroke={1.5} />,
+        title: "Playground",
+        path: "/dashboard/playground",
+        icon: <IconBrandAppleArcade size={20} stroke={1.5} />,
       },
       {
         title: "Visualization",
