@@ -65,7 +65,8 @@ export function Sidebar() {
                 href={subItem.path}
                 key={subItem.title}
                 className={cn(
-                  isActive(subItem.path) && "bg-brand-700 text-white",
+                  isActive(subItem.path) &&
+                    "!bg-brand-700 !font-medium !text-white",
                   "flex cursor-pointer items-center gap-3 rounded-md p-2"
                 )}
               >

@@ -182,12 +182,12 @@ export function DataTableRowActions<TData>({
           >
             Preview
           </DropdownMenuItem>
-          <DropdownMenuItem
+          {/* <DropdownMenuItem
             // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-argument
             onClick={() => handlePreview(dataset.id.toString())}
           >
             History
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
 
           <Link
             href={`/dashboard/datasets/update/${dataset.id.toString()}/1`}

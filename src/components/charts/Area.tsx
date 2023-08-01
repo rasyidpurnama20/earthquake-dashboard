@@ -48,6 +48,12 @@ const UncertaintyPlot = (props: any) => {
               dot={false}
               strokeDasharray="5 5"
             />
+            <Line
+              dataKey="threshold"
+              stroke="#000000"
+              dot={false}
+              strokeDasharray="5 5"
+            />
             <Tooltip />
             <Legend />
           </ComposedChart>
