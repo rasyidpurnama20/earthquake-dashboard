@@ -231,6 +231,33 @@ export default function FeatureAnalysis() {
             </div>
 
             <div className="flex gap-4">
+              {selectedPlot === "feature" && (
+                <Select
+                  onValueChange={setSelectedFeature}
+                  value={selectedFeature}
+                  defaultValue={pipelineFeatures?.data?.data[0]}
+                >
+                  <SelectTrigger className="w-max">
+                    <SelectValue placeholder="Select a feature" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Feature</SelectLabel>
+                      <ScrollArea className="h-40">
+                        {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */}
+                        {pipelineFeatures?.data?.data.map((field: unknown) => (
+                          <SelectItem
+                            key={field as never}
+                            value={field as never}
+                          >
+                            {field as never}
+                          </SelectItem>
+                        ))}
+                      </ScrollArea>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
               {selectedPipeline && (
                 <Select onValueChange={setSelectedPlot} value={selectedPlot}>
                   <SelectTrigger className="w-max gap-1 truncate">
@@ -249,33 +276,6 @@ export default function FeatureAnalysis() {
                         <SelectItem value="corr">Correlation</SelectItem>
                       )}
                       <SelectItem value="area">3D Area</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              )}
-              {selectedPlot === "feature" && (
-                <Select
-                  onValueChange={setSelectedFeature}
-                  value={selectedFeature}
-                  defaultValue={pipelineFeatures?.data?.data[0]}
-                >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Select a feature" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Feature</SelectLabel>
-                      <ScrollArea className="h-40">
-                        {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */}
-                        {pipelineFeatures?.data?.data.map((field: unknown) => (
-                          <SelectItem
-                            key={field as never}
-                            value={field as never}
-                          >
-                            {field as never}
-                          </SelectItem>
-                        ))}
-                      </ScrollArea>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
