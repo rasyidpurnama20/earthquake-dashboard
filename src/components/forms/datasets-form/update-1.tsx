@@ -16,9 +16,10 @@ import type * as z from "zod";
 import { useState } from "react";
 import DropzoneInput from "../../ui/dropzone-input";
 import { useRouter } from "next/navigation";
-import { datasetsService } from "@/services";
+import { authService, datasetsService } from "@/services";
 import { useSession } from "next-auth/react";
 import { type DetailDatasetsResponse } from "@/lib/dto";
+import { useQuery } from "@tanstack/react-query";
 
 type DatasetsFormUpdate1Props = {
   detailsData: DetailDatasetsResponse;
@@ -40,6 +41,15 @@ export const DatasetsFormUpdate1 = ({
     },
   });
 
+  const { data: userDetails } = useQuery({
+    enabled: !!token,
+    queryKey: ["getUserDetails", token],
+    queryFn: () =>
+      authService.getUserDetail({
+        token: token as string,
+      }),
+  });
+
   async function onSubmit(values: z.infer<typeof datasetsFormUpdateSchema>) {
     setLoading(true);
 
@@ -56,6 +66,7 @@ export const DatasetsFormUpdate1 = ({
       form.append("name", detailsData.name);
       form.append("type", detailsData.type.toString());
       form.append("cave", detailsData.cave.toString());
+      form.append("user", userDetails?.data.id.toString() as string);
 
       const res = await datasetsService.updateDatasets({
         form: form,

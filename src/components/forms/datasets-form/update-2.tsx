@@ -17,7 +17,7 @@ import type * as z from "zod";
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { datasetsService } from "@/services";
+import { authService, datasetsService } from "@/services";
 import { useSession } from "next-auth/react";
 import {
   type ViewDatasetsResponse,
@@ -49,6 +49,15 @@ export const DatasetsFormUpdate2 = ({
     },
   });
 
+  const { data: userDetails } = useQuery({
+    enabled: !!token,
+    queryKey: ["getUserDetails", token],
+    queryFn: () =>
+      authService.getUserDetail({
+        token: token as string,
+      }),
+  });
+
   async function onSubmit(values: z.infer<typeof datasetsFormUpdateSchema>) {
     setLoading(true);
 
@@ -66,6 +75,7 @@ export const DatasetsFormUpdate2 = ({
       form.append("cave", detailsData.cave.toString());
       form.append("start_date_selected", values.date?.startDate as string);
       form.append("end_date_selected", values.date?.endDate as string);
+      form.append("user", userDetails?.data.id.toString() as string);
 
       await datasetsService.updateDatasets({
         form: form,
@@ -113,7 +123,8 @@ export const DatasetsFormUpdate2 = ({
                 <FormLabel>Date Range</FormLabel>
                 <FormControl>
                   <div className="flex w-full rounded-md border">
-                    {dataRangeUpdate?.data?.start_date && dataRangeUpdate?.data?.end_date ? (
+                    {dataRangeUpdate?.data?.start_date &&
+                    dataRangeUpdate?.data?.end_date ? (
                       <Datepicker
                         {...field}
                         value={field.value as never}

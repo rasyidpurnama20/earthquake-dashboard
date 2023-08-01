@@ -16,11 +16,12 @@ import { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { datasetsService } from "@/services";
+import { authService, datasetsService } from "@/services";
 
 import { type datasetsForm2Schema } from "@/lib/validations";
 import type * as z from "zod";
 import { type DetailDatasetsResponse } from "@/lib/dto";
+import { useQuery } from "@tanstack/react-query";
 
 export const DatasetsFormStep2 = ({
   data,
@@ -50,6 +51,15 @@ export const DatasetsFormStep2 = ({
     },
   });
 
+  const { data: userDetails } = useQuery({
+    enabled: !!token,
+    queryKey: ["getUserDetails", token],
+    queryFn: () =>
+      authService.getUserDetail({
+        token: token as string,
+      }),
+  });
+
   const date = form.getValues("date");
 
   async function onSubmit(values: z.infer<typeof datasetsForm2Schema>) {
@@ -69,6 +79,7 @@ export const DatasetsFormStep2 = ({
       form.append("cave", data.cave.toString());
       form.append("type", data.type.toString());
       form.append("name", data.name);
+      form.append("user", userDetails?.data.id.toString() as string);
 
       await datasetsService.updateDatasets({
         form: form,
