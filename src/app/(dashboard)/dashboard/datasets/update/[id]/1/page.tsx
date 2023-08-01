@@ -20,6 +20,8 @@ export default function UpdateForm1({ params }: { params: { id: string } }) {
     enabled: !!token,
   });
 
+  if (typeof window === "undefined") return null;
+
   return (
     <div>
       <DatasetsFormUpdate1

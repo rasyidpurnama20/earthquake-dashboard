@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import type * as z from "zod";
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { pipelinesService } from "@/services";
+import { authService, pipelinesService } from "@/services";
 import { useSession } from "next-auth/react";
 import { type pipelineCreateTargetFormSchema } from "@/lib/validations";
 import Datepicker from "react-tailwindcss-datepicker";
@@ -45,6 +45,15 @@ export const PipelineCreateTargetForm = () => {
       }),
   });
 
+  const { data: userDetails } = useQuery({
+    enabled: !!token,
+    queryKey: ["getUserDetails", token],
+    queryFn: () =>
+      authService.getUserDetail({
+        token: token as string,
+      }),
+  });
+
   async function onSubmit(
     values: z.infer<typeof pipelineCreateTargetFormSchema>
   ) {
@@ -59,6 +68,7 @@ export const PipelineCreateTargetForm = () => {
       const form = new FormData();
 
       form.append("date", values.date.startDate);
+      form.append("user", userDetails?.data.id.toString() as string);
 
       await pipelinesService.createPredictionTarget({
         id: id as string,

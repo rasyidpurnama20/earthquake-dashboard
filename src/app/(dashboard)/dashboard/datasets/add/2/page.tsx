@@ -39,6 +39,8 @@ export default function Step2() {
     enabled: !!token && !!datasetsId,
   });
 
+  if (typeof window === "undefined") return null;
+
   return (
     <div>
       <div className="mb-4 flex flex-col space-y-2">

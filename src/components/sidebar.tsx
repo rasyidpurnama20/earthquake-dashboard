@@ -23,12 +23,24 @@ import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/utils";
 import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
+import { authService } from "@/services";
 
 export function Sidebar() {
   const pathname = usePathname();
   const isActive = (path: string) =>
     path.includes(pathname.split("/")[2] as string);
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
+  const token = session?.user?.accessToken;
+
+  const { data: userDetails, isLoading: isLoadingUserDetails } = useQuery({
+    enabled: !!token,
+    queryKey: ["getUserDetails", token],
+    queryFn: () =>
+      authService.getUserDetail({
+        token: token as string,
+      }),
+  });
 
   return (
     <nav className="fixed flex h-screen w-56 flex-col border-r bg-blue-50">
@@ -75,7 +87,6 @@ export function Sidebar() {
           Homepage
           <IconExternalLink size={20} />
         </Link> */}
-        <Separator className="my-2 w-full" />
         <div className="flex">
           <div className="flex flex-1 items-center gap-4">
             <Avatar className="h-8 w-8">
@@ -84,15 +95,15 @@ export function Sidebar() {
                 src={session?.user?.image as string}
               />
               <AvatarFallback className="h-8 w-8 rounded-full">
-                {session?.user?.name?.substring(0, 1)}
+                {userDetails?.data.username.substring(0, 1)}
               </AvatarFallback>
             </Avatar>
-            {status === "loading" ? (
+            {isLoadingUserDetails ? (
               <Skeleton className="h-6 w-10" />
             ) : (
               <div className="flex w-full flex-col">
                 <span className="w-[100px] truncate text-sm font-medium">
-                  {session?.user?.name}
+                  {userDetails?.data.username}
                 </span>
               </div>
             )}

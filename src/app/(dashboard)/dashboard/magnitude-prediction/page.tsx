@@ -26,6 +26,7 @@ export default function Pipeline() {
       }),
   });
 
+  if (typeof window === "undefined") return null;
   return (
     <div className="relative flex flex-col">
       <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-white p-6">

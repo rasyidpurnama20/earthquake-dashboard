@@ -1,6 +1,8 @@
 "use client";
 
 export default function Dashboard() {
+  if (typeof window === "undefined") return null;
+
   return (
     <div className="flex flex-col">
       <div className="flex h-16 items-center justify-between border-b px-6">

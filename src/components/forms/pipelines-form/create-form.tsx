@@ -22,7 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type * as z from "zod";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { datasetsService, pipelinesService } from "@/services";
+import { authService, datasetsService, pipelinesService } from "@/services";
 import { useSession } from "next-auth/react";
 import { pipelineCreateFormSchema } from "@/lib/validations";
 import { useQuery } from "@tanstack/react-query";
@@ -81,6 +81,14 @@ export const PipelineCreateForm = ({}) => {
         type: "3",
       }),
   });
+  const { data: userDetails } = useQuery({
+    enabled: !!token,
+    queryKey: ["getUserDetails", token],
+    queryFn: () =>
+      authService.getUserDetail({
+        token: token as string,
+      }),
+  });
 
   async function onSubmit(values: z.infer<typeof pipelineCreateFormSchema>) {
     setLoading(true);
@@ -101,6 +109,7 @@ export const PipelineCreateForm = ({}) => {
       form.append("m", values.m);
       form.append("b", values.b);
       form.append("c", values.c);
+      form.append("user", userDetails?.data.id.toString() as string);
 
       await pipelinesService.createPrediction({
         form: form,
@@ -295,21 +304,21 @@ export const PipelineCreateForm = ({}) => {
                     </SelectTrigger>
                     <SelectContent>
                       {form.getValues("cave") === "2" ? (
-                          <>
-                            <SelectItem value="A">A</SelectItem>
-                          </>
-                        ) : form.getValues("cave") === "1" ? (
-                          <>
-                            <SelectItem value="A">AB</SelectItem>
-                            <SelectItem value="C">C</SelectItem>
-                            <SelectItem value="D">D</SelectItem>
-                          </>
-                        ) : (
-                          <>
-                            <span className="text-sm">No Selected Area</span>
-                          </>
-                        )}
-                      </SelectContent>
+                        <>
+                          <SelectItem value="A">A</SelectItem>
+                        </>
+                      ) : form.getValues("cave") === "1" ? (
+                        <>
+                          <SelectItem value="A">AB</SelectItem>
+                          <SelectItem value="C">C</SelectItem>
+                          <SelectItem value="D">D</SelectItem>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-sm">No Selected Area</span>
+                        </>
+                      )}
+                    </SelectContent>
                   </Select>
                 </FormControl>
                 <FormMessage />

@@ -22,7 +22,7 @@ export const authService = {
   },
   async getUserDetail({ token }: { token: string }) {
     const response: AxiosResponse<AuthUserDataResponse> = await axios.get(
-      `/auth/users/me/`,
+      `/auth/me/`,
       {
         headers: {
           Authorization: `Token ${token}`,

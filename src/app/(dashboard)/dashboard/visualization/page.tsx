@@ -119,6 +119,8 @@ export default function FeatureAnalysis() {
     plotDateIsLoading ||
     dataPipelineTargetIsLoading;
 
+  if (typeof window === "undefined") return null;
+
   return (
     <div className="flex flex-col">
       <div className="flex h-16 items-center justify-between border-b p-6">

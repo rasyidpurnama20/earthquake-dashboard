@@ -23,8 +23,9 @@ import type * as z from "zod";
 import { useState } from "react";
 import DropzoneInput from "../../ui/dropzone-input";
 import { useRouter } from "next/navigation";
-import { datasetsService } from "@/services";
+import { authService, datasetsService } from "@/services";
 import { useSession } from "next-auth/react";
+import { useQuery } from "@tanstack/react-query";
 
 export const DatasetsFormStep1 = ({}) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -43,6 +44,15 @@ export const DatasetsFormStep1 = ({}) => {
     },
   });
 
+  const { data: userDetails } = useQuery({
+    enabled: !!token,
+    queryKey: ["getUserDetails", token],
+    queryFn: () =>
+      authService.getUserDetail({
+        token: token as string,
+      }),
+  });
+
   async function onSubmit(values: z.infer<typeof datasetsForm1Schema>) {
     setLoading(true);
 
@@ -59,6 +69,7 @@ export const DatasetsFormStep1 = ({}) => {
       form.append("name", values.name);
       form.append("type", values.type);
       form.append("cave", values.cave);
+      form.append("user", userDetails?.data.id.toString() as string);
 
       const res = await datasetsService.uploadDatasets({
         form: form,
