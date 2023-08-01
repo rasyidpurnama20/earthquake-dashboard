@@ -150,7 +150,7 @@ export default function FeatureAnalysis() {
                   onValueChange={setSelectedPipeline}
                   value={selectedPipeline}
                 >
-                  <SelectTrigger className="w-max truncate">
+                  <SelectTrigger className="w-max gap-1 truncate">
                     <SelectValue
                       placeholder="Select Pipeline"
                       className="truncate"
@@ -285,7 +285,7 @@ export default function FeatureAnalysis() {
         </div>
 
         {typeof window !== "undefined" && (
-          <div className="chart-3d mt-8 flex items-center justify-center rounded-md border p-4">
+          <div className="chart-3d mt-8 flex items-center justify-center rounded-md border-2 p-4">
             {selectedPipeline && selectedDate ? (
               selectedPlot === "area" ? (
                 <div className="flex flex-1 flex-col items-center justify-center">
@@ -310,7 +310,10 @@ export default function FeatureAnalysis() {
                   {plotDateIsLoading ? (
                     <Skeleton className="h-full w-full" />
                   ) : (
-                    <PlotFitur data={plotData?.data} />
+                    <PlotFitur
+                      data={plotData?.data}
+                      selectedFeature={selectedFeature}
+                    />
                   )}
                   {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>

@@ -27,13 +27,24 @@ const CorrLabel = (props: any) => {
           <BarChart width={730} height={250} data={props.data} barGap={0.1}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="index" />
-            <YAxis domain={[-1, 1]} />
+            <YAxis
+              domain={["auto", "auto"]}
+              padding={{ top: 20, bottom: 20 }}
+            />
             <Tooltip />
             <Legend />
-            {/* @ts-expect-error */}
-            <Bar dataKey="topTen" fill="#00FF00" maxBarSize={true} />
-            {/* @ts-expect-error */}
-            <Bar dataKey="botTen" fill="#EE4B2B" maxBarSize={true} />
+            <Bar
+              dataKey="topTen"
+              name="top ten"
+              fill="#00FF00"
+              strokeWidth={3}
+            />
+            <Bar
+              dataKey="botTen"
+              name="bottom ten"
+              fill="#EE4B2B"
+              strokeWidth={3}
+            />
           </BarChart>
         </ResponsiveContainer>
       </div>

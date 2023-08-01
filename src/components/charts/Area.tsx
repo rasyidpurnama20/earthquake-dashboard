@@ -34,21 +34,34 @@ const UncertaintyPlot = (props: any) => {
             }}
           >
             <XAxis dataKey="index" />
-            <YAxis />
+            <YAxis
+              label={{
+                value: "Momen Magnitude",
+                angle: -90,
+                position: "insideLeft",
+              }}
+            />
             <Area
               dataKey="lowerupper"
               stroke="#8884d8"
               fill="#00FFFF"
-              strokeDasharray="5 5"
+              // strokeDasharray="5 5"
             />
-            <Line dataKey="actual" stroke="#FF0000" dot={false} />
             <Line
+              strokeWidth={2}
+              dataKey="actual"
+              stroke="#FF0000"
+              dot={false}
+            />
+            <Line
+              strokeWidth={2}
               dataKey="median"
               stroke="#0000FF"
               dot={false}
-              strokeDasharray="5 5"
+              // strokeDasharray="5 5"
             />
             <Line
+              strokeWidth={2}
               dataKey="threshold"
               stroke="#000000"
               dot={false}

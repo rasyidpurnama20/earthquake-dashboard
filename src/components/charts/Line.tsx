@@ -30,7 +30,14 @@ const PlotFitur = (props: any) => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="data" stroke="#8884d8" dot={false} />
+            <Line
+              name={props.selectedFeature}
+              type="monotone"
+              dataKey="data"
+              stroke="#8884d8"
+              dot={false}
+              strokeWidth={2}
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>

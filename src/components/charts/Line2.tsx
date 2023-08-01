@@ -28,17 +28,22 @@ const PlotRisk = (props: any) => {
             data={props.data}
             margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
           >
-            <XAxis dataKey="index" />
+            <XAxis
+              dataKey="index"
+              label={{ value: "", angle: -90, position: "insideLeft" }}
+            />
             <YAxis />
             <Tooltip />
             <Legend />
             <Line
+              strokeWidth={2}
               type="monotone"
               dataKey="actual"
               stroke="#FF0000"
               dot={false}
             />
             <Line
+              strokeWidth={2}
               type="monotone"
               dataKey="predicted"
               stroke="#8884d8"

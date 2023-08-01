@@ -1,11 +1,7 @@
 .responsive-container {
   width: 100%;
-  height: 200px;
+  height: 600px;
   margin: 0 auto;
-}
-
-.recharts-surface {
-  padding: 16px !important;
 }
 
 .flex-container {
