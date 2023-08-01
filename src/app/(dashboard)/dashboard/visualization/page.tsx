@@ -136,8 +136,11 @@ export default function FeatureAnalysis() {
                   onValueChange={setSelectedPipeline}
                   value={selectedPipeline}
                 >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Select Pipeline" />
+                  <SelectTrigger className="w-[180px] truncate">
+                    <SelectValue
+                      placeholder="Select Pipeline"
+                      className="truncate"
+                    />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
