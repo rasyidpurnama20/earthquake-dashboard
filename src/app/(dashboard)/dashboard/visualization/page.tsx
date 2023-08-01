@@ -34,7 +34,7 @@ export default function FeatureAnalysis() {
     undefined
   );
   const [selectedFeature, setSelectedFeature] = useState<string | undefined>(
-    undefined
+    ""
   );
   const [selectedDate, setSelectedDate] = useState<{
     startDate: string | undefined | Date;
@@ -62,6 +62,10 @@ export default function FeatureAnalysis() {
           id: selectedPipeline as string,
           token: token as string,
         }),
+      onSuccess: (data) => {
+        setSelectedFeature(data?.data?.data[0]);
+        return data;
+      },
     });
 
   const { data: pipelineDate, isLoading: pipelineDateIsLoading } = useQuery({
@@ -179,7 +183,12 @@ export default function FeatureAnalysis() {
                         <SelectGroup>
                           <SelectLabel>Date</SelectLabel>
                           {dataPipelineTargets?.data.results?.map((field) => (
-                            <SelectItem key={field.id} value={field.date}>
+                            <SelectItem
+                              key={field.id}
+                              value={
+                                (field.date as string).split("+")[0] as string
+                              }
+                            >
                               {formatDate(field.date)}
                             </SelectItem>
                           ))}
@@ -229,7 +238,11 @@ export default function FeatureAnalysis() {
                 </Select>
               )}
               {selectedPlot === "feature" && (
-                <Select onValueChange={setSelectedFeature}>
+                <Select
+                  onValueChange={setSelectedFeature}
+                  value={selectedFeature}
+                  defaultValue={pipelineFeatures?.data?.data[0]}
+                >
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Select a feature" />
                   </SelectTrigger>
