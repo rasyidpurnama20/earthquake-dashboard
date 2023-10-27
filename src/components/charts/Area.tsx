@@ -20,7 +20,7 @@ import "@/styles/chart.css";
 const UncertaintyPlot = (props: any) => {
   return (
     <div className="responsive-container">
-      <div className="flex-container">
+      <div className="flex-container custom-margin-legend">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             width={730}
@@ -33,9 +33,18 @@ const UncertaintyPlot = (props: any) => {
               left: 20,
             }}
           >
-            <XAxis dataKey="index" />
+            <XAxis
+              dataKey="index"
+              angle={-45}
+              textAnchor="end"
+              padding="gap"
+              height={90}
+            />
             <YAxis
+              height={60}
               domain={[0, 2]}
+              tickCount={5}
+              ticks={[0, 0.5, 1, 1.5, 2]}
               label={{
                 value: "Momen Magnitude",
                 angle: -90,
@@ -62,7 +71,7 @@ const UncertaintyPlot = (props: any) => {
               // strokeDasharray="5 5"
             />
             <Line
-              name="Threshold (high risk)"
+              name="threshold (high risk)"
               strokeWidth={2}
               dataKey="threshold"
               stroke="#000000"
@@ -70,7 +79,7 @@ const UncertaintyPlot = (props: any) => {
               strokeDasharray="5 5"
             />
             <Tooltip />
-            <Legend />
+            <Legend layout="horizontal" verticalAlign="top" align="center" />
           </ComposedChart>
         </ResponsiveContainer>
       </div>

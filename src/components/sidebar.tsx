@@ -42,7 +42,7 @@ export function Sidebar() {
   });
 
   return (
-    <nav className="fixed flex h-screen w-56 flex-col border-r bg-blue-50">
+    <nav className="fixed flex h-screen w-full max-w-[240px] flex-1 flex-col border-r bg-blue-50">
       <div className="flex h-16 items-center justify-center border-b px-4">
         <Image
           src="/images/lapi-logo.svg"
@@ -87,17 +87,17 @@ export function Sidebar() {
           Homepage
           <IconExternalLink size={20} />
         </Link> */}
-        <div className="flex">
+        <div className="flex gap-2">
           {!userDetails ? (
-            <Skeleton className="mr-2 flex h-10 w-full flex-1 rounded-xl bg-blue-100" />
+            <Skeleton className="flex h-[50px] w-full flex-1 rounded-md bg-blue-100" />
           ) : (
-            <div className="flex flex-1 items-center gap-4">
+            <div className="flex flex-1 items-center gap-3 rounded-md border border-gray-200 bg-white p-2">
               <Avatar className="h-8 w-8">
                 <AvatarImage
                   className="h-8 w-8 rounded-full"
                   src={session?.user?.image as string}
                 />
-                <AvatarFallback className="h-8 w-8 rounded-full bg-blue-500 uppercase text-white">
+                <AvatarFallback className="h-8 w-8 rounded-full bg-sky-500 uppercase text-white">
                   {userDetails?.data.username.substring(0, 1)}
                 </AvatarFallback>
               </Avatar>
@@ -105,7 +105,7 @@ export function Sidebar() {
                 <Skeleton className="h-6 w-10" />
               ) : (
                 <div className="flex w-full flex-col">
-                  <span className="w-[100px] truncate text-sm font-medium">
+                  <span className="w-[80px] truncate text-sm font-medium">
                     {userDetails?.data.username}
                   </span>
                 </div>
@@ -115,7 +115,11 @@ export function Sidebar() {
 
           <AlertDialog>
             <AlertDialogTrigger>
-              <Button size="icon" variant="outline">
+              <Button
+                size="icon"
+                variant="outline"
+                className="aspect-square h-full w-[50px] border-gray-200"
+              >
                 <IconLogout size={20} />
               </Button>
             </AlertDialogTrigger>

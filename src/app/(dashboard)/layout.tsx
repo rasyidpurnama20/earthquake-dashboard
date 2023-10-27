@@ -9,11 +9,11 @@ interface DashboardLayoutProps {
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <div className="flex">
-      <div className="w-56">
+      <div className="flex w-full max-w-[240px] flex-1">
         <Sidebar />
       </div>
 
-      <main className="flex-1">{children}</main>
+      <main className="flex w-full flex-1">{children}</main>
     </div>
   );
 };

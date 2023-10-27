@@ -12,7 +12,7 @@ export default function DashboardContentLayout({
   children,
 }: DashboardContentLayoutProps) {
   return (
-    <div className="flex">
+    <div className="flex w-full">
       <div className="w-full rounded-3xl">{children}</div>
     </div>
   );

@@ -19,7 +19,7 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col">
       <div className="flex h-16 items-center justify-between border-b px-6">
-        <span>Dashboard</span>
+        <span className="font-bold">Playground</span>
       </div>
 
       <div className="flex flex-col gap-4 p-6">

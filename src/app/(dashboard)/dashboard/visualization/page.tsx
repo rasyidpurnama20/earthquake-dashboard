@@ -79,7 +79,7 @@ export default function FeatureAnalysis() {
 
   useEffect(() => {
     setSelectedFeature(pipelineFeatures?.data?.data[0]);
-  }, [pipelineFeatures]);
+  }, [pipelineFeatures, selectedPipeline]);
 
   useEffect(() => {
     setSelectedDate({
@@ -87,7 +87,7 @@ export default function FeatureAnalysis() {
         pipelineDate?.data?.data?.[pipelineDate?.data?.data?.length - 1],
       endDate: pipelineDate?.data?.data?.[pipelineDate?.data?.data?.length - 1],
     });
-  }, [pipelineDate]);
+  }, [pipelineDate, selectedPipeline]);
 
   const { data: plotData, isLoading: plotDateIsLoading } = useQuery({
     enabled: !!token && !!selectedPipeline && !!selectedPlot && !!selectedDate,
@@ -137,9 +137,9 @@ export default function FeatureAnalysis() {
   if (typeof window === "undefined") return null;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full flex-col">
       <div className="flex h-16 items-center justify-between border-b p-6">
-        <span>Visualization</span>
+        <span className="font-bold">Visualization</span>
       </div>
 
       <div className="p-6">

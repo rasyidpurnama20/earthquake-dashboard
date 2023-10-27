@@ -4,7 +4,9 @@ import {
   Button,
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
+  CardTitle,
   Form,
   FormControl,
   FormField,
@@ -68,7 +70,7 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-2/5">
+    <Card className="w-full max-w-sm rounded-xl">
       <CardHeader className="flex flex-col gap-4">
         {/* <Link href="/">
           <Button
@@ -78,7 +80,7 @@ export function LoginForm() {
             <IconArrowLeft size={20} /> Back to home
           </Button>
         </Link> */}
-        <div>
+        <div className="flex justify-center">
           <Image
             src="/images/lapi-logo.svg"
             width={200}
@@ -86,7 +88,12 @@ export function LoginForm() {
             alt="Lapi Logo"
           />
         </div>
-        <span className="text-xl font-bold">Login</span>
+        <div className="flex flex-col gap-2">
+          <CardTitle className="text-xl font-bold">Login</CardTitle>
+          <CardDescription>
+            Please enter your credential details
+          </CardDescription>
+        </div>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -129,7 +136,7 @@ export function LoginForm() {
                 )}
               />
             </div>
-            <Button loading={loading} type="submit">
+            <Button loading={loading} type="submit" className="w-full">
               Login
             </Button>
           </form>

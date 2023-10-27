@@ -74,6 +74,7 @@
     "sonner": "^1.0.3",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
+    "tailwindcss-bg-patterns": "^0.2.0",
     "zod": "^3.22.4",
     "zod-form-data": "^2.0.2"
   },

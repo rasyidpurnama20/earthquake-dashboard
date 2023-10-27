@@ -73,7 +73,7 @@ export default function Datasets() {
   return (
     <div className="relative flex flex-col">
       <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-white p-6">
-        <span>Datasets</span>
+        <span className="font-bold">Datasets</span>
 
         <div className="flex items-center gap-2">
           <Link href="/dashboard/datasets/add/1">
