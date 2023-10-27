@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui";
 import { cn } from "@/utils";
-import { enableReactComponents } from "@legendapp/state/config/enableReactComponents";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,8 +9,6 @@ import { usePathname } from "next/navigation";
 type AddDatasetsLayoutProps = {
   children: React.ReactNode;
 };
-
-enableReactComponents();
 
 export const AddDatasetsLayout = ({ children }: AddDatasetsLayoutProps) => {
   const pathname = usePathname();
