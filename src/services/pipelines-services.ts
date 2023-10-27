@@ -5,7 +5,7 @@ import {
   type CreatePipelinesResponse,
   type PipelinesResponse,
   type Pipeline,
-  AreaPlotResponse,
+  type AreaPlotResponse,
 } from "@/lib/dto";
 import { type AxiosResponse } from "axios";
 

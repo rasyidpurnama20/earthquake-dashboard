@@ -74,7 +74,7 @@ export default function PipelineTarget({ params }: { params: { id: string } }) {
             // @ts-ignore
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             columns={pipelinesTargetColumns}
-            data={dataPipelineTargets?.data?.results}
+            data={dataPipelineTargets ? dataPipelineTargets?.data?.results : []}
           />
         )}
       </div>

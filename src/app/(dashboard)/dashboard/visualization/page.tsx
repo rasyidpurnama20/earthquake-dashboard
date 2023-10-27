@@ -25,7 +25,7 @@ import PlotUncertainty from "@/components/charts/Area";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import Datepicker from "react-tailwindcss-datepicker";
 import { formatDate } from "@/utils";
-import { Pipeline } from "@/lib/dto";
+import { type Pipeline } from "@/lib/dto";
 
 export default function FeatureAnalysis() {
   const { data: sessionData } = useSession();

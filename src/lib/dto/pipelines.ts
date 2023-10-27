@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Dataset } from "./datasets";
+import { type Dataset } from "./datasets";
 export type PipelinesResponse = {
   count: number;
   next?: any;

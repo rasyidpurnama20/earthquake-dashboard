@@ -54,7 +54,7 @@ export default function Pipeline() {
             // @ts-ignore
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             columns={pipelinesColumns}
-            data={dataPipelines?.data?.results}
+            data={dataPipelines ? dataPipelines?.data?.results : []}
           />
         )}
       </div>

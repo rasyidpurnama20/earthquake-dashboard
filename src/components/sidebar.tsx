@@ -1,14 +1,13 @@
 "use client";
 
 import { DashboardConfig } from "@/configs";
-import { IconExternalLink, IconLogout } from "@tabler/icons-react";
+import { IconLogout } from "@tabler/icons-react";
 import Link from "next/link";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
   Button,
-  Separator,
   Skeleton,
   AlertDialog,
   AlertDialogAction,
@@ -67,7 +66,7 @@ export function Sidebar() {
                 className={cn(
                   isActive(subItem.path) &&
                     "!bg-brand-700 !font-medium !text-white",
-                  "flex cursor-pointer items-center gap-3 rounded-md p-2"
+                  "flex cursor-pointer items-center gap-3 rounded-md p-2",
                 )}
               >
                 {subItem.icon}

@@ -121,7 +121,7 @@ export default function Datasets() {
               // @ts-ignore
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               columns={datasetsColumns}
-              data={dataMucking?.data?.results}
+              data={dataMucking ? dataMucking?.data?.results : []}
             />
           )}
         </div>
@@ -145,7 +145,7 @@ export default function Datasets() {
               // @ts-ignore
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               columns={datasetsColumns}
-              data={dataBlasting?.data?.results}
+              data={dataBlasting ? dataBlasting?.data?.results : []}
             />
           )}
         </div>
@@ -169,7 +169,7 @@ export default function Datasets() {
               // @ts-ignore
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               columns={datasetsColumns}
-              data={dataCatalog?.data?.results}
+              data={dataCatalog ? dataCatalog?.data?.results : []}
             />
           )}
         </div>
