@@ -61,8 +61,6 @@ export function LoginForm() {
           message: "Username or password is wrong",
         });
       }
-
-      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error(error);

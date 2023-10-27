@@ -16,7 +16,7 @@ import {
 import { pipelinesService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlotlyComponent from "@/components/charts/AreaChart2";
 import PlotFitur from "@/components/charts/Line";
 import CorrLabel from "@/components/charts/Bar";
@@ -31,13 +31,13 @@ export default function FeatureAnalysis() {
   const { data: sessionData } = useSession();
   const token = sessionData?.user?.accessToken;
   const [selectedPlot, setSelectedPlot] = useState<string | undefined>(
-    "uncertainty"
+    "uncertainty",
   );
   const [selectedPipeline, setSelectedPipeline] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const [selectedFeature, setSelectedFeature] = useState<string | undefined>(
-    ""
+    "",
   );
   const [selectedDate, setSelectedDate] = useState<{
     startDate: string | undefined | Date;
@@ -65,10 +65,6 @@ export default function FeatureAnalysis() {
           id: selectedPipeline as string,
           token: token as string,
         }),
-      onSuccess: (data) => {
-        setSelectedFeature(data?.data?.data[0]);
-        return data;
-      },
     });
 
   const { data: pipelineDate, isLoading: pipelineDateIsLoading } = useQuery({
@@ -79,14 +75,19 @@ export default function FeatureAnalysis() {
         id: selectedPipeline as string,
         token: token as string,
       }),
-    onSuccess: (data) => {
-      setSelectedDate({
-        startDate: data?.data?.data?.[data?.data?.data?.length - 1],
-        endDate: data?.data?.data?.[data?.data?.data?.length - 1],
-      });
-      return data;
-    },
   });
+
+  useEffect(() => {
+    setSelectedFeature(pipelineFeatures?.data?.data[0]);
+  }, [pipelineFeatures]);
+
+  useEffect(() => {
+    setSelectedDate({
+      startDate:
+        pipelineDate?.data?.data?.[pipelineDate?.data?.data?.length - 1],
+      endDate: pipelineDate?.data?.data?.[pipelineDate?.data?.data?.length - 1],
+    });
+  }, [pipelineDate]);
 
   const { data: plotData, isLoading: plotDateIsLoading } = useQuery({
     enabled: !!token && !!selectedPipeline && !!selectedPlot && !!selectedDate,
@@ -121,7 +122,7 @@ export default function FeatureAnalysis() {
 
   const filterSelectedPipeline = () => {
     const data = dataPipelines?.data?.results?.filter(
-      (pipeline: Pipeline) => pipeline.id === Number(selectedPipeline)
+      (pipeline: Pipeline) => pipeline.id === Number(selectedPipeline),
     );
     return data?.[0] as Pipeline;
   };
@@ -214,7 +215,7 @@ export default function FeatureAnalysis() {
                           new Date(
                             pipelineDate?.data?.data?.[
                               pipelineDate?.data?.data?.length - 1
-                            ]
+                            ],
                           )
                         }
                         useRange={false}
@@ -285,7 +286,7 @@ export default function FeatureAnalysis() {
         </div>
 
         {typeof window !== "undefined" && (
-          <div className="chart-3d mt-8 flex items-center justify-center rounded-md border-2 p-4">
+          <div className="mt-4 flex items-center justify-center rounded-md border-2 p-4">
             {selectedPipeline && selectedDate ? (
               selectedPlot === "area" ? (
                 <div className="flex flex-1 flex-col items-center justify-center">

@@ -35,6 +35,7 @@ const UncertaintyPlot = (props: any) => {
           >
             <XAxis dataKey="index" />
             <YAxis
+              domain={[0, 2]}
               label={{
                 value: "Momen Magnitude",
                 angle: -90,
@@ -61,6 +62,7 @@ const UncertaintyPlot = (props: any) => {
               // strokeDasharray="5 5"
             />
             <Line
+              name="Threshold (high risk)"
               strokeWidth={2}
               dataKey="threshold"
               stroke="#000000"
