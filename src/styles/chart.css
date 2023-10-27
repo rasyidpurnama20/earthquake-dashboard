@@ -2,6 +2,7 @@
   width: 100%;
   height: 600px;
   margin: 0 auto;
+  font-size: 18px !important;
 }
 
 .flex-container {
