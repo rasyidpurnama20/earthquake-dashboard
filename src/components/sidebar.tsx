@@ -88,26 +88,30 @@ export function Sidebar() {
           <IconExternalLink size={20} />
         </Link> */}
         <div className="flex">
-          <div className="flex flex-1 items-center gap-4">
-            <Avatar className="h-8 w-8">
-              <AvatarImage
-                className="h-8 w-8 rounded-full"
-                src={session?.user?.image as string}
-              />
-              <AvatarFallback className="h-8 w-8 rounded-full">
-                {userDetails?.data.username.substring(0, 1)}
-              </AvatarFallback>
-            </Avatar>
-            {isLoadingUserDetails ? (
-              <Skeleton className="h-6 w-10" />
-            ) : (
-              <div className="flex w-full flex-col">
-                <span className="w-[100px] truncate text-sm font-medium">
-                  {userDetails?.data.username}
-                </span>
-              </div>
-            )}
-          </div>
+          {!userDetails ? (
+            <Skeleton className="mr-2 flex h-10 w-full flex-1 rounded-xl bg-blue-100" />
+          ) : (
+            <div className="flex flex-1 items-center gap-4">
+              <Avatar className="h-8 w-8">
+                <AvatarImage
+                  className="h-8 w-8 rounded-full"
+                  src={session?.user?.image as string}
+                />
+                <AvatarFallback className="h-8 w-8 rounded-full bg-blue-500 uppercase text-white">
+                  {userDetails?.data.username.substring(0, 1)}
+                </AvatarFallback>
+              </Avatar>
+              {isLoadingUserDetails ? (
+                <Skeleton className="h-6 w-10" />
+              ) : (
+                <div className="flex w-full flex-col">
+                  <span className="w-[100px] truncate text-sm font-medium">
+                    {userDetails?.data.username}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
 
           <AlertDialog>
             <AlertDialogTrigger>
