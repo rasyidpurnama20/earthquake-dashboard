@@ -54,6 +54,7 @@ export function LoginForm() {
       if (!res?.error) {
         router.push(callbackUrl);
       } else {
+        setLoading(false);
         form.setError("username", {
           type: "manual",
           message: "Username or password is wrong",
@@ -66,6 +67,8 @@ export function LoginForm() {
     } catch (error) {
       setLoading(false);
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
 

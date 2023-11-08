@@ -353,7 +353,13 @@ export default function FeatureAnalysis() {
                   {plotDateIsLoading ? (
                     <Skeleton className="h-full w-full" />
                   ) : (
-                    <PlotUncertainty data={plotData?.data} />
+                    <PlotUncertainty
+                      data={plotData?.data}
+                      title={`${filterSelectedPipeline().name}-${
+                        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                        selectedDate.startDate
+                      }`}
+                    />
                   )}
                   {/* <div className="chart-legend">
                   <span>Series (Color): </span> <span className="bhn">o C</span>

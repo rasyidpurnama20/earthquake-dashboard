@@ -15,12 +15,13 @@ export const pipelinesService = {
       `/pipelines/`,
       {
         params: {
-          per_page: 100,
+          // per_page: 100,
+          page: 2,
         },
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -50,7 +51,7 @@ export const pipelinesService = {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -66,7 +67,7 @@ export const pipelinesService = {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -82,7 +83,7 @@ export const pipelinesService = {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -98,7 +99,7 @@ export const pipelinesService = {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -118,7 +119,7 @@ export const pipelinesService = {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -132,7 +133,7 @@ export const pipelinesService = {
           "Content-Type": "multipart/form-data",
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -154,7 +155,7 @@ export const pipelinesService = {
           "Content-Type": "multipart/form-data",
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -166,7 +167,7 @@ export const pipelinesService = {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -184,7 +185,7 @@ export const pipelinesService = {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -196,7 +197,7 @@ export const pipelinesService = {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;

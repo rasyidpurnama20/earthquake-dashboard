@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React from "react";
+import React, { useCallback } from "react";
 import {
   Area,
   ComposedChart,
@@ -16,16 +16,30 @@ import {
 } from "recharts";
 
 import "@/styles/chart.css";
+import { useCurrentPng } from "recharts-to-png";
+import FileSaver from "file-saver";
+import { Button } from "../ui";
 
 const UncertaintyPlot = (props: any) => {
+  const [getPng, { ref, isLoading }] = useCurrentPng();
+
+  const handleDownload = useCallback(async () => {
+    const png = await getPng();
+
+    if (png) {
+      FileSaver.saveAs(png, `${props.title}.png`);
+    }
+  }, [getPng, props.title]);
+
   return (
-    <div className="responsive-container">
-      <div className="flex-container custom-margin-legend">
+    <div className="responsive-container flex flex-col">
+      <div className="flex-container custom-margin-legend ">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             width={730}
             height={250}
             data={props.data}
+            ref={ref}
             margin={{
               top: 20,
               right: 20,
@@ -83,6 +97,10 @@ const UncertaintyPlot = (props: any) => {
           </ComposedChart>
         </ResponsiveContainer>
       </div>
+      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+      <Button onClick={handleDownload} className="mt-4 w-max">
+        {isLoading ? "Downloading..." : "Download"}
+      </Button>
     </div>
   );
 };
