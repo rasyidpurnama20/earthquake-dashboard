@@ -22,14 +22,13 @@ export const datasetsService = {
       `/datasets/`,
       {
         params: {
-          per_page: 100,
           cave,
           type,
         },
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -41,7 +40,7 @@ export const datasetsService = {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -50,13 +49,10 @@ export const datasetsService = {
     const response: AxiosResponse<ViewDatasetsResponse> = await axios.get(
       `/datasets/${id}/view/`,
       {
-        params: {
-          per_page: 100,
-        },
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -68,7 +64,7 @@ export const datasetsService = {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -82,7 +78,7 @@ export const datasetsService = {
           "Content-Type": "multipart/form-data",
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
@@ -104,12 +100,12 @@ export const datasetsService = {
           "Content-Type": "multipart/form-data",
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;
   },
-  
+
   async getRangeUpdateData({ token, id }: { token: string; id: string }) {
     const response: AxiosResponse<RangeUpdateDataResponse> = await axios.get(
       `/datasets/${id}/history-range-date/`,
@@ -117,7 +113,7 @@ export const datasetsService = {
         headers: {
           Authorization: `Token ${token}`,
         },
-      }
+      },
     );
 
     return response;

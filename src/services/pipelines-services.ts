@@ -14,10 +14,6 @@ export const pipelinesService = {
     const response: AxiosResponse<PipelinesResponse> = await axios.get(
       `/pipelines/`,
       {
-        params: {
-          // per_page: 100,
-          page: 2,
-        },
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -61,9 +57,6 @@ export const pipelinesService = {
     const response: AxiosResponse<any> = await axios.get(
       `/pipelines/${id}/get-features/`,
       {
-        params: {
-          per_page: 100,
-        },
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -77,9 +70,6 @@ export const pipelinesService = {
     const response: AxiosResponse<any> = await axios.get(
       `/pipelines/${id}/get-date/`,
       {
-        params: {
-          per_page: 100,
-        },
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -93,9 +83,6 @@ export const pipelinesService = {
     const response: AxiosResponse<TargetPipelinesResponse> = await axios.get(
       `/pipelines/${id}/target/`,
       {
-        params: {
-          per_page: 100,
-        },
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -206,9 +193,6 @@ export const pipelinesService = {
   //   const response: AxiosResponse<ViewPipelinesResponse> = await axios.get(
   //     `/pipelines/${id}/view/`,
   //     {
-  //       params: {
-  //         per_page: 100,
-  //       },
   //       headers: {
   //         Authorization: `Token ${token}`,
   //       },
