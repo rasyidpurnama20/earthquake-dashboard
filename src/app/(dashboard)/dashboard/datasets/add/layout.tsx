@@ -10,7 +10,7 @@ type AddDatasetsLayoutProps = {
   children: React.ReactNode;
 };
 
-export const AddDatasetsLayout = ({ children }: AddDatasetsLayoutProps) => {
+const AddDatasetsLayout = ({ children }: AddDatasetsLayoutProps) => {
   const pathname = usePathname();
   const currentStep = pathname.split("/")[4];
 
