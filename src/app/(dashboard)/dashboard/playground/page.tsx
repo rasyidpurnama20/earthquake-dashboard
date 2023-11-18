@@ -23,6 +23,15 @@ export default function Dashboard() {
       </div>
 
       <div className="flex flex-col gap-4 p-6">
+        <div>
+          <iframe
+            src="https://kitware.github.io/glance/app/?name=diskout.vtp&url=https://data.kitware.com/api/v1/item/59de9de58d777f31ac641dc5/download"
+            className="h-screen w-full border-none"
+            allowFullScreen
+            loading="lazy"
+          ></iframe>
+        </div>
+
         <div className="grid grid-cols-3 gap-4">
           <div className="grid w-full items-center gap-1.5">
             <Label htmlFor="catalog">Catalog</Label>
