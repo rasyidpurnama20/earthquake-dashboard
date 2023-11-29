@@ -3,6 +3,7 @@ import {
   IconBrandAppleArcade,
   IconChartAreaLine,
   IconDatabase,
+  IconReportAnalytics,
 } from "@tabler/icons-react";
 
 export const DashboardConfig = [
@@ -34,6 +35,11 @@ export const DashboardConfig = [
         title: "Visualization",
         path: "/dashboard/visualization",
         icon: <IconChartAreaLine size={20} stroke={1.5} />,
+      },
+      {
+        title: "Reports",
+        path: "/dashboard/reports",
+        icon: <IconReportAnalytics size={20} stroke={1.5} />,
       },
     ],
   },
