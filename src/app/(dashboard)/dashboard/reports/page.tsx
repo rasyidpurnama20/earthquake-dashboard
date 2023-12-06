@@ -57,6 +57,29 @@ export default function Dashboard() {
                 </Link>
               </TableCell>
             </TableRow>
+
+            <TableRow>
+              <TableCell className="font-medium">GBC Weekly Report</TableCell>
+              <TableCell>2023-12-05</TableCell>
+              <TableCell>
+                <Link href="#" target="_blank">
+                  <Button variant="outline" size="sm" disabled>
+                    tbc
+                  </Button>
+                </Link>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">DMLZ Weekly Report</TableCell>
+              <TableCell>2023-12-05</TableCell>
+              <TableCell>
+                <Link href="#" target="_blank">
+                  <Button variant="outline" size="sm" disabled>
+                    tbc
+                  </Button>
+                </Link>
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </div>
