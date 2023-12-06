@@ -62,9 +62,12 @@ export default function Dashboard() {
               <TableCell className="font-medium">GBC Weekly Report</TableCell>
               <TableCell>2023-12-05</TableCell>
               <TableCell>
-                <Link href="#" target="_blank">
-                  <Button variant="outline" size="sm" disabled>
-                    tbc
+                <Link
+                  href="https://drive.google.com/file/d/1DOuEczVp4ADRn_FRPwttud-ZuaZNCQPl"
+                  target="_blank"
+                >
+                  <Button variant="outline" size="sm">
+                    Download
                   </Button>
                 </Link>
               </TableCell>
@@ -73,9 +76,12 @@ export default function Dashboard() {
               <TableCell className="font-medium">DMLZ Weekly Report</TableCell>
               <TableCell>2023-12-05</TableCell>
               <TableCell>
-                <Link href="#" target="_blank">
-                  <Button variant="outline" size="sm" disabled>
-                    tbc
+                <Link
+                  href="https://drive.google.com/file/d/1maLqXaDVKbknv9mj-LbUVoUrGbQv7l_1"
+                  target="_blank"
+                >
+                  <Button variant="outline" size="sm">
+                    Download
                   </Button>
                 </Link>
               </TableCell>
