@@ -15,6 +15,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)"],
+        heading: ["var(--font-space)"],
+      },
       colors: {
         brand: {
           100: "#C8D9DF",

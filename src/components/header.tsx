@@ -12,7 +12,7 @@ export function Header() {
   const { data: session, status } = useSession();
 
   return (
-    <div className="container mx-auto flex items-center justify-between py-4">
+    <div className="container mx-auto flex items-center justify-between p-8 py-4">
       <div>
         <Image
           src="/images/lapi-logo.svg"
@@ -30,7 +30,7 @@ export function Header() {
               onClick={() => router.push(item.path)}
               className={cn(
                 item.path === pathname ? "font-bold" : "font-normal",
-                "cursor-pointer px-2 py-2"
+                "cursor-pointer px-2 py-2",
               )}
             >
               {item.title}

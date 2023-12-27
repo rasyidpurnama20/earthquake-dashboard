@@ -11,7 +11,7 @@ export default function Login() {
         <LoginForm />
 
         <span className="rounded-md border bg-white px-2 py-1 text-xs text-gray-300 shadow-sm">
-          versi 1.1
+          versi 1.2
         </span>
       </div>
 

@@ -24,6 +24,7 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
+import { IconLoader2 } from "@tabler/icons-react";
 
 export function LoginForm() {
   const router = useRouter();
@@ -139,7 +140,8 @@ export function LoginForm() {
                 )}
               />
             </div>
-            <Button loading={loading} type="submit" className="w-full">
+            <Button type="submit" className="bg-brand-500 w-full" disabled={loading}>
+            {loading && <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />}
               Login
             </Button>
           </form>

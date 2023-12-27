@@ -39,15 +39,17 @@ export default function PipelineTarget({ params }: { params: { id: string } }) {
 
   if (typeof window === "undefined") return null;
   return (
-    <div className="relative flex flex-col">
-      <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-white p-6">
+    <div className="relative flex flex-col space-y-3 p-4 pl-0">
+      <div className="sticky top-4 z-10 flex h-16 items-center justify-between rounded-lg border bg-white/50 p-6 pr-4 backdrop-blur-2xl transition-all duration-150 ease-in-out">
         <div className="flex items-center gap-4">
           <Link href="/dashboard/magnitude-prediction">
             <Button size="sm" className="flex gap-2" variant="outline">
               <IconArrowLeft size={16} /> Back to Prediction List
             </Button>
           </Link>
-          <span>Target Prediction - {detailPipeline?.data.name} </span>
+          <span className="font-heading font-medium">
+            Target Prediction - {detailPipeline?.data.name}{" "}
+          </span>
         </div>
 
         <div className="flex items-center gap-2">
@@ -61,7 +63,7 @@ export default function PipelineTarget({ params }: { params: { id: string } }) {
         </div>
       </div>
 
-      <div className="flex flex-col flex-wrap space-y-4 p-6">
+      <div className="flex flex-col flex-wrap space-y-4 rounded-lg border p-6">
         {isLoadingPipelineTargets ? (
           <Skeleton className="h-12 w-full" />
         ) : isErrorPipelineTargets ? (

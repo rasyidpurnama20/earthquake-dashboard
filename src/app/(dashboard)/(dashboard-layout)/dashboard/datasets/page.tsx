@@ -71,9 +71,9 @@ export default function Datasets() {
   if (typeof window === "undefined") return null;
 
   return (
-    <div className="relative flex flex-col">
-      <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-white p-6">
-        <span className="font-bold">Datasets</span>
+    <div className="relative flex flex-col space-y-3 p-4 pl-0">
+      <div className="sticky top-4 z-10 flex h-16 items-center justify-between rounded-lg border bg-white/50 p-6 pr-4 backdrop-blur-2xl transition-all duration-150 ease-in-out">
+        <span className="font-heading text-xl font-medium">Datasets</span>
 
         <div className="flex items-center gap-2">
           <Link href="/dashboard/datasets/add/1">
@@ -88,7 +88,7 @@ export default function Datasets() {
         </div>
       </div>
 
-      <div className="flex flex-col flex-wrap space-y-4 p-6">
+      <div className="flex flex-col flex-wrap space-y-4 rounded-lg border p-6">
         <div>
           <Select onValueChange={setCave} value={cave}>
             <SelectTrigger className="w-[180px]">
@@ -111,7 +111,7 @@ export default function Datasets() {
           {isLoadingMucking ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorMucking ? (
-            <div className="flex h-12 w-full rounded-md border p-4 text-destructive">
+            <div className="text-destructive flex h-12 w-full rounded-md border p-4">
               <IconAlertTriangle size={20} stroke={1.5} />
               <p className="text-sm">Error</p>
             </div>
@@ -135,7 +135,7 @@ export default function Datasets() {
           {isLoadingBlasting ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorBlasting ? (
-            <div className="flex h-12 w-full rounded-md border p-4 text-destructive">
+            <div className="text-destructive flex h-12 w-full rounded-md border p-4">
               <IconAlertTriangle size={20} stroke={1.5} />
               <p className="text-sm">Error</p>
             </div>
@@ -159,7 +159,7 @@ export default function Datasets() {
           {isLoadingCatalog ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorCatalog ? (
-            <div className="flex h-12 w-full rounded-md border p-4 text-destructive">
+            <div className="text-destructive flex h-12 w-full rounded-md border p-4">
               <IconAlertTriangle size={20} stroke={1.5} />
               <p className="text-sm">Error</p>
             </div>

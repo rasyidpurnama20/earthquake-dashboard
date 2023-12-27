@@ -39,6 +39,7 @@ import {
   type Pipeline,
   type PipelineTarget,
 } from "@/lib/dto";
+import { ScrollArea } from "../ui";
 
 type TableProps<T> = {
   data: T[];
@@ -139,7 +140,7 @@ export function DataTable({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <ScrollArea className="h-96 rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -188,7 +189,8 @@ export function DataTable({
             )}
           </TableBody>
         </Table>
-      </div>
+      </ScrollArea>
+
       {/* <div className="flex items-center justify-end space-x-2 py-4">
         <div className="space-x-2">
           <Button

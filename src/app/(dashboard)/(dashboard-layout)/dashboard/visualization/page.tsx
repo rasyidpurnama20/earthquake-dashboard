@@ -137,12 +137,12 @@ export default function FeatureAnalysis() {
   if (typeof window === "undefined") return null;
 
   return (
-    <div className="flex w-full flex-col">
-      <div className="flex h-16 items-center justify-between border-b p-6">
-        <span className="font-bold">Visualization</span>
+    <div className="flex w-full flex-col space-y-3 p-4 pl-0">
+      <div className="sticky top-4 z-10 flex h-16 items-center justify-between rounded-lg border bg-white/50 p-6 pr-4 backdrop-blur-2xl transition-all duration-150 ease-in-out">
+        <span className="font-heading text-xl font-medium">Visualization</span>
       </div>
 
-      <div className="p-6">
+      <div className="flex flex-col flex-wrap space-y-4 rounded-lg border p-6">
         <div className="plot-title" id="3D">
           <div className="flex justify-between">
             <div className="flex gap-4">
@@ -158,17 +158,19 @@ export default function FeatureAnalysis() {
                     />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Pipeline</SelectLabel>
-                      {dataPipelines?.data?.results?.map((pipeline) => (
-                        <SelectItem
-                          key={pipeline.id}
-                          value={pipeline.id.toString()}
-                        >
-                          {pipeline.name}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
+                    <ScrollArea className="max-h-[300px]">
+                      <SelectGroup>
+                        <SelectLabel>Pipeline</SelectLabel>
+                        {dataPipelines?.data?.results?.map((pipeline) => (
+                          <SelectItem
+                            key={pipeline.id}
+                            value={pipeline.id.toString()}
+                          >
+                            {pipeline.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </ScrollArea>
                   </SelectContent>
                 </Select>
               ) : (
@@ -286,7 +288,7 @@ export default function FeatureAnalysis() {
         </div>
 
         {typeof window !== "undefined" && (
-          <div className="mt-4 flex items-center justify-center rounded-md border-2 p-4">
+          <div className="mt-4 flex items-center justify-center rounded-md border p-4">
             {selectedPipeline && selectedDate ? (
               selectedPlot === "area" ? (
                 <div className="flex flex-1 flex-col items-center justify-center">
@@ -376,8 +378,7 @@ export default function FeatureAnalysis() {
           </div>
         )}
 
-        <div>
-          {/* <ResponsiveContainer width="100%" height="100%">
+        {/* <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={plotData?.data?.data}
               margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
@@ -394,7 +395,6 @@ export default function FeatureAnalysis() {
               />
             </LineChart>
           </ResponsiveContainer> */}
-        </div>
       </div>
     </div>
   );

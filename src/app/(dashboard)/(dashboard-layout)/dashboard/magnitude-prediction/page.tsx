@@ -28,9 +28,11 @@ export default function Pipeline() {
 
   if (typeof window === "undefined") return null;
   return (
-    <div className="relative flex flex-col">
-      <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-white p-6">
-        <span className="font-bold">Magnitude Prediction</span>
+    <div className="relative flex flex-col space-y-3 p-4 pl-0">
+      <div className="sticky top-4 z-10 flex h-16 items-center justify-between rounded-lg border bg-white/50 p-6 pr-4 backdrop-blur-2xl transition-all duration-150 ease-in-out">
+        <span className="font-heading text-xl font-medium">
+          Magnitude Prediction
+        </span>
 
         <div className="flex items-center gap-2">
           <Link href="/dashboard/magnitude-prediction/create">
@@ -41,7 +43,7 @@ export default function Pipeline() {
         </div>
       </div>
 
-      <div className="flex flex-col flex-wrap space-y-4 p-6">
+      <div className="flex flex-col flex-wrap space-y-4 rounded-lg border p-6">
         {isLoadingPipelines ? (
           <Skeleton className="h-12 w-full" />
         ) : isErrorPipelines ? (

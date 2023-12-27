@@ -17,16 +17,16 @@ const exampleData = {
 export default function Dashboard() {
   if (typeof window === "undefined") return null;
   return (
-    <div className="flex flex-col">
-      <div className="flex h-16 items-center justify-between border-b px-6">
-        <span className="font-bold">Playground</span>
+    <div className="flex flex-col space-y-3 p-4 pl-0">
+      <div className="sticky top-4 z-10 flex h-16 items-center justify-between rounded-lg border bg-white/50 p-6 pr-4 backdrop-blur-2xl transition-all duration-150 ease-in-out">
+        <span className="font-heading text-xl font-medium">Playground</span>
       </div>
 
-      <div className="flex flex-col gap-4 p-6">
+      <div className="flex flex-col flex-wrap space-y-4 rounded-lg border p-6">
         <div>
           <iframe
             src="https://kitware.github.io/glance/app/?name=diskout.vtp&url=https://data.kitware.com/api/v1/item/59de9de58d777f31ac641dc5/download"
-            className="h-screen w-full border-none"
+            className="h-screen w-full rounded-lg border"
             allowFullScreen
             loading="lazy"
           ></iframe>

@@ -42,8 +42,8 @@ export function Sidebar() {
   });
 
   return (
-    <nav className="fixed flex h-screen w-full max-w-[240px] flex-1 flex-col border-r bg-blue-50">
-      <div className="flex h-16 items-center justify-center border-b px-4">
+    <nav className="fixed flex h-full w-full max-w-[272px] flex-1 flex-col space-y-3 p-4">
+      <div className="flex h-16 items-center justify-center rounded-lg border bg-white px-4 py-3">
         <Image
           src="/images/lapi-logo.svg"
           width={200}
@@ -52,11 +52,13 @@ export function Sidebar() {
         />
       </div>
 
-      <div className="flex flex-1 flex-col space-y-4 p-4">
+      <div className="flex h-full w-full flex-col space-y-4 rounded-lg bg-blue-50 p-4">
         {DashboardConfig.map((item) => (
           <div key={item.title}>
             <div key={item.title} className="mb-2 flex flex-col gap-2">
-              <span className="text-xs font-medium">{item.title}</span>
+              <span className="font-heading text-sm font-medium">
+                {item.title}
+              </span>
             </div>
 
             {item.subMenu.map((subItem) => (
@@ -64,9 +66,8 @@ export function Sidebar() {
                 href={subItem.path}
                 key={subItem.title}
                 className={cn(
-                  isActive(subItem.path) &&
-                    "!bg-brand-700 !font-medium !text-white",
-                  "flex cursor-pointer items-center gap-3 rounded-md p-2",
+                  isActive(subItem.path) && "!bg-brand-500 !text-white",
+                  "flex cursor-pointer items-center gap-3 rounded-md p-2 text-sm text-gray-500 transition-all duration-150 ease-in-out hover:bg-blue-100",
                 )}
               >
                 {subItem.icon}
@@ -77,7 +78,7 @@ export function Sidebar() {
         ))}
       </div>
 
-      <div className="flex flex-col p-4">
+      <div className="flex flex-col rounded-lg border p-4">
         {/* <Link
           href={"/"}
           className={
@@ -89,15 +90,15 @@ export function Sidebar() {
         </Link> */}
         <div className="flex gap-2">
           {!userDetails ? (
-            <Skeleton className="flex h-[50px] w-full flex-1 rounded-md bg-blue-100" />
+            <Skeleton className="flex h-[38px] w-full flex-1 rounded-md bg-blue-100" />
           ) : (
-            <div className="flex flex-1 items-center gap-3 rounded-md border border-gray-200 bg-white p-2">
-              <Avatar className="h-8 w-8">
+            <div className="flex flex-1 items-center gap-3 rounded-md">
+              <Avatar className="bg-brand-500 h-8 w-8">
                 <AvatarImage
                   className="h-8 w-8 rounded-full"
                   src={session?.user?.image as string}
                 />
-                <AvatarFallback className="h-8 w-8 rounded-full bg-sky-500 uppercase text-white">
+                <AvatarFallback className="bg-brand-5 h-8 w-8 rounded-full uppercase text-white">
                   {userDetails?.data.username.substring(0, 1)}
                 </AvatarFallback>
               </Avatar>
@@ -116,9 +117,9 @@ export function Sidebar() {
           <AlertDialog>
             <AlertDialogTrigger>
               <Button
-                size="icon"
                 variant="outline"
-                className="aspect-square h-full w-[50px] border-gray-200"
+                size="icon"
+                className="aspect-square h-full w-[38px] border"
               >
                 <IconLogout size={20} />
               </Button>
