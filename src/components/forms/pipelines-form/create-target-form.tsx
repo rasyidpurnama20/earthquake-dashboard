@@ -20,6 +20,7 @@ import { useSession } from "next-auth/react";
 import { type pipelineCreateTargetFormSchema } from "@/lib/validations";
 import Datepicker from "react-tailwindcss-datepicker";
 import { useQuery } from "@tanstack/react-query";
+import { IconLoader2 } from "@tabler/icons-react";
 
 export const PipelineCreateTargetForm = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -55,7 +56,7 @@ export const PipelineCreateTargetForm = () => {
   });
 
   async function onSubmit(
-    values: z.infer<typeof pipelineCreateTargetFormSchema>
+    values: z.infer<typeof pipelineCreateTargetFormSchema>,
   ) {
     setLoading(true);
 
@@ -94,10 +95,10 @@ export const PipelineCreateTargetForm = () => {
   }
 
   const originStartDate = new Date(
-    detailPipeline?.data.c_.start_date as string
+    detailPipeline?.data.c_.start_date as string,
   );
   const updatedStartDate = new Date(
-    new Date(originStartDate.setDate(originStartDate.getDate() + 30))
+    new Date(originStartDate.setDate(originStartDate.getDate() + 30)),
   );
 
   return (
@@ -136,8 +137,14 @@ export const PipelineCreateTargetForm = () => {
           />
         </div>
 
-        <Button loading={loading} size="sm" type="submit">
-          Create
+        <Button
+          size="sm"
+          type="submit"
+          className="bg-brand-500"
+          disabled={loading}
+        >
+          {loading && <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Next
         </Button>
       </form>
     </Form>

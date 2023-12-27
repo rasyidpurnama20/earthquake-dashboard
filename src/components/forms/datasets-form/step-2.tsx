@@ -22,6 +22,7 @@ import { type datasetsForm2Schema } from "@/lib/validations";
 import type * as z from "zod";
 import { type DetailDatasetsResponse } from "@/lib/dto";
 import { useQuery } from "@tanstack/react-query";
+import { IconLoader2 } from "@tabler/icons-react";
 
 export const DatasetsFormStep2 = ({
   data,
@@ -142,10 +143,11 @@ export const DatasetsFormStep2 = ({
         <div className="flex space-x-2">
           <Button
             size="sm"
-            loading={loading}
             type="submit"
-            disabled={!date.endDate && !date.startDate}
+            className="bg-brand-500"
+            disabled={loading || (!date.endDate && !date.startDate)}
           >
+            {loading && <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Submit
           </Button>
         </div>

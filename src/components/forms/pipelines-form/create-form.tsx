@@ -26,6 +26,7 @@ import { authService, datasetsService, pipelinesService } from "@/services";
 import { useSession } from "next-auth/react";
 import { pipelineCreateFormSchema } from "@/lib/validations";
 import { useQuery } from "@tanstack/react-query";
+import { IconLoader2 } from "@tabler/icons-react";
 
 export const PipelineCreateForm = ({}) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -376,7 +377,13 @@ export const PipelineCreateForm = ({}) => {
           />
         </div>
 
-        <Button loading={loading} size="sm" type="submit">
+        <Button
+          size="sm"
+          type="submit"
+          className="bg-brand-500"
+          disabled={loading}
+        >
+          {loading && <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />}
           Create
         </Button>
       </form>

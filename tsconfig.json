@@ -34,7 +34,8 @@
     "**/*.cjs",
     "**/*.mjs",
     ".next/types/**/*.ts",
-    "src/app/api/og/route.tss"
+    "src/app/api/og/route.tss",
+    "src/components/charts/AreaChart2.js"
   ],
   "exclude": ["node_modules"]
 }

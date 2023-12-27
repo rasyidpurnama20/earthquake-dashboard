@@ -24,6 +24,7 @@ import {
   type DetailDatasetsResponse,
 } from "@/lib/dto";
 import Datepicker from "react-tailwindcss-datepicker";
+import { IconLoader2 } from "@tabler/icons-react";
 
 type DatasetsFormUpdate2Props = {
   detailsData: DetailDatasetsResponse;
@@ -147,7 +148,13 @@ export const DatasetsFormUpdate2 = ({
           />
         </div>
 
-        <Button loading={loading} size="sm" type="submit">
+        <Button
+          size="sm"
+          type="submit"
+          className="bg-brand-500"
+          disabled={loading}
+        >
+          {loading && <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />}
           Next
         </Button>
       </form>

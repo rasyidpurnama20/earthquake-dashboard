@@ -5,6 +5,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import dynamic from "next/dynamic";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 
 function PlotlyComponent(props: any) {

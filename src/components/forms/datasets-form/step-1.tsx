@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation";
 import { authService, datasetsService } from "@/services";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
+import { IconLoader2 } from "@tabler/icons-react";
 
 export const DatasetsFormStep1 = ({}) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -187,7 +188,13 @@ export const DatasetsFormStep1 = ({}) => {
           />
         </div>
 
-        <Button loading={loading} size="sm" type="submit">
+        <Button
+          size="sm"
+          type="submit"
+          className="bg-brand-500"
+          disabled={loading}
+        >
+          {loading && <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />}
           Next
         </Button>
       </form>
