@@ -93,7 +93,9 @@ export function LoginForm() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <CardTitle className="text-xl font-bold">Login</CardTitle>
+          <CardTitle className="font-heading text-xl font-medium">
+            Login
+          </CardTitle>
           <CardDescription>
             Please enter your credential details
           </CardDescription>
@@ -140,8 +142,12 @@ export function LoginForm() {
                 )}
               />
             </div>
-            <Button type="submit" className="bg-brand-500 w-full" disabled={loading}>
-            {loading && <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />}
+            <Button
+              type="submit"
+              className="w-full bg-brand-500"
+              disabled={loading}
+            >
+              {loading && <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />}
               Login
             </Button>
           </form>
