@@ -35,7 +35,7 @@
     "**/*.mjs",
     ".next/types/**/*.ts",
     "src/app/api/og/route.tss",
-    "src/components/charts/AreaChart2.js"
+    "src/components/charts/AreaChart2.tsx"
   ],
   "exclude": ["node_modules"]
 }
