@@ -137,7 +137,10 @@ export default function FeatureAnalysis() {
   if (typeof window === "undefined") return null;
 
   return (
-    <div className="flex w-full flex-col space-y-3 p-4 pl-0">
+    <div
+      className="flex w-full flex-col space-y-3 p-4 pl-0"
+      suppressHydrationWarning
+    >
       <div className="sticky top-4 z-10 flex h-16 items-center justify-between rounded-lg border bg-white/50 p-6 pr-4 backdrop-blur-2xl transition-all duration-150 ease-in-out">
         <span className="font-heading text-xl font-medium">Visualization</span>
       </div>
@@ -202,6 +205,7 @@ export default function FeatureAnalysis() {
                                 (field.date as string).split("+")[0] as string
                               }
                             >
+                              {/* eslint-disable-next-line @typescript-eslint/no-unsafe-call */}
                               {formatDate(field.date)}
                             </SelectItem>
                           ))}

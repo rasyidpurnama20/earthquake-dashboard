@@ -26,9 +26,11 @@ export default function Pipeline() {
       }),
   });
 
-  if (typeof window === "undefined") return null;
   return (
-    <div className="relative flex flex-col space-y-3 p-4 pl-0">
+    <div
+      className="relative flex flex-col space-y-3 p-4 pl-0"
+      suppressHydrationWarning
+    >
       <div className="sticky top-4 z-10 flex h-16 items-center justify-between rounded-lg border bg-white/50 p-6 pr-4 backdrop-blur-2xl transition-all duration-150 ease-in-out">
         <span className="font-heading text-xl font-medium">
           Magnitude Prediction

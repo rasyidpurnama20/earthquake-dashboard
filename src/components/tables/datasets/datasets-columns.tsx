@@ -66,6 +66,7 @@ export const datasetsColumns: ColumnDef<Dataset>[] = [
       );
     },
     cell: ({ row }) => (
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       <div className="capitalize">{formatDate(row.getValue("start_date"))}</div>
     ),
   },
@@ -84,6 +85,7 @@ export const datasetsColumns: ColumnDef<Dataset>[] = [
       );
     },
     cell: ({ row }) => (
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       <div className="capitalize">{formatDate(row.getValue("end_date"))}</div>
     ),
   },
@@ -102,6 +104,7 @@ export const datasetsColumns: ColumnDef<Dataset>[] = [
       );
     },
     cell: ({ row }) => (
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       <div className="capitalize">{formatDate(row.getValue("updated_at"))}</div>
     ),
   },

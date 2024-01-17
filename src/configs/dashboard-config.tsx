@@ -3,7 +3,10 @@ import {
   IconBrandAppleArcade,
   IconChartAreaLine,
   IconDatabase,
+  IconGitMerge,
+  IconReport,
   IconReportAnalytics,
+  IconServerCog,
 } from "@tabler/icons-react";
 
 export const DashboardConfig = [
@@ -17,7 +20,6 @@ export const DashboardConfig = [
       },
     ],
   },
-
   {
     title: "Management",
     subMenu: [
@@ -37,9 +39,24 @@ export const DashboardConfig = [
         icon: <IconChartAreaLine size={20} stroke={1.5} />,
       },
       {
+        title: "Pipeline",
+        path: "/dashboard/pipeline",
+        icon: <IconGitMerge size={20} stroke={1.5} />,
+      },
+      {
+        title: "Stream Data Handler",
+        path: "/dashboard/stream-data-handler",
+        icon: <IconServerCog size={20} stroke={1.5} />,
+      },
+      {
         title: "Reports",
         path: "/dashboard/reports",
         icon: <IconReportAnalytics size={20} stroke={1.5} />,
+      },
+      {
+        title: "Automatic Reports",
+        path: "/dashboard/automatic-reports",
+        icon: <IconReport size={20} stroke={1.5} />,
       },
     ],
   },

@@ -28,7 +28,7 @@ import { authService } from "@/services";
 export function Sidebar() {
   const pathname = usePathname();
   const isActive = (path: string) =>
-    path.includes(pathname.split("/")[2] as string);
+    path.split("/")[2] === (pathname.split("/")[2] as string);
   const { data: session } = useSession();
   const token = session?.user?.accessToken;
 
@@ -66,8 +66,8 @@ export function Sidebar() {
                 href={subItem.path}
                 key={subItem.title}
                 className={cn(
-                  isActive(subItem.path) && "!bg-brand-500 !text-white",
-                  "flex cursor-pointer items-center gap-3 rounded-md p-2 text-sm text-gray-500 transition-all duration-150 ease-in-out hover:bg-blue-100",
+                  isActive(subItem.path) && "!bg-primary !text-white",
+                  "flex cursor-pointer items-center gap-3 rounded-md p-2 text-sm text-gray-500 transition-all duration-150 ease-in-out hover:bg-primary/10",
                 )}
               >
                 {subItem.icon}
@@ -93,7 +93,7 @@ export function Sidebar() {
             <Skeleton className="flex h-[38px] w-full flex-1 rounded-md bg-blue-100" />
           ) : (
             <div className="flex flex-1 items-center gap-3 rounded-md">
-              <Avatar className="bg-brand-500 h-8 w-8">
+              <Avatar className="h-8 w-8 bg-brand-500">
                 <AvatarImage
                   className="h-8 w-8 rounded-full"
                   src={session?.user?.image as string}
@@ -115,7 +115,7 @@ export function Sidebar() {
           )}
 
           <AlertDialog>
-            <AlertDialogTrigger>
+            <AlertDialogTrigger asChild>
               <Button
                 variant="outline"
                 size="icon"

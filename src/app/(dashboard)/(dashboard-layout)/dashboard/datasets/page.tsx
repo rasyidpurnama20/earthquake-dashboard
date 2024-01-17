@@ -8,7 +8,6 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Separator,
 } from "@/components/ui";
 import { IconAlertTriangle, IconPlus } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
@@ -71,7 +70,10 @@ export default function Datasets() {
   if (typeof window === "undefined") return null;
 
   return (
-    <div className="relative flex flex-col space-y-3 p-4 pl-0">
+    <div
+      className="relative flex flex-col space-y-3 p-4 pl-0"
+      suppressHydrationWarning
+    >
       <div className="sticky top-4 z-10 flex h-16 items-center justify-between rounded-lg border bg-white/50 p-6 pr-4 backdrop-blur-2xl transition-all duration-150 ease-in-out">
         <span className="font-heading text-xl font-medium">Datasets</span>
 
@@ -102,8 +104,6 @@ export default function Datasets() {
           </Select>
         </div>
 
-        <Separator />
-
         <div>
           <div className="mb-4">
             <span className="text-sm font-medium">Mucking</span>
@@ -111,7 +111,7 @@ export default function Datasets() {
           {isLoadingMucking ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorMucking ? (
-            <div className="text-destructive flex h-12 w-full rounded-md border p-4">
+            <div className="flex h-12 w-full rounded-md border p-4 text-destructive">
               <IconAlertTriangle size={20} stroke={1.5} />
               <p className="text-sm">Error</p>
             </div>
@@ -126,8 +126,6 @@ export default function Datasets() {
           )}
         </div>
 
-        <Separator />
-
         <div>
           <div className="mb-4">
             <span className="text-sm font-medium">Blasting</span>
@@ -135,7 +133,7 @@ export default function Datasets() {
           {isLoadingBlasting ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorBlasting ? (
-            <div className="text-destructive flex h-12 w-full rounded-md border p-4">
+            <div className="flex h-12 w-full rounded-md border p-4 text-destructive">
               <IconAlertTriangle size={20} stroke={1.5} />
               <p className="text-sm">Error</p>
             </div>
@@ -150,8 +148,6 @@ export default function Datasets() {
           )}
         </div>
 
-        <Separator />
-
         <div>
           <div className="mb-4">
             <span className="text-sm font-medium">Catalog</span>
@@ -159,7 +155,7 @@ export default function Datasets() {
           {isLoadingCatalog ? (
             <Skeleton className="h-12 w-full" />
           ) : isErrorCatalog ? (
-            <div className="text-destructive flex h-12 w-full rounded-md border p-4">
+            <div className="flex h-12 w-full rounded-md border p-4 text-destructive">
               <IconAlertTriangle size={20} stroke={1.5} />
               <p className="text-sm">Error</p>
             </div>
